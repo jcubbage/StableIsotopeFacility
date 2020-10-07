@@ -1887,6 +1887,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "s:\\it\\itshared\\programmers\\webapps\\sifcore\\SIFCore\\Views\\Test\\Index.cshtml",
+      "TargetPath": "Views\\Test\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "s:\\it\\itshared\\programmers\\webapps\\sifcore\\SIFCore\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"

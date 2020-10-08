@@ -1,0 +1,46 @@
+@model SIFCore.Models.RegisterModel
+
+
+<h2>Register</h2> 
+<div class="container col-sm-10">
+    <form method="POST">
+        <h4>Create a new Account</h4> 
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row required">
+            <label asp-for="Contact.Email" class="col-sm-3 col-form-label"></label>
+            <input asp-for="Contact.Email" class="form-control" />
+            <span asp-validation-for="Contact.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group row required">
+            <label asp-for="Password" class="col-sm-3 col-form-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group row required">
+            <label asp-for="ConfirmPassword" class="col-sm-3 col-form-label"></label>
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group row required">
+            <label asp-for="Contact.FirstName" class="col-sm-3 col-form-label"></label>
+            <input asp-for="Contact.FirstName" class="form-control" />
+            <span asp-validation-for="Contact.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group row required">
+            <label asp-for="Contact.LastName" class="col-sm-3 col-form-label"></label>
+            <input asp-for="Contact.LastName" class="form-control" />
+            <span asp-validation-for="Contact.LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Contact.Phone" class="col-sm-3 col-form-label"></label>
+            <input asp-for="Contact.Phone" class="form-control" />
+            <span asp-validation-for="Contact.Phone" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-default">Register</button> 
+    </form>         
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

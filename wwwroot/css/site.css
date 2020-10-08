@@ -5,6 +5,11 @@ for details on configuring this project to bundle and minify static web assets. 
   background-color: #004088 !important;
 }
 
+div.required label.col-form-label:after {
+  content: " *";
+  color: red;
+}
+
 a.bg-sif:hover, a.bg-sif:focus,
 button.bg-sif:hover,
 button.bg-sif:focus {

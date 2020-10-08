@@ -75,25 +75,23 @@ namespace SIFCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string email, string password, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            ViewData["ReturnUrl"] = returnUrl;           
+            var test = await _dbContext.Contacts.Where(c => c.Email == email).ToListAsync();
+            foreach (Contacts contact in test)
             {
-                var test = await _dbContext.Contacts.Where(c => c.Email == email).ToListAsync();
-                foreach (Contacts contact in test)
+                if (VerifyPassword(password, contact))
                 {
-                    if (VerifyPassword(password, contact))
+                    await CompleteSignIn(contact, false);
+
+                    if (returnUrl != null)
                     {
-                        await CompleteSignIn(contact, false);
-
-                        if (returnUrl != null)
-                        {
-                            return LocalRedirect(returnUrl);
-                        }
-                        return RedirectToAction("Index", "Home", new { area = "Client" });
-
+                        return LocalRedirect(returnUrl);
                     }
-                }               
-            }
+                    return RedirectToAction("Index", "Home", new { area = "Client" });
+
+                }
+            }               
+           
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Invalid username or password");
@@ -161,7 +159,7 @@ namespace SIFCore.Controllers
              if(ModelState.IsValid){
                 _dbContext.Add(newUser);
                 await _dbContext.SaveChangesAsync();
-                Message = $"Account for '{model.Contact.Email}' create";
+                Message = $"Account for '{model.Contact.Email}' created";
             } else {
                 ErrorMessage = "Something went wrong";         
                 return View();

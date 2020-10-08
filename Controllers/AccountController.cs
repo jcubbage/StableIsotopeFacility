@@ -87,7 +87,7 @@ namespace SIFCore.Controllers
                     {
                         return LocalRedirect(returnUrl);
                     }
-                    return RedirectToAction("Index", "Home", new { area = "Client" });
+                    return RedirectToAction("Index", "Order", new { area = "Client" });
 
                 }
             }               

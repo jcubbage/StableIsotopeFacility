@@ -28,16 +28,21 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Logout</a>
+                        </li>                      
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item text-light">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="client" asp-controller="Order" asp-action="Index">My SIF</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="client" asp-controller="Address" asp-action="Index">My Addresses</a>
                         </li>
-                    </ul>
+                    </ul>                    
                 </div>
             </div>
         </nav>

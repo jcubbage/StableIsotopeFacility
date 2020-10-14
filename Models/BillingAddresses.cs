@@ -77,6 +77,6 @@ namespace SIFCore.Models
             [Required]
             public  string FedIDNum { get; set; }
 
-            //public  Contacts Contact { get; set; }
+            public  Contacts Contact { get; set; }
     }
 }

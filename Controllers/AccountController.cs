@@ -42,6 +42,13 @@ namespace SIFCore.Controllers
             _dbContext = dbContext;
         }
 
+        [AllowAnonymous]
+        public IActionResult Denied()
+        {
+            return View();
+        }
+
+
         private static bool ByteArraysEqual(byte[] a, byte[] b)
         {
             if (a == null && b == null)
@@ -90,9 +97,7 @@ namespace SIFCore.Controllers
                     return RedirectToAction("Index", "Order", new { area = "Client" });
 
                 }
-            }               
-           
-
+            }  
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Invalid username or password");
             return View();

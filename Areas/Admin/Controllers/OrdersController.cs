@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using SIFCore.Models;
 
 namespace SIFCore.Controllers
-{    
-    public class OrderController : ClientController
+{
+    public class OrdersController : AdminController
     {
         public IActionResult Index()
-            {
-                return View();
-            }
-    }
+        {
+            return View();
+        }
 
+    }
 }

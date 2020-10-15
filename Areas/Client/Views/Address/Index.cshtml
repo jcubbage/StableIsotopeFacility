@@ -1,122 +1,132 @@
 @model SIFCore.Models.Contacts
 
-<h2>Shipping Addresses</h2> 
 
-<table class="table table-striped table-hover">
-	<thead>
-		<tr>
-			<th></th>
-            <th>
-                Address Name
-            </th>
-            <th>
-                Name
-            </th>
-			<th>
-				Address Line 1
-			</th>
-			<th>
-				Email
-			</th>
-			<th>
-				Phone
-			</th>
-			<th>
-				Institution
-			</th>
-			<th>
-				Department
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-@foreach (var item in Model.ShippingAddresseses) {
-		<tr>
-			<td>
-				<a href='@Url.Action("DetailsShipping", new {id=item.Id})' class="btn" title="Details"><i class="icon-file"></i></a>
-				<a href='@Url.Action("EditShipping", new {id=item.Id})' class="btn" title="Edit"><i class="icon-edit"></i></a>
-			</td>
-			<td>
-				@item.AddressName
-			</td>
-			<td>
-				@item.PIFirstName @item.PILastName  
-			</td>
-			<td>
-				@item.Address1
-			</td>
-			<td>
-				@item.PIEmail
-			<td>
-				@item.PIPhone
-			</td>
-			<td>
-				@item.Institution
-			</td>
-			<td>
-				@item.Department
-			</td>
-		</tr>
-}
-	</tbody>
-</table>
-
-<h3>Billing Addresses</h3>
-<table class="table table-striped table-hover">
-	<thead>
-		<tr>
-			<th></th>
-            <th>
-                Address Name
-            </th>
-            <th>
-                Name
-            </th>
-			<th>
-				Address Line 1
-			</th>
-			<th>
-				Email
-			</th>
-			<th>
-				Phone
-			</th>
-			<th>
-				Institution
-			</th>
-			<th>
-				Department
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-@foreach (var item in Model.BillingAddresseses) {
-		<tr>
-			<td>
-				<a href='@Url.Action("DetailsBilling", new {id=item.Id})' class="btn" title="Details"><i class="icon-file"></i></a>
-				<a href='@Url.Action("EditBilling", new {id=item.Id})' class="btn" title="Edit"><i class="icon-edit"></i></a>
-			</td>
-			<td>
-				@item.AddressName
-			</td>
-			<td>
-				@item.ContactFirstName @item.ContactLastName
-			</td>
-			<td>
-				@item.Address1
-			</td>
-			<td>
-				@item.BillingEmailAddress
-			<td>
-				@item.BillingPhone
-			</td>
-			<td>
-				@item.Institution
-			</td>
-			<td>
-				@item.Department
-			</td>
-		</tr>
-}
-	</tbody>
-</table>
+<div class="container col-sm-11">
+	<div class="row">
+		<h2>Shipping Addresses</h2> |
+		<a class="btn btn-primary" asp-action="ShippingCreate">Create New</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>
+						Address Name
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Address Line 1
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Phone
+					</th>
+					<th>
+						Institution
+					</th>
+					<th>
+						Department
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		@foreach (var item in Model.ShippingAddresseses) {
+				<tr>
+					<td>
+						<a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>
+						<a class="btn btn-primary" asp-action="ShippingEdit" asp-area="client" asp-controller="Address" asp-route-id="@item.Id">Edit</a>
+					</td>
+					<td>
+						@item.AddressName
+					</td>
+					<td>
+						@item.PIFirstName @item.PILastName  
+					</td>
+					<td>
+						@item.Address1
+					</td>
+					<td>
+						@item.PIEmail
+					<td>
+						@item.PIPhone
+					</td>
+					<td>
+						@item.Institution
+					</td>
+					<td>
+						@item.Department
+					</td>
+				</tr>
+		}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<hr>
+	</div>
+	<div class="row">
+		<h3>Billing Addresses</h3> |
+		<a class="btn btn-primary" asp-action="BillingCreate">Create New</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>
+						Address Name
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Address Line 1
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Phone
+					</th>
+					<th>
+						Institution
+					</th>
+					<th>
+						Department
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		@foreach (var item in Model.BillingAddresseses) {
+				<tr>
+					<td>
+						<a asp-action="BillingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>
+						<a class="btn btn-primary" asp-action="BillingEdit" asp-area="client" asp-controller="Address" asp-route-id="@item.Id">Edit</a>						
+					</td>
+					<td>
+						@item.AddressName
+					</td>
+					<td>
+						@item.ContactFirstName @item.ContactLastName
+					</td>
+					<td>
+						@item.Address1
+					</td>
+					<td>
+						@item.BillingEmailAddress
+					<td>
+						@item.BillingPhone
+					</td>
+					<td>
+						@item.Institution
+					</td>
+					<td>
+						@item.Department
+					</td>
+				</tr>
+		}
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -7,7 +7,6 @@ namespace SIFCore.Models
 {
     public class ShippingAddresses
     {
-
         public int Id { get; set; }
 
         public  string FullName { get { return string.Format("{0} {1}", PIFirstName, PILastName); } }

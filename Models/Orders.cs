@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SIFCore.Models
 {
@@ -15,18 +16,32 @@ namespace SIFCore.Models
             Submitted = false;
         }
 
-        // [Required]
-        // public  Contacts Contact { get; set; }
-
-        // [Required]
-        // [DisplayName("Shipping Address")]
-        // public  ShippingAddresses ShippingAddress { get; set; }
-
-        // [Required]
-        // [DisplayName("Billing Address")]
-        // public  BillingAddresses BillingAddress { get; set; }
+       
 
         public int Id { get; set; }
+
+        [ForeignKey("ContactId")]
+        public  Contacts Contact { get; set; }
+
+        [Required]
+        public int ContactId { get; set; }
+
+       
+        [ForeignKey("ShippingAddress")]
+        public  ShippingAddresses OrderShippingAddress { get; set; }
+
+        [Required]
+        [DisplayName("Shipping Address")]
+        public int ShippingAddress { get; set; }
+
+        [ForeignKey("BillingAddress")]
+        public  BillingAddresses OrderBillingAddress { get; set; }
+
+        [Required]
+        [DisplayName("Billing Address")]
+        public  int BillingAddress { get; set; }
+
+        
 
         [StringLength(500)]
         [DisplayName("Project Name")]
@@ -39,8 +54,8 @@ namespace SIFCore.Models
         public  string PONumber { get; set; }
 
         
-        // [DisplayName("Payment Method")]
-        // public  PaymentTypes PaymentMethod { get; set; }
+        [DisplayName("Payment Method")]
+        public  string PaymentMethod { get; set; }
 
         public  bool Hardcopy { get; set; }
 
@@ -56,23 +71,27 @@ namespace SIFCore.Models
         [DisplayName("Submit Date")]
         public  DateTime  SubmitDate { get; set; }
 
-        // public  IList<Analysis> Analyses { get; set; }
+        
+
+        public  IList<Analysis> Analyses { get; set; }
 
 
-        public enum PaymentTypes
-        {
-            [DisplayName("Check (default)")]
-            Check,
+       
+    } 
+    
+    public enum PaymentTypes
+    {
+        [Display(Name="Check")]
+        Check,
 
-            [DisplayName("Bank/Wire Transfer (EFT)")]
-            EFT,
+        [Display(Name="Bank/Wire Transfer (EFT)")]
+        EFT,
 
-            [DisplayName("Credit Card")]
-            CreditCard,
+        [Display(Name="Credit Card")]
+        CreditCard,
 
-            [DisplayName("Recharge/IOC - UC System Only")]
-            IOC
+        [Display(Name="Recharge/IOC - UC System Only")]
+        IOC
 
-        }
     }
 }

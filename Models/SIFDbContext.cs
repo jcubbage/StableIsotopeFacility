@@ -31,9 +31,6 @@ namespace SIFCore.Models
 
         public DbSet<ShippingAddresses> ShippingAddresses { get; set; }
 
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

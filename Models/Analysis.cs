@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SIFCore.Models
 {
@@ -11,9 +12,12 @@ namespace SIFCore.Models
         [Required]
         public  Orders Order { get; set; }
 
-        //public  Requirement Requirement { get; set; }
+        public int OrderId { get; set; }
 
-        //public  Requirements Requirement { get; set; }
+        [ForeignKey("RequirementId")]
+        public Requirements AnalysisRequirement { get; set; }
+        
+        public int RequirementId { get; set; }
 
         [Required]
         [DisplayName("Date needed")]
@@ -28,8 +32,10 @@ namespace SIFCore.Models
         [DataType(DataType.MultilineText)]
         public  string TrayNames { get; set; }
 
-        [Required]
-        public  AbundanceTypes Abundance { get; set; }
+        // [Required]
+        // public  AbundanceTypes AnalysisAbundance { get; set; }
+
+        // public int Abundance { get; set; }
 
         [DisplayName("Estimated Enrichment (if enriched)")]
         public  string EstimatedEnrichment { get; set; }
@@ -56,8 +62,8 @@ namespace SIFCore.Models
         [DisplayName("Amount of Oxidant")]
         public  string AmountOfOxidant { get; set; }
 
-        [DisplayName("Type of Oxidant")]
-        public  OxidantTypes TypeOfOxidant { get; set; }
+        // [DisplayName("Type of Oxidant")]
+        // public  OxidantTypes TypeOfOxidant { get; set; }
 
         [DisplayName("pH Range")]
         public  string pHRange { get; set; }
@@ -65,11 +71,11 @@ namespace SIFCore.Models
         [DisplayName("Container Description (specify volume)")]
         public  string ContainerDescription { get; set; }
 
-        [DisplayName("Vial Type")]
-        public  VialTypes VialType { get; set; }
+        // [DisplayName("Vial Type")]
+        // public  VialTypes VialType { get; set; }
 
-        [DisplayName("DIC Container")]
-        public  DicContainerTypes DICContainer { get; set; }
+        // [DisplayName("DIC Container")]
+        // public  DicContainerTypes DICContainer { get; set; }
 
         [DisplayName("Range of Concentration")]
         public  string RangeOfConcentration { get; set; }
@@ -89,8 +95,8 @@ namespace SIFCore.Models
         [DisplayName("Nitrate samples: I acknowledge that if I do not provide accurate nitrate concentrations, I will be charged for any necessary reruns.")]
         public  bool NitrateStatement { get; set; }
 
-        [DisplayName("How Sterilized")]
-        public  SterilizationTypes HowSterilized { get; set; }
+        // [DisplayName("How Sterilized")]
+        // public  SterilizationTypes HowSterilized { get; set; }
 
         [DisplayName("Volume Sent (minimum 10 ml/sample")]
         public  string VolumeSent { get; set; }

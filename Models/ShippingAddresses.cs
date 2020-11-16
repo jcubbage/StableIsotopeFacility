@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SIFCore.Models
 {
@@ -77,6 +78,10 @@ namespace SIFCore.Models
         [Required]
         public  string Country { get; set; }
         
+        [ForeignKey("ContactId")]
         public  Contacts Contact { get; set; }
+        
+        public int ContactId { get; set; }
+
     }
 }

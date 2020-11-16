@@ -1,1 +1,55 @@
+@using System.Security.Claims;
+
+@model List<SIFCore.Models.Orders>
+
 Client - Order - Index
+<div><a class="btn btn-info" asp-action="New" asp-area="Client" asp-controller="Order">Create New</a><hr></div>
+
+
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="//cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet">
+
+ <table id="table" class="table datatable">
+        <thead>
+            <th></th>
+            <th>Order ID</th>
+            <th>Project Name</th>
+            <th>Shipping</th>
+            <th>Billing</th>
+            <th>Analysis Count</th>
+            <th>Total Samples</th>
+            <th>Submitted</th>
+        </thead>
+        <tbody>
+            @foreach (var app in Model)
+            {
+            <tr>
+                <td><a class="btn btn-info" asp-action="Details" asp-area="Client" asp-controller="Order" asp-route-id="@app.Id">Details</a></td>               
+                <td>@app.Id</td>
+                <td>@app.ProjectName</td>
+                <td>@app.OrderShippingAddress.AddressName</td>
+                <td>@app.OrderBillingAddress.AddressName</td>
+                <td>@app.Analyses.Count</td>
+                <td>@app.Analyses.Sum(i => i.NumberOfSamples)</td> 
+                <td>@app.Submitted</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+@section Scripts {
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    
+
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable({
+                dom: 'lBfrtip',
+                buttons: ['copyHtml5', 'csvHtml5']
+            });
+        } );
+    </script>
+}

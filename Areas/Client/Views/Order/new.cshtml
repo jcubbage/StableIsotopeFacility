@@ -1,0 +1,72 @@
+@using SIFCore.Models
+
+@model SIFCore.Models.CreateOrdersViewModel
+
+
+<h2>Create New Project</h2> 
+
+<form asp-action="CreateInspection">    
+    <div class="container col-lg-5">
+        <div class="row">
+             <div class="col-lg-12">
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label asp-for="Order.ProjectName" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-6 form-control" asp-for="Order.ProjectName">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="Order.ProjectName" data-valmsg-replace="true"></span>                   
+        </div> 
+        <div class="form-group row required">
+            <label asp-for="Order.ShippingAddress" class="col-sm-3 col-form-label"></label>
+            <select asp-for="Order.ShippingAddress" class="col-sm-3 form-control" asp-items="@(new SelectList(Model.ShippingAddresses, "Id", "AddressName"))"></select>                     
+            <span class="field-validation-valid text-danger" data-valmsg-for="Order.ShippingAddress" data-valmsg-replace="true"></span> 
+            <span class="col-sm-6">We will deliver data to this address. If you do not see the shipping address you are looking for, please create it
+                <a asp-action="ShippingCreate" asp-area="client" asp-controller="Address">here</a></span>                    
+        </div>
+        <div class="form-group row required">
+            <label asp-for="Order.BillingAddress" class="col-sm-3 col-form-label"></label>
+            <select asp-for="Order.BillingAddress" class="col-sm-3 form-control" asp-items="@(new SelectList(Model.BillingAddresses, "Id", "AddressName"))"></select>                     
+            <span class="field-validation-valid text-danger" data-valmsg-for="Order.BillingAddress" data-valmsg-replace="true"></span>  
+            <span class="col-sm-6">The person/department issuing payment; will appear on your invoice. If you do not see the billing address you are looking for, please create it 
+                <a asp-action="BillingCreate" asp-area="client" asp-controller="Address">here</a></span>                   
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.PO" class="col-sm-3 col-form-label"></label>
+            <input type="checkbox" class="col-sm-3 form-control" asp-for="Order.PO">                                   
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.PONumber" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-3 form-control" asp-for="Order.PONumber">                  
+        </div>  
+        <div class="form-group row required">
+            <label asp-for="Order.PaymentMethod" class="col-sm-3 col-form-label"></label>
+            <select asp-for="Order.PaymentMethod" class="col-sm-3 form-control" asp-items="@(new SelectList(Model.PaymentOptions))"></select>                     
+            <span class="field-validation-valid text-danger" data-valmsg-for="Order.ShippingAddress" data-valmsg-replace="true"></span> 
+            <span class="col-sm-6">We will deliver data to this address. If you do not see the shipping address you are looking for, please create it
+                <a asp-action="ShippingCreate" asp-area="client" asp-controller="Address">here</a></span>                    
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.Hardcopy" class="col-sm-6 col-form-label">Invoices are delivered by e-mail from ekngo@ucdavis.edu. The SIF is going paperless.
+                Please check box if you require a hardcopy by post:
+            </label>
+            <input type="checkbox" asp-for="Order.Hardcopy" class="col-sm-3 form-control">
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.OrderComments" class="col-sm-3 col-form-label"></label>
+            <textarea class="form-control" asp-for="Order.OrderComments" rows="3"></textarea>
+        </div> 
+        <div class="row">
+            <input type="submit" value="Create Inspection" class="btn btn-primary"></input> | 
+            <a class="btn btn-dark" asp-action="Index" asp-controller="Order" asp-area="Client">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"></script>   
+    
+    
+}

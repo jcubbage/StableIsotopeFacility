@@ -45,6 +45,48 @@ namespace SIFCore.Controllers
             var model = await CreateOrdersViewModel.Create(_dbContext, 0, User.FindFirstValue("contactId"));
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> New(Orders order)
+        {
+            int contactId;
+            int.TryParse(User.FindFirstValue("contactId"), out contactId);
+            var orderToCreate = new Orders();
+            orderToCreate.ContactId = contactId;
+            orderToCreate.ShippingAddress = order.ShippingAddress;
+            orderToCreate.BillingAddress = order.BillingAddress;
+            orderToCreate.ProjectName = order.ProjectName;
+            orderToCreate.PO = order.PO;
+            orderToCreate.PONumber = order.PONumber;
+            orderToCreate.PaymentMethod = order.PaymentMethod;
+            orderToCreate.Hardcopy = order.Hardcopy;
+            orderToCreate.OrderComments = order.OrderComments;
+            orderToCreate.Submitted = false;
+
+            if(ModelState.IsValid){
+                 _dbContext.Add(orderToCreate);
+                await _dbContext.SaveChangesAsync();
+                Message = "Order Created";
+            } else {
+                ErrorMessage = "Something went wrong"; 
+                var model = await CreateOrdersViewModel.Create(_dbContext, 0, User.FindFirstValue("contactId"));                        
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = orderToCreate.Id}); 
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await _dbContext.Orders.Where(o => o.Id == id && o.ContactId.ToString() == User.FindFirstValue("contactid")).FirstAsync();
+            if(model == null)
+            {
+                ErrorMessage = "Order not found!";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+
+        }
     }
 
 }

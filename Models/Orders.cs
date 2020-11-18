@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SIFCore.Helpers;
 
 namespace SIFCore.Models
 {
@@ -12,8 +13,9 @@ namespace SIFCore.Models
         {
             PO = false;
             Hardcopy = false;
-            //PaymentMethod = PaymentTypes.Check;
+            PaymentMethod = PaymentTypes.Check.GetDisplayName();
             Submitted = false;
+            SubmitDate =  DateTime.Parse("1/1/01");
         }
 
        

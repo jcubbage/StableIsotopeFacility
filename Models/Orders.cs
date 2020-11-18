@@ -33,44 +33,44 @@ namespace SIFCore.Models
         public  ShippingAddresses OrderShippingAddress { get; set; }
 
         [Required]
-        [DisplayName("Shipping Address")]
+        [Display(Name="Shipping Address")]
         public int ShippingAddress { get; set; }
 
         [ForeignKey("BillingAddress")]
         public  BillingAddresses OrderBillingAddress { get; set; }
 
         [Required]
-        [DisplayName("Billing Address")]
+        [Display(Name="Billing Address")]
         public  int BillingAddress { get; set; }
 
         
 
         [StringLength(500)]
-        [DisplayName("Project Name")]
+        [Display(Name="Project Name")]
         [Required]
         public  string ProjectName { get; set; }
 
         public  bool PO { get; set; }
 
-        [DisplayName("PO Number")]
+        [Display(Name="PO Number")]
         public  string PONumber { get; set; }
 
         
-        [DisplayName("Payment Method")]
+        [Display(Name="Payment Method")]
         public  string PaymentMethod { get; set; }
 
         public  bool Hardcopy { get; set; }
 
         [StringLength(5000)]
         [DataType(DataType.MultilineText)]
-        [DisplayName("Order Notes")]
+        [Display(Name="Order Notes")]
         public  string OrderComments { get; set; }
 
-        [DisplayName("Electronic forms submitted?")]
+        [Display(Name="Electronic forms submitted?")]
         public  bool Submitted { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayName("Submit Date")]
+        [Display(Name="Submit Date")]
         public  DateTime  SubmitDate { get; set; }
 
         

@@ -10,11 +10,11 @@ namespace SIFCore.Models
         [Required]
         [RegularExpression(@"(?=.*\d)(?=.*[A-Za-z]).{6,100}", ErrorMessage = "Your password must be at least 6 characters long and contain at least 1 letter and 1 number")]
         [DataType(DataType.Password)]
-        [DisplayName("Password")]
+        [Display(Name="Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [DisplayName("Confirm password")]
+        [Display(Name="Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 

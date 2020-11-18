@@ -17,12 +17,12 @@ namespace SIFCore.Models
 
         [Required]
         [StringLength(50)]
-        [DisplayName("First Name")]
+        [Display(Name="First Name")]
         public  string FirstName { get; set; }
 
         [Required]
         [StringLength(50)]
-        [DisplayName("Last Name")]
+        [Display(Name="Last Name")]
         public  string LastName { get; set; }
 
         

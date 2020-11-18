@@ -63,6 +63,11 @@ namespace SIFCore.Controllers
             orderToCreate.OrderComments = order.OrderComments;
             orderToCreate.Submitted = false;
 
+            if(orderToCreate.PO && string.IsNullOrWhiteSpace(orderToCreate.PONumber))
+            {
+                 ModelState.AddModelError("Order.PONumber", "Must supply PO Number" );
+            }
+
             if(ModelState.IsValid){
                  _dbContext.Add(orderToCreate);
                 await _dbContext.SaveChangesAsync();

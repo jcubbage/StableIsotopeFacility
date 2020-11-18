@@ -83,8 +83,8 @@ namespace SIFCore.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _dbContext.Orders.Where(o => o.Id == id && o.ContactId.ToString() == User.FindFirstValue("contactid")).FirstAsync();
-            if(model == null)
+            var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id, User.FindFirstValue("contactId"));
+            if(model.Order == null)
             {
                 ErrorMessage = "Order not found!";
                 return RedirectToAction(nameof(Index));

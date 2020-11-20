@@ -1,0 +1,301 @@
+@using System.ComponentModel.DataAnnotations
+@using SIFCore.Helpers;
+@model Analysis
+<div class="form-horizontal well-small">
+    <fieldset class="form">
+        <legend class="legend-lower-height">@Html.Raw(Model.AnalysisRequirement.FormattedName)</legend>
+        <div>@Model.AnalysisRequirement.Subtitle</div>
+        <div class="display-label">US @string.Format("{0:c}", Model.AnalysisRequirement.Cost)/sample</div>
+        <div class="display-label">
+            @Html.LabelFor(model => model.NumberOfSamples) 
+            @Model.NumberOfSamples        
+        </div> 
+        
+        @if (Model.AnalysisRequirement.TrayNames)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.TrayNames)
+                @Model.TrayNames
+            </div>
+        }
+
+        <div class="display-label">
+            @Html.LabelFor(model => model.Abundance)
+            @Html.RadioButtonFor(model=> model.Abundance, "Natural", new { disabled="disabled"}) Natural | @Html.RadioButtonFor(model=> model.Abundance, "Enriched", new { disabled="disabled"}) Enriched
+        </div>
+        
+        @if (Model.AnalysisRequirement.EstimatedEnrichment && Model.Abundance == Analysis.AbundanceTypes.Enriched.GetDisplayName())
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.EstimatedEnrichment)
+                @Model.EstimatedEnrichment atom %
+            </div>
+        }
+      
+        @if (Model.AnalysisRequirement.EstimatedEnrichmentN2N2O && Model.Abundance == Analysis.AbundanceTypes.Enriched.GetDisplayName())
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.EstimatedEnrichmentN2)
+                @Model.EstimatedEnrichmentN2 atom %
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.EstimatedEnrichmentN2N2O && Model.Abundance == Analysis.AbundanceTypes.Enriched.GetDisplayName())
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.EstimatedEnrichmentN2O)
+                @Model.EstimatedEnrichmentN2O atom %
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.Material)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.Material) 
+                @Model.Material        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfWeights)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.RangeOfWeights) 
+                @Model.RangeOfWeights mg        
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.TypeOfOxidant)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.TypeOfOxidant)     
+                @Html.DropDownListFor(model=> model.TypeOfOxidant, from v in (Analysis.OxidantTypes[])(Enum.GetValues(typeof(Analysis.OxidantTypes)))
+                                                                   select new SelectListItem()
+                                                                              {
+                                                                                  Text = ((DisplayAttribute)(typeof(Analysis.OxidantTypes).GetField(v.ToString()).GetCustomAttributes(typeof(DisplayAttribute), false).First())).Name,
+                                                                                  Value = v.ToString(),
+                                                                                  Selected = v.ToString() == Model.TypeOfOxidant
+                                                                              },"Select oxidant....", new { disabled="disabled"})
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.AmountOfOxidant)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.AmountOfOxidant) 
+                @Model.AmountOfOxidant mg       
+            </div>
+        } 
+        
+        @if (Model.AnalysisRequirement.VialType)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.VialType) 
+                @Html.DropDownListFor(model=> model.VialType, from v in (Analysis.VialTypes[])(Enum.GetValues(typeof(Analysis.VialTypes)))
+                                                              select new SelectListItem()
+                                                                         {
+                                                                             Text = ((DisplayAttribute)(typeof(Analysis.VialTypes).GetField(v.ToString()).GetCustomAttributes(typeof(DisplayAttribute), false).First())).Name,
+                                                                             Value = v.ToString(),
+                                                                             Selected = v.ToString() == Model.VialType
+                                                                         },"Select vial....", new { disabled="disabled"})       
+            </div>
+        }  
+        
+        @if (Model.AnalysisRequirement.ContainerDescription)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.ContainerDescription) 
+                @Model.ContainerDescription        
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.TypeOfWater)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.TypeOfWater) 
+                @Model.TypeOfWater        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.SalinityRange)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.SalinityRange) 
+                @Model.SalinityRange ppt        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.SalinityRangeDOC)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.SalinityRange) DOC 
+                @Model.SalinityRange ppt (maximum 10 ppt)    
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.pHRange)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.pHRange) 
+                @Model.pHRange        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.pHRangeDH18O)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.pHRange)  DH18O
+                @Model.pHRange Samples outside the pH range of 5-9 will not be analyzed.         
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.TransferRequiredWater)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.TransferRequired) 
+                @Html.CheckBoxFor(model => model.TransferRequired, new {disabled = "disabled"})
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.TransferRequiredDOC)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.TransferRequired) 
+                @Html.CheckBoxFor(model => model.TransferRequired, new {disabled = "disabled"})
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.NitrateStatement)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.NitrateStatement) 
+                @Html.CheckBoxFor(model => model.NitrateStatement, new {disabled = "disabled"})
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.DICContainer)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.DICContainer) 
+                @Html.DropDownListFor(model=> model.DICContainer, from v in (Analysis.DicContainerTypes[])(Enum.GetValues(typeof(Analysis.DicContainerTypes)))
+                                                                  select new SelectListItem()
+                                                                             {
+                                                                                 Text = ((DisplayAttribute)(typeof(Analysis.DicContainerTypes).GetField(v.ToString()).GetCustomAttributes(typeof(DisplayAttribute), false).First())).Name,
+                                                                                 Value = v.ToString(),
+                                                                                 Selected = v.ToString() == Model.DICContainer
+                                                                             },"Select container....", new { disabled="disabled"})  
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfConcentration)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.RangeOfConcentration) 
+                @Model.RangeOfConcentration        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfConcentrationNitrate)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.RangeOfConcentrationNitrate) 
+                @Model.RangeOfConcentrationNitrate &micro;M        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfConcentrationN2N2O)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.RangeOfConcentrationN2) 
+                @Model.RangeOfConcentrationN2        
+            </div> 
+            <div class="display-label">
+                @Html.LabelFor(model => model.RangeOfConcentrationN2O) 
+                @Model.RangeOfConcentrationN2O        
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.HowSterilized)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.HowSterilized) 
+                @Html.DropDownListFor(model=> model.HowSterilized, from v in (Analysis.SterilizationTypes[])(Enum.GetValues(typeof(Analysis.SterilizationTypes)))
+                                                                   select new SelectListItem()
+                                                                              {
+                                                                                  Text = ((DisplayAttribute)(typeof(Analysis.SterilizationTypes).GetField(v.ToString()).GetCustomAttributes(typeof(DisplayAttribute), false).First())).Name,
+                                                                                  Value = v.ToString(),
+                                                                                  Selected = v.ToString() == Model.HowSterilized
+                                                                              },"Select sterilization method....", new { disabled="disabled"})         
+            </div>
+        }
+       
+        @if (Model.AnalysisRequirement.VolumeSent)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.VolumeSent) 
+                @Model.VolumeSent ml        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.Filtered)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.Filtered) 
+                @Html.CheckBoxFor(model => model.Filtered, new {disabled = "disabled"})
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.Solvent)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.Solvent) 
+                @Html.CheckBoxFor(model => model.Solvent, new {disabled = "disabled"})
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.WhatSolvent) 
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.WhatSolvent) 
+                @Model.WhatSolvent        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.SolventVolume)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.SolventVolume) 
+                @Model.SolventVolume        
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.Irreplaceable)
+        {
+            <div class="display-label">
+                @Html.LabelFor(model => model.Irreplaceable) 
+                @Html.CheckBoxFor(model => model.Irreplaceable, new {disabled = "disabled"}) (will delay analysis)
+            </div>
+        }
+
+        <div class="display-label">
+            @Html.LabelFor(model => Model.DateNeeded)
+            @string.Format("{0:d}", Model.DateNeeded)       
+        </div>
+	
+      
+        <div class="display-label">
+            @Html.LabelFor(model => model.Comments) 
+            @Model.Comments        
+        </div>
+		
+         @if (!String.IsNullOrWhiteSpace(Model.AnalysisRequirement.Terms))
+        {
+            <div class="display-label">
+                @Html.LabelFor(model=> model.AnalysisRequirement.Terms)
+                @Model.AnalysisRequirement.Terms
+            </div>
+        }
+    </fieldset>
+    
+    <div>@Html.ActionLink("Edit Analysis", "Edit", "Analysis", new { id = Model.Id }, new { @class = "button-link" }) </div>
+</div>
+

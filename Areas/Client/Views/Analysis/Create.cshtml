@@ -38,421 +38,395 @@
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TrayNames" data-valmsg-replace="true"></span>
         </div>
     }
+
     @if (Model.Requirement.Enriched)
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.Abundance"></label>
             <div class="form-check form-check-inline">                
-                <input class="form-check-input" type="checkbox" asp-for="Analysis.Abundance" value="Natural">
+                <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="Natural">
                 <label class="form-check-label" asp-for="Analysis.Abundance">Natural</label>
             </div>
             <div class="form-check form-check-inline">                
-                <input class="form-check-input" type="checkbox" asp-for="Analysis.Abundance" value="Enriched">
+                <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="Enriched">
                 <label class="form-check-label" asp-for="Analysis.Abundance">Enriched</label>
             </div>
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Abundance" data-valmsg-replace="true"></span>
         </div>
+    }   
+        
+    @if (Model.Requirement.EstimatedEnrichment)
+    {
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.EstimatedEnrichment"></label>
+            <input asp-for="Analysis.EstimatedEnrichment" class="col-sm-7 form-control"> atom %
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.EstimatedEnrichment" data-valmsg-replace="true"></span>
+        </div>        
     }
-</div>
-
-
-	
-
     
-    <fieldset>
-        @if (Model.Requirement.Enriched)
-        {
-            <div class="control-group">
-                <label class="control-label" for="Abundance">Abundance&nbsp;&nbsp;</label>
-                @Html.RadioButtonFor(model => model.Analysis.Abundance, "Natural") Natural | @Html.RadioButtonFor(model => model.Analysis.Abundance, "Enriched") Enriched
-                @Html.ValidationMessageFor(model => model.Analysis.Abundance)
-            </div>
-        }
-        
-        @if (Model.Requirement.EstimatedEnrichment)
-        {
-            <div class="control-group">
-                <label class="control-label" for="EstimatedEnrichment">Estimated Enrichment</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.EstimatedEnrichment) atom %1
-                    @Html.ValidationMessageFor(model => model.Analysis.EstimatedEnrichment) 
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.EstimatedEnrichmentN2N2O)
-        {
-            <div class="control-group">
-                <label class="control-label" for="EstimatedEnrichmentN2">Estimated Enrichment N<sub>2</sub></label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.EstimatedEnrichmentN2) atom % 2
-                    @Html.ValidationMessageFor(model => model.Analysis.EstimatedEnrichmentN2) 
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="EstimatedEnrichmentN2O">Estimated Enrichment N<sub>2</sub>O</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.EstimatedEnrichmentN2O) atom % 3
-                    @Html.ValidationMessageFor(model => model.Analysis.EstimatedEnrichmentN2O)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.Material)
-        {
-            <div class="control-group">
-                <label class="control-label" for="Material">Material</label>
-                <div class="controls">
-                    @Html.TextAreaFor(model=>model.Analysis.Material, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Material field is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.Material)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.RangeOfWeights)
-        {
-            <div class="control-group">
-                <label class="control-label" for="RangeOfWeights">Range Of Weights</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.RangeOfWeights, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Range of Weights field is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.RangeOfWeights)
-                </div>
-            </div>
-        }
-        
-        @* @if (Model.Requirement.TypeOfOxidant)
-        {
-            <div class="control-group">
-                <label class="control-label" for="TypeOfOxidant">Type of Oxidant</label>
-                <div class="controls">
-                    @Html.DropDownListFor(model => model.Analysis.TypeOfOxidant, from v in (Analysis.OxidantTypes[]) (Enum.GetValues(typeof (Analysis.OxidantTypes)))
-                                                                                 select new SelectListItem()
-                                                                                            {
-                                                                                                Text = ((DisplayAttribute) (typeof (Analysis.OxidantTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                                Value = v.ToString(),
-                                                                                                Selected = v == Model.Analysis.TypeOfOxidant
-                                                                                            }, "Select oxidant....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Oxidant Type selection is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.TypeOfOxidant)
-                </div>
-            </div>
-        } *@
-        
-        @if (Model.Requirement.AmountOfOxidant)
-        {
-            <div class="control-group">
-                <label class="control-label" for="AmountOfOxidant">Amount Of Oxidant</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.AmountOfOxidant)
-                    @Html.ValidationMessageFor(model => model.Analysis.AmountOfOxidant)
-                </div>
-            </div>
-        }
-         
-        @* @if (Model.Requirement.VialType)
-        {
-            <div class="control-group">
-                <label class="control-label" for="VialType">Vial Type&nbsp;&nbsp;</label>
-                <div class="controls">
-                    @Html.DropDownListFor(model => model.Analysis.VialType, from v in (Analysis.VialTypes[]) (Enum.GetValues(typeof (Analysis.VialTypes)))
-                                                                            select new SelectListItem()
-                                                                                       {
-                                                                                           Text = ((DisplayAttribute) (typeof (Analysis.VialTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                           Value = v.ToString(),
-                                                                                           Selected = v == Model.Analysis.VialType
-                                                                                       }, "Select vial....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Vial Type selection is required."}})       
-                    @Html.ValidationMessageFor(model => model.Analysis.VialType)
-                </div>
-            </div>
-        }  *@
-        
-        @if (Model.Requirement.ContainerDescription)
-        {
-            <div class="control-group">
-                <label class="control-label" for="ContainerDescription">Container Description (specify volume)</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.ContainerDescription, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Container Description field is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.ContainerDescription)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.TypeOfWater)
-        {
-            <div class="control-group">
-                <label class="control-label" for="TypeOfWater">Type Of Water (ground, seawater, etc)</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.TypeOfWater, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Type of water field is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.TypeOfWater)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.SalinityRange)
-        {
-            <div class="control-group">
-                <label class="control-label" for="SalinityRange">Salinity Range</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.SalinityRange, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Salinity Range is required."}}) ppt
-                    @Html.ValidationMessageFor(model => model.Analysis.SalinityRange)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.SalinityRangeDOC)
-        {
-            <div class="control-group">
-                <label class="control-label" for="SalinityRange">Salinity Range DOC</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.SalinityRange, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Salinity Range is required."}}) ppt (maximum 10 ppt)
-                    @Html.ValidationMessageFor(model => model.Analysis.SalinityRange)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.pHRange)
-        {
-            <div class="control-group">
-                <label class="control-label" for="pHRange">pH Range</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.pHRange, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "pH Range is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.pHRange)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.pHRangeDH18O)
-        {
-            <div class="control-group">
-                <label class="control-label" for="pHRange">pH Range</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.pHRange, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "pH Range is required."}}) Samples outside the pH range of 5-9 will not be analyzed. 
-                    @Html.ValidationMessageFor(model => model.Analysis.pHRange) 
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.TransferRequiredWater)
-        {
-            <div class="control-group">
-                <label class="control-label" for="TransferRequired">Water samples:&nbsp;&nbsp; </label>
-                @Html.EditorFor(model => model.Analysis.TransferRequired) I acknowledge $1/sample fee if transfer to 2ml vials is required
-                @Html.ValidationMessageFor(model => model.Analysis.TransferRequired) 
-            </div>
-        }
-        
-        @if (Model.Requirement.TransferRequiredDOC)
-        {
-            <div class="control-group">
-                <label class="control-label" for="TransferRequired">Water samples:&nbsp;&nbsp; </label>
-                @Html.EditorFor(model => model.Analysis.TransferRequired) I acknowledge $1/sample fee if transfer to 40ml IChem vials is required
-                @Html.ValidationMessageFor(model => model.Analysis.TransferRequired) 
-            </div>
-        }
-        
-        @if (Model.Requirement.NitrateStatement)
-        {
-            <div class="control-group">
-                <label class="control-label" for="NitrateStatement">Nitrate Samples: </label>
-                <div class="controls">
-                    @Html.EditorFor(model => model.Analysis.NitrateStatement) I acknowlege that if I do not provide accurate nitrate concentrations, I will be charged for any necessary reruns.
-                    @Html.ValidationMessageFor(model => model.Analysis.NitrateStatement)
-                </div>
-            </div>
-        }
-        
-         
-        @* @if (Model.Requirement.DICContainer)
-        {
-            <div class="control-group">
-                <label class="control-label" for="DICContainer">DIC Container Type </label>
-                <div class="controls">
-                    @Html.DropDownListFor(model => model.Analysis.DICContainer, from v in (Analysis.DicContainerTypes[]) (Enum.GetValues(typeof (Analysis.DicContainerTypes)))
+    @if (Model.Requirement.EstimatedEnrichmentN2N2O)
+    {
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.EstimatedEnrichmentN2"></label>
+            <input asp-for="Analysis.EstimatedEnrichmentN2" class="col-sm-7 form-control"> atom %
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.EstimatedEnrichmentN2" data-valmsg-replace="true"></span>
+        </div> 
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.EstimatedEnrichmentN2O"></label>
+            <input asp-for="Analysis.EstimatedEnrichmentN2O" class="col-sm-7 form-control"> atom %
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.EstimatedEnrichmentN2O" data-valmsg-replace="true"></span>
+        </div>        
+    }
+    
+    @if (Model.Requirement.Material)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.Material"></label>
+            <textarea asp-for="Analysis.Material" class="col-sm-9 form-control"></textarea>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Material" data-valmsg-replace="true"></span>
+        </div>        
+    }
+    
+    @if (Model.Requirement.RangeOfWeights)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfWeights"></label>
+            <input asp-for="Analysis.RangeOfWeights" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfWeights" data-valmsg-replace="true"></span>
+        </div>        
+    }
+    
+    @if (Model.Requirement.TypeOfOxidant)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.TypeOfOxidant"></label>
+            <select asp-for="Analysis.TypeOfOxidant" class="col-sm-3 form-control" asp-items="Html.GetEnumSelectList<Analysis.OxidantTypes>()"></select>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TypeOfOxidant" data-valmsg-replace="true"></span>
+        </div> 
+        <div class="control-group">
+            <label class="control-label" for="TypeOfOxidant">Type of Oxidant</label>
+            <div class="controls">
+                @* @Html.DropDownListFor(model => model.Analysis.TypeOfOxidant, from v in (Analysis.OxidantTypes[]) (Enum.GetValues(typeof (Analysis.OxidantTypes)))
                                                                                 select new SelectListItem()
-                                                                                           {
-                                                                                               Text = ((DisplayAttribute) (typeof (Analysis.DicContainerTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                               Value = v.ToString(),
-                                                                                               Selected = v == Model.Analysis.DICContainer
-                                                                                           }, "Select container....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "DIC Container Type selection is required."}})  
-                    @Html.ValidationMessageFor(model => model.Analysis.DICContainer)
-                </div>
+                                                                                        {
+                                                                                            Text = ((DisplayAttribute) (typeof (Analysis.OxidantTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
+                                                                                            Value = v.ToString(),
+                                                                                            Selected = v == Model.Analysis.TypeOfOxidant
+                                                                                        }, "Select oxidant....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Oxidant Type selection is required."}}) *@
+                @Html.ValidationMessageFor(model => model.Analysis.TypeOfOxidant)
             </div>
-        } *@
+        </div>
+    }
+    
+    @if (Model.Requirement.AmountOfOxidant)
+    {
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.AmountOfOxidant"></label>
+            <input asp-for="Analysis.AmountOfOxidant" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.AmountOfOxidant" data-valmsg-replace="true"></span>
+        </div>          
+    }
         
-        
-        @if (Model.Requirement.RangeOfConcentration)
-        {
-            <div class="control-group">
-                <label class="control-label" for="RangeOfConcentration">Range Of Concentration</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.RangeOfConcentration, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Range of concentration is required."}}) ppm
-                    @Html.ValidationMessageFor(model => model.Analysis.RangeOfConcentration)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.RangeOfConcentrationNitrate)
-        {
-            <div class="control-group">
-                <label class="control-label" for="RangeOfConcentrationNitrate">Range Of Concentration: Nitrate</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.RangeOfConcentrationNitrate, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Range of concentration Nitrate is required."}}) &micro;M  
-                    @Html.ValidationMessageFor(model => model.Analysis.RangeOfConcentrationNitrate)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.RangeOfConcentrationN2N2O)
-        {
-            <div class="control-group">
-                <label class="control-label" for="RangeOfConcentrationN2">Range Of Concentration: N2</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.RangeOfConcentrationN2, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Range of concentration: N2 is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.RangeOfConcentrationN2)
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="RangeOfConcentrationN2O">Range Of Concentration N<sub>2</sub>O</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.RangeOfConcentrationN2O, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Range of concentration: N2O is required."}})
-                    @Html.ValidationMessageFor(model => model.Analysis.RangeOfConcentrationN2O)
-                </div>
-            </div>
-        }
-        
-
-        @* @if (Model.Requirement.HowSterilized)
-        {
-            <div class="control-group">
-                <label class="control-label" for="HowSterilized">How were samples sterilized?</label>
-                <div class="controls">
-                    @Html.DropDownListFor(model => model.Analysis.HowSterilized, from v in (Analysis.SterilizationTypes[]) (Enum.GetValues(typeof (Analysis.SterilizationTypes)))
-                                                                                 select new SelectListItem()
-                                                                                            {
-                                                                                                Text = ((DisplayAttribute) (typeof (Analysis.SterilizationTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                                Value = v.ToString(),
-                                                                                                Selected = v == Model.Analysis.HowSterilized
-                                                                                            }, "Select sterilization method....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "How Sterilized selection is required."}})         
-                    @Html.ValidationMessageFor(model => model.Analysis.HowSterilized)
-                </div>
-            </div>
-        } *@
-        
-         @if (Model.Requirement.Preservative)
-        {
-            <div class="control-group">
-                <label class="control-label" for="Preservative">Preservative, if any (e.g. zinc chloride)</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.Preservative)
-                    @Html.ValidationMessageFor(model => model.Analysis.Preservative)
-                </div>
-            </div>
-        }
-
-        @if (Model.Requirement.VolumeSent)
-        {
-            <div class="control-group">
-                <label class="control-label" for="VolumeSent">Volume Sent</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.VolumeSent, new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Volume sent is required."}}) ml
-                    @Html.ValidationMessageFor(model => model.Analysis.VolumeSent)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.Filtered)
-        {
-            <div class="control-group">
-                <label class="control-label" for="Filtered">Have samples been filtered?</label>
-                <div class="controls">
-                    @Html.RadioButtonFor(model=> model.Analysis.Filtered, true) Yes | @Html.RadioButtonFor(model=> model.Analysis.Filtered, false) No
-                </div>
-
-            </div>
-        }
-        
-        @if (Model.Requirement.Solvent)
-        {
-            <div class="control-group">
-                <label class="control-label" for="Solvent">Check if samples are in solvent?</label>
-                <div class="controls">
-                    @Html.CheckBoxFor(model => model.Analysis.Solvent)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.WhatSolvent)
-        {
-            <div class="control-group">
-                <label class="control-label" for="WhatSolvent">What Solvent?</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.WhatSolvent)
-                    @Html.ValidationMessageFor(model => model.Analysis.WhatSolvent)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.SolventVolume)
-        {
-            <div class="control-group">
-                <label class="control-label" for="SolventVolume">Solvent Volume</label>
-                <div class="controls">
-                    @Html.TextBoxFor(model=>model.Analysis.SolventVolume)
-                    @Html.ValidationMessageFor(model => model.Analysis.SolventVolume)
-                </div>
-            </div>
-        }
-        
-        @if (Model.Requirement.Irreplaceable)
-        {
-            <div class="control-group">
-                <label class="control-label" for="Irreplaceable">Check if irreplacable</label>
-                <div class="controls">
-                    @Html.CheckBoxFor(model => model.Analysis.Irreplaceable) (will delay analysis)
-                </div>
-            </div>
-        }
-        
-         <div>
-                Current turn around time for this analysis is @Model.Requirement.DateDelay days.
-            </div>
-
+    @* @if (Model.Requirement.VialType)
+    {
         <div class="control-group">
-            <label class="control-label" for="DateNeeded">Date Needed</label>
+            <label class="control-label" for="VialType">Vial Type&nbsp;&nbsp;</label>
             <div class="controls">
-                <input name="Analysis.DateNeeded" id="Analysis_DateNeeded"   type="date" class="ui-datepicker" title="Date you need analysis complete" value="@(Model.Analysis.DateNeeded == DateTime.MinValue ? string.Empty : Model.Analysis.DateNeeded.ToShortDateString())"  data-val="true" data-val-required="Date needed is required" data-val-date="Date needed must be a valid date"  />
-                @Html.ValidationMessageFor(model => model.Analysis.DateNeeded)
+                @Html.DropDownListFor(model => model.Analysis.VialType, from v in (Analysis.VialTypes[]) (Enum.GetValues(typeof (Analysis.VialTypes)))
+                                                                        select new SelectListItem()
+                                                                                    {
+                                                                                        Text = ((DisplayAttribute) (typeof (Analysis.VialTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
+                                                                                        Value = v.ToString(),
+                                                                                        Selected = v == Model.Analysis.VialType
+                                                                                    }, "Select vial....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Vial Type selection is required."}})       
+                @Html.ValidationMessageFor(model => model.Analysis.VialType)
             </div>
         </div>
-        @Html.HiddenFor(model => model.Requirement.Id)
+    }  *@
+    
+    @if (Model.Requirement.ContainerDescription)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.ContainerDescription"></label>
+            <input asp-for="Analysis.ContainerDescription" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.ContainerDescription" data-valmsg-replace="true"></span>
+        </div> 
+    }
+    
+    @if (Model.Requirement.TypeOfWater)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.TypeOfWater"></label>
+            <input asp-for="Analysis.TypeOfWater" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TypeOfWater" data-valmsg-replace="true"></span>
+        </div>         
+    }
+    
+    @if (Model.Requirement.SalinityRange)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.SalinityRange"></label>
+            <input asp-for="Analysis.SalinityRange" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SalinityRange" data-valmsg-replace="true"></span>
+        </div>        
+    }
+    
+    @if (Model.Requirement.SalinityRangeDOC)
+    {
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.SalinityRange">Salinity Range DOC</label>
+            <input asp-for="Analysis.SalinityRange" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SalinityRange" data-valmsg-replace="true"></span>
+        </div>
+    }
+    
+    @if (Model.Requirement.pHRange)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.pHRange"></label>
+            <input asp-for="Analysis.pHRange" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.pHRange" data-valmsg-replace="true"></span>
+        </div>
+    }
+    
+    @if (Model.Requirement.pHRangeDH18O)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.pHRange"></label>
+            <input asp-for="Analysis.pHRange" class="col-sm-7 form-control"> Samples outside the pH range of 5-9 will not be analyzed.
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.pHRange" data-valmsg-replace="true"></span>
+        </div>
+    }
+    
+    @if (Model.Requirement.TransferRequiredWater)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.TransferRequired"></label>
+            <div class="form-check form-check-inline">                
+                <input class="form-check-input" type="checkbox" asp-for="Analysis.TransferRequired" value="Natural">
+                <label class="form-check-label" asp-for="Analysis.TransferRequired">I acknowledge $1/sample fee if transfer to 2ml vials is required</label>
+                <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TransferRequired" data-valmsg-replace="true"></span>
+            </div>            
+        </div>
+    }
+    
+    @if (Model.Requirement.TransferRequiredDOC)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.TransferRequired"></label>
+            <div class="form-check form-check-inline">                
+                <input class="form-check-input" type="checkbox" asp-for="Analysis.TransferRequired" value="Natural">
+                <label class="form-check-label" asp-for="Analysis.TransferRequired">I acknowledge $1/sample fee if transfer to 40ml IChem vials is required</label>
+                <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TransferRequired" data-valmsg-replace="true"></span>
+            </div>            
+        </div>
+    }
+    
+    @if (Model.Requirement.NitrateStatement)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.NitrateStatement"></label>
+            <div class="form-check form-check-inline">                
+                <input class="form-check-input" type="checkbox" asp-for="Analysis.NitrateStatement" value="Natural">
+                <label class="form-check-label" asp-for="Analysis.NitrateStatement">I acknowledge that if I do not provide accurate nitrate concentrations, I will be charged for any necessary reruns.</label>
+                <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.NitrateStatement" data-valmsg-replace="true"></span>
+            </div>            
+        </div>
+    }
+    
+        
+    @* @if (Model.Requirement.DICContainer)
+    {
         <div class="control-group">
-            <label class="control-label" for="Comments">Comments</label>
+            <label class="control-label" for="DICContainer">DIC Container Type </label>
             <div class="controls">
-                @Html.EditorFor(model => model.Analysis.Comments)
-                @Html.ValidationMessageFor(model => model.Analysis.Comments)
+                @Html.DropDownListFor(model => model.Analysis.DICContainer, from v in (Analysis.DicContainerTypes[]) (Enum.GetValues(typeof (Analysis.DicContainerTypes)))
+                                                                            select new SelectListItem()
+                                                                                        {
+                                                                                            Text = ((DisplayAttribute) (typeof (Analysis.DicContainerTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
+                                                                                            Value = v.ToString(),
+                                                                                            Selected = v == Model.Analysis.DICContainer
+                                                                                        }, "Select container....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "DIC Container Type selection is required."}})  
+                @Html.ValidationMessageFor(model => model.Analysis.DICContainer)
             </div>
         </div>
-        @if (!String.IsNullOrWhiteSpace(Model.Requirement.Terms))
-        {
-            <div class="control-group">
-                <label class="control-label" for="Terms">Terms and Conditions</label>
-                <div class="controls">
-                    @Model.Requirement.Terms
-                </div>
-            </div>
-        }
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save changes</button>
-            @Html.ActionLink("Cancel", "Details", "Order", new {id=Model.Order.Id, Area = "Client"}, new {@class="btn btn-link"})
+    } *@
+    
+    
+    @if (Model.Requirement.RangeOfConcentration)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentration"></label>
+            <input asp-for="Analysis.RangeOfConcentration" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentration" data-valmsg-replace="true"></span>
         </div>
-    </fieldset>
+    }
+    
+    @if (Model.Requirement.RangeOfConcentrationNitrate)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentrationNitrate"></label>
+            <input asp-for="Analysis.RangeOfConcentrationNitrate" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentrationNitrate" data-valmsg-replace="true"></span>
+        </div>
+    }
+    
+    @if (Model.Requirement.RangeOfConcentrationN2N2O)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentrationN2"></label>
+            <input asp-for="Analysis.RangeOfConcentrationN2" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentrationN2" data-valmsg-replace="true"></span>
+        </div>
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentrationN2O"></label>
+            <input asp-for="Analysis.RangeOfConcentrationN2O" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentrationN2O" data-valmsg-replace="true"></span>
+        </div>       
+    }
+    
+
+    @* @if (Model.Requirement.HowSterilized)
+    {
+        <div class="control-group">
+            <label class="control-label" for="HowSterilized">How were samples sterilized?</label>
+            <div class="controls">
+                @Html.DropDownListFor(model => model.Analysis.HowSterilized, from v in (Analysis.SterilizationTypes[]) (Enum.GetValues(typeof (Analysis.SterilizationTypes)))
+                                                                                select new SelectListItem()
+                                                                                        {
+                                                                                            Text = ((DisplayAttribute) (typeof (Analysis.SterilizationTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
+                                                                                            Value = v.ToString(),
+                                                                                            Selected = v == Model.Analysis.HowSterilized
+                                                                                        }, "Select sterilization method....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "How Sterilized selection is required."}})         
+                @Html.ValidationMessageFor(model => model.Analysis.HowSterilized)
+            </div>
+        </div>
+    } *@
+    
+        @if (Model.Requirement.Preservative)
+    {
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.Preservative"></label>
+            <input asp-for="Analysis.Preservative" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Preservative" data-valmsg-replace="true"></span>
+        </div> 
+    }
+
+    @if (Model.Requirement.VolumeSent)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.VolumeSent"></label>
+            <input asp-for="Analysis.VolumeSent" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.VolumeSent" data-valmsg-replace="true"></span>
+        </div>
+    }
+    
+    @if (Model.Requirement.Filtered)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.Filtered"></label>
+            <div class="form-check form-check-inline">                
+                <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="Yes">
+                <label class="form-check-label" asp-for="Analysis.Filtered">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">                
+                <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="No">
+                <label class="form-check-label" asp-for="Analysis.Filtered">No</label>
+            </div>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Filtered" data-valmsg-replace="true"></span>
+        </div>
+    }
+    
+    @if (Model.Requirement.Solvent)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.Solvent"></label>
+            <div class="form-check form-check-inline">                
+                <input class="form-check-input" type="checkbox" asp-for="Analysis.Solvent">
+            </div>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Filtered" data-valmsg-replace="true"></span>
+        </div> 
+    }
+    
+    @if (Model.Requirement.WhatSolvent)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.WhatSolvent"></label>
+            <input asp-for="Analysis.WhatSolvent" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.WhatSolvent" data-valmsg-replace="true"></span>
+        </div>        
+    }
+    
+    @if (Model.Requirement.SolventVolume)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.SolventVolume"></label>
+            <input asp-for="Analysis.SolventVolume" class="col-sm-9 form-control">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SolventVolume" data-valmsg-replace="true"></span>
+        </div>            
+    }
+    
+    @if (Model.Requirement.Irreplaceable)
+    {
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.Irreplaceable"></label>
+            <div class="form-check form-check-inline">                
+                <input class="form-check-input" type="checkbox" asp-for="Analysis.Irreplaceable">
+                <label class="form-check-label" asp-for="Analysis.Irreplaceable">(will delay analysis)</label>
+            </div>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Filtered" data-valmsg-replace="true"></span>
+        </div>       
+    }
+    
+    <div>
+        Current turn around time for this analysis is @Model.Requirement.DateDelay days.
+    </div>    
+
+    <div class="form-group row required">
+        <label asp-for="Analysis.DateNeeded" class="col-sm-3 col-form-label"></label>
+        <input type="text" class="col-sm-3 form-control datepicker" asp-for="Analysis.DateNeeded">
+            <div class="input-group-append" onclick="$('.datepicker').focus();">             
+                <i class="fa fa-calendar input-group-text"></i>
+            </div>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.DateNeeded" data-valmsg-replace="true"></span>                   
+    </div>
+
+    <input type="hidden" asp-for="Requirement.Id">
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.Comments"></label>
+        <textarea asp-for="Analysis.Comments" class="col-sm-9 form-control"></textarea>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Comments" data-valmsg-replace="true"></span>
+    </div>    
+    @if (!String.IsNullOrWhiteSpace(Model.Requirement.Terms))
+    {
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Requirement.Terms"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Model.Requirement.Terms
+            </div>
+        </div>
+    }
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        @Html.ActionLink("Cancel", "Details", "Order", new {id=Model.Order.Id, Area = "Client"}, new {@class="btn btn-danger"})
+    </div>
+</div>
 </form>
 
 
 @section Scripts
 {
-      <link rel="Stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/themes/redmond/jquery-ui.css" />
-    <script type="text/javascript">
-        $('input.ui-datepicker').datepicker({ changeMonth: true, changeYear: true });
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+     <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"></script>   
+    
+     <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                dateFormat: "mm-dd-yy",
+            });
+        });
     </script>
 }
 

@@ -30,9 +30,7 @@ namespace SIFCore.Controllers
         }
 
         public async Task<IActionResult> Create(int id, int requirementId)
-        {
-            // var requirementId = 1;
-            // int id = 1;
+        {            
             var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
             if (order == null) return RedirectToAction("Index", "Order", new {Area = "Client"});
             if (order.Submitted)
@@ -57,6 +55,7 @@ namespace SIFCore.Controllers
 			var viewModel = AnalysisViewModel.Create();
             viewModel.Requirement = requirement;
             viewModel.Order = order;
+            viewModel.Analysis.DateNeeded = DateTime.Now.AddDays(requirement.DateDelay);
 
             return View(viewModel);
         }

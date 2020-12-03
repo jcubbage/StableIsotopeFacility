@@ -1,4 +1,5 @@
 @using System.ComponentModel.DataAnnotations
+@using SIFCore.Helpers;
 @model SIFCore.Models.AnalysisViewModel
 
 @{
@@ -43,14 +44,13 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.Abundance"></label>
-            <div class="form-check form-check-inline">                
-                <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="Natural">
-                <label class="form-check-label" asp-for="Analysis.Abundance">Natural</label>
-            </div>
-            <div class="form-check form-check-inline">                
-                <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="Enriched">
-                <label class="form-check-label" asp-for="Analysis.Abundance">Enriched</label>
-            </div>
+            @foreach (var e in System.Enum.GetValues(typeof(Analysis.AbundanceTypes)))
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="@e">
+                    <label class="form-check-label" asp-for="Analysis.Abundance">@e</label>
+                </div>
+            }
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Abundance" data-valmsg-replace="true"></span>
         </div>
     }   
@@ -100,21 +100,10 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.TypeOfOxidant"></label>
-            <select asp-for="Analysis.TypeOfOxidant" class="col-sm-3 form-control" asp-items="Html.GetEnumSelectList<Analysis.OxidantTypes>()"></select>
+            <select asp-for="Analysis.TypeOfOxidant" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.OxidantTypes>()">
+                <option selected="selected" value="">Please select Oxidant</option>
+            </select>
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TypeOfOxidant" data-valmsg-replace="true"></span>
-        </div> 
-        <div class="control-group">
-            <label class="control-label" for="TypeOfOxidant">Type of Oxidant</label>
-            <div class="controls">
-                @* @Html.DropDownListFor(model => model.Analysis.TypeOfOxidant, from v in (Analysis.OxidantTypes[]) (Enum.GetValues(typeof (Analysis.OxidantTypes)))
-                                                                                select new SelectListItem()
-                                                                                        {
-                                                                                            Text = ((DisplayAttribute) (typeof (Analysis.OxidantTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                            Value = v.ToString(),
-                                                                                            Selected = v == Model.Analysis.TypeOfOxidant
-                                                                                        }, "Select oxidant....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Oxidant Type selection is required."}}) *@
-                @Html.ValidationMessageFor(model => model.Analysis.TypeOfOxidant)
-            </div>
         </div>
     }
     
@@ -127,22 +116,16 @@
         </div>          
     }
         
-    @* @if (Model.Requirement.VialType)
+    @if (Model.Requirement.VialType)
     {
-        <div class="control-group">
-            <label class="control-label" for="VialType">Vial Type&nbsp;&nbsp;</label>
-            <div class="controls">
-                @Html.DropDownListFor(model => model.Analysis.VialType, from v in (Analysis.VialTypes[]) (Enum.GetValues(typeof (Analysis.VialTypes)))
-                                                                        select new SelectListItem()
-                                                                                    {
-                                                                                        Text = ((DisplayAttribute) (typeof (Analysis.VialTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                        Value = v.ToString(),
-                                                                                        Selected = v == Model.Analysis.VialType
-                                                                                    }, "Select vial....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "Vial Type selection is required."}})       
-                @Html.ValidationMessageFor(model => model.Analysis.VialType)
-            </div>
-        </div>
-    }  *@
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.VialType"></label>
+            <select asp-for="Analysis.VialType" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.VialTypes>()">
+                <option selected="selected" value="">Please select Vial Type</option>
+            </select>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.VialType" data-valmsg-replace="true"></span>
+        </div>        
+    } 
     
     @if (Model.Requirement.ContainerDescription)
     {
@@ -235,22 +218,16 @@
     }
     
         
-    @* @if (Model.Requirement.DICContainer)
+    @if (Model.Requirement.DICContainer)
     {
-        <div class="control-group">
-            <label class="control-label" for="DICContainer">DIC Container Type </label>
-            <div class="controls">
-                @Html.DropDownListFor(model => model.Analysis.DICContainer, from v in (Analysis.DicContainerTypes[]) (Enum.GetValues(typeof (Analysis.DicContainerTypes)))
-                                                                            select new SelectListItem()
-                                                                                        {
-                                                                                            Text = ((DisplayAttribute) (typeof (Analysis.DicContainerTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                            Value = v.ToString(),
-                                                                                            Selected = v == Model.Analysis.DICContainer
-                                                                                        }, "Select container....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "DIC Container Type selection is required."}})  
-                @Html.ValidationMessageFor(model => model.Analysis.DICContainer)
-            </div>
-        </div>
-    } *@
+        <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.DICContainer"></label>
+            <select asp-for="Analysis.DICContainer" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.DicContainerTypes>()">
+                <option selected="selected" value="">Please select DIC Container Type</option>
+            </select>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.DICContainer" data-valmsg-replace="true"></span>
+        </div>        
+    }
     
     
     @if (Model.Requirement.RangeOfConcentration)
@@ -286,22 +263,16 @@
     }
     
 
-    @* @if (Model.Requirement.HowSterilized)
+    @if (Model.Requirement.HowSterilized)
     {
-        <div class="control-group">
-            <label class="control-label" for="HowSterilized">How were samples sterilized?</label>
-            <div class="controls">
-                @Html.DropDownListFor(model => model.Analysis.HowSterilized, from v in (Analysis.SterilizationTypes[]) (Enum.GetValues(typeof (Analysis.SterilizationTypes)))
-                                                                                select new SelectListItem()
-                                                                                        {
-                                                                                            Text = ((DisplayAttribute) (typeof (Analysis.SterilizationTypes).GetField(v.ToString()).GetCustomAttributes(typeof (DisplayAttribute), false).First())).Name,
-                                                                                            Value = v.ToString(),
-                                                                                            Selected = v == Model.Analysis.HowSterilized
-                                                                                        }, "Select sterilization method....", new Dictionary<string, object> {{"data-val", "true"}, {"data-val-required", "How Sterilized selection is required."}})         
-                @Html.ValidationMessageFor(model => model.Analysis.HowSterilized)
-            </div>
+         <div class="form-group row required">
+            <label class="col-sm-3 col-form-label" asp-for="Analysis.HowSterilized"></label>
+            <select asp-for="Analysis.HowSterilized" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.SterilizationTypes>()">
+                <option selected="selected" value="">Please select how sterilized</option>
+            </select>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.HowSterilized" data-valmsg-replace="true"></span>
         </div>
-    } *@
+    }
     
         @if (Model.Requirement.Preservative)
     {
@@ -326,11 +297,11 @@
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.Filtered"></label>
             <div class="form-check form-check-inline">                
-                <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="Yes">
+                <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="true">
                 <label class="form-check-label" asp-for="Analysis.Filtered">Yes</label>
             </div>
             <div class="form-check form-check-inline">                
-                <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="No">
+                <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="false">
                 <label class="form-check-label" asp-for="Analysis.Filtered">No</label>
             </div>
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Filtered" data-valmsg-replace="true"></span>

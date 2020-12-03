@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SIFCore.Helpers
 {
@@ -21,6 +22,13 @@ namespace SIFCore.Helpers
         {
             Type t = typeof(T);
             return !t.IsEnum ? null : Enum.GetValues(t).Cast<Enum>().Select(x => x.GetDisplayName()).ToList();
+        }
+
+        public static List<SelectListItem> GetSelectListItems<T>() where T : struct
+        {
+             Type t = typeof(T);
+             return !t.IsEnum ? null : Enum.GetValues(t).Cast<Enum>().Select(x => new SelectListItem(x.GetDisplayName(), x.GetDisplayName())).ToList();
+
         }
     }
 }

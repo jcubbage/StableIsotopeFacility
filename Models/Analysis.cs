@@ -124,70 +124,71 @@ namespace SIFCore.Models
 
         [Display(Name="Preservative, if any (e.g. zinc chloride)")]
         public  string Preservative { get; set; }
-
-
-
-        public enum AbundanceTypes
-        {
-             [Display(Name="Natural")]
-            Natural,
-             [Display(Name="Enriched")]
-            Enriched
-        }
-
-        public enum OxidantTypes
-        {
-            [Display(Name="No Oxidant Used")]
-            None,
-
-            [Display(Name="Niobium pentoxide (Nb2O5)")]
-            Nb2O5,
-
-            [Display(Name="Vanadium pentoxide (V2O5)")]
-            V2O5
-        }
-
-        public enum VialTypes
-        {
-            [Display(Name="3.7 mL Exetainers")]
-            Exetainers3p7,
-
-            [Display(Name="4.5 mL Exetainers")]
-            Exetainers4p5,
-
-            [Display(Name="5.9 mL Exetainers")]
-            Exetainers5p9,
-
-            [Display(Name="12 mL Exetainers")]
-            Exetainers12,
-
-            [Display(Name="20 mL Headspace Vial")]
-            HeadspaceVial20
-
-        }
-
-        public enum DicContainerTypes
-        {
-            [Display(Name="DIC in exetainer, prepped with H3PO4")]
-            ExetainerPrepped,
-
-            [Display(Name="DIC in exetainer, unprepared")]
-            ExetainerUnprepped,
-
-            [Display(Name="DIC in 40 ml IChem vial")]
-            IChemVial40ml
-        }
-
-        public enum SterilizationTypes
-        {
-            [Display(Name="Sterile Filtered")]
-            FilteredOnly,
-            
-            
-            [Display(Name="Zinc chloride")]
-            ZincChloride
-        }
     }
+
+
+
+    public enum AbundanceTypes
+    {
+            [Display(Name="Natural")]
+        Natural,
+            [Display(Name="Enriched")]
+        Enriched
+    }
+
+    public enum OxidantTypes
+    {
+        [Display(Name="No Oxidant Used")]
+        None,
+
+        [Display(Name="Niobium pentoxide (Nb2O5)")]
+        Nb2O5,
+
+        [Display(Name="Vanadium pentoxide (V2O5)")]
+        V2O5
+    }
+
+    public enum VialTypes
+    {
+        [Display(Name="3.7 mL Exetainers")]
+        Exetainers3p7,
+
+        [Display(Name="4.5 mL Exetainers")]
+        Exetainers4p5,
+
+        [Display(Name="5.9 mL Exetainers")]
+        Exetainers5p9,
+
+        [Display(Name="12 mL Exetainers")]
+        Exetainers12,
+
+        [Display(Name="20 mL Headspace Vial")]
+        HeadspaceVial20
+
+    }
+
+    public enum DicContainerTypes
+    {
+        [Display(Name="DIC in exetainer, prepped with H3PO4")]
+        ExetainerPrepped,
+
+        [Display(Name="DIC in exetainer, unprepared")]
+        ExetainerUnprepped,
+
+        [Display(Name="DIC in 40 ml IChem vial")]
+        IChemVial40ml
+    }
+
+    public enum SterilizationTypes
+    {
+        [Display(Name="Sterile Filtered")]
+        FilteredOnly,
+        
+        
+        [Display(Name="Zinc chloride")]
+        ZincChloride
+    }
+
 
     
 }

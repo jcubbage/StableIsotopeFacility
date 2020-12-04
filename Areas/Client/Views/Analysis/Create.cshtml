@@ -10,7 +10,7 @@
 <form asp-action="Create">
 <div class="container col-lg-5">
     <div class="row">        
-        <a asp-action="Details" asp-area="client" asp-controller="Order" asp-route-id="Model.Order.Id" class="btn btn-info">Back to List</a>
+        <a asp-action="Details" asp-area="client" asp-controller="Order" asp-route-id="@Model.Order.Id" class="btn btn-info">Back to List</a>
     </div> 
     <div class="row">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -44,7 +44,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.Abundance"></label>
-            @foreach (var e in System.Enum.GetValues(typeof(Analysis.AbundanceTypes)))
+            @foreach (var e in System.Enum.GetValues(typeof(AbundanceTypes)))
             {
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="@e">
@@ -91,7 +91,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfWeights"></label>
-            <input asp-for="Analysis.RangeOfWeights" class="col-sm-9 form-control">
+            <input asp-for="Analysis.RangeOfWeights" class="col-sm-9 form-control"> mg
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfWeights" data-valmsg-replace="true"></span>
         </div>        
     }
@@ -100,7 +100,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.TypeOfOxidant"></label>
-            <select asp-for="Analysis.TypeOfOxidant" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.OxidantTypes>()">
+            <select asp-for="Analysis.TypeOfOxidant" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<OxidantTypes>()">
                 <option selected="selected" value="">Please select Oxidant</option>
             </select>
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TypeOfOxidant" data-valmsg-replace="true"></span>
@@ -111,7 +111,7 @@
     {
         <div class="form-group row">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.AmountOfOxidant"></label>
-            <input asp-for="Analysis.AmountOfOxidant" class="col-sm-9 form-control">
+            <input asp-for="Analysis.AmountOfOxidant" class="col-sm-9 form-control"> mg
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.AmountOfOxidant" data-valmsg-replace="true"></span>
         </div>          
     }
@@ -120,7 +120,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.VialType"></label>
-            <select asp-for="Analysis.VialType" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.VialTypes>()">
+            <select asp-for="Analysis.VialType" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<VialTypes>()">
                 <option selected="selected" value="">Please select Vial Type</option>
             </select>
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.VialType" data-valmsg-replace="true"></span>
@@ -149,7 +149,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.SalinityRange"></label>
-            <input asp-for="Analysis.SalinityRange" class="col-sm-9 form-control">
+            <input asp-for="Analysis.SalinityRange" class="col-sm-9 form-control"> ppt
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SalinityRange" data-valmsg-replace="true"></span>
         </div>        
     }
@@ -158,7 +158,7 @@
     {
         <div class="form-group row">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.SalinityRange">Salinity Range DOC</label>
-            <input asp-for="Analysis.SalinityRange" class="col-sm-9 form-control">
+            <input asp-for="Analysis.SalinityRange" class="col-sm-9 form-control"> ppt (maximum 10 ppt) 
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SalinityRange" data-valmsg-replace="true"></span>
         </div>
     }
@@ -222,7 +222,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.DICContainer"></label>
-            <select asp-for="Analysis.DICContainer" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.DicContainerTypes>()">
+            <select asp-for="Analysis.DICContainer" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<DicContainerTypes>()">
                 <option selected="selected" value="">Please select DIC Container Type</option>
             </select>
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.DICContainer" data-valmsg-replace="true"></span>
@@ -234,7 +234,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentration"></label>
-            <input asp-for="Analysis.RangeOfConcentration" class="col-sm-9 form-control">
+            <input asp-for="Analysis.RangeOfConcentration" class="col-sm-9 form-control"> ppm
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentration" data-valmsg-replace="true"></span>
         </div>
     }
@@ -243,7 +243,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentrationNitrate"></label>
-            <input asp-for="Analysis.RangeOfConcentrationNitrate" class="col-sm-9 form-control">
+            <input asp-for="Analysis.RangeOfConcentrationNitrate" class="col-sm-9 form-control"> &micro;M
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentrationNitrate" data-valmsg-replace="true"></span>
         </div>
     }
@@ -267,7 +267,7 @@
     {
          <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.HowSterilized"></label>
-            <select asp-for="Analysis.HowSterilized" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<Analysis.SterilizationTypes>()">
+            <select asp-for="Analysis.HowSterilized" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<SterilizationTypes>()">
                 <option selected="selected" value="">Please select how sterilized</option>
             </select>
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.HowSterilized" data-valmsg-replace="true"></span>
@@ -287,7 +287,7 @@
     {
         <div class="form-group row required">
             <label class="col-sm-3 col-form-label" asp-for="Analysis.VolumeSent"></label>
-            <input asp-for="Analysis.VolumeSent" class="col-sm-9 form-control">
+            <input asp-for="Analysis.VolumeSent" class="col-sm-9 form-control"> ml
             <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.VolumeSent" data-valmsg-replace="true"></span>
         </div>
     }

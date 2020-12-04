@@ -119,6 +119,7 @@ namespace SIFCore.Controllers
 
             if (ModelState.IsValid)
             {
+                _dbContext.Add(analysisToCreate);
                 await _dbContext.SaveChangesAsync();
                 Message = "Analysis Created Successfully";
                 return RedirectToAction("Details", "Orders", new { id = analysisToCreate.Order.Id, Area = "Client" });

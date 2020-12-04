@@ -30,10 +30,10 @@ namespace SIFCore.Helpers
 
             if(!analysis.AnalysisRequirement.Enriched)
             {
-                analysis.Abundance = Analysis.AbundanceTypes.Natural.GetDisplayName();
+                analysis.Abundance = AbundanceTypes.Natural.GetDisplayName();
             }
 
-           if (analysis.Abundance == Analysis.AbundanceTypes.Natural.GetDisplayName())
+           if (analysis.Abundance == AbundanceTypes.Natural.GetDisplayName())
            {
                analysis.EstimatedEnrichment = string.Empty;
                analysis.EstimatedEnrichmentN2 = string.Empty;
@@ -92,7 +92,7 @@ namespace SIFCore.Helpers
                    state.AddModelError("Analysis.TypeOfOxidant", "Please select type of Oxidant or select 'No Oxidant Used'");
                } else
                {
-                   if (analysis.TypeOfOxidant != Analysis.OxidantTypes.None.GetDisplayName())
+                   if (analysis.TypeOfOxidant != OxidantTypes.None.GetDisplayName())
                    {
                        if (string.IsNullOrWhiteSpace(analysis.AmountOfOxidant))
                        {
@@ -118,7 +118,7 @@ namespace SIFCore.Helpers
            {
                if(string.IsNullOrWhiteSpace(analysis.DICContainer))
                {
-                   state.AddModelError("Analysis.DICContainer", "Please select DIC Container Type")
+                   state.AddModelError("Analysis.DICContainer", "Please select DIC Container Type");
                }
            }
 
@@ -126,7 +126,7 @@ namespace SIFCore.Helpers
            {
                if(string.IsNullOrWhiteSpace(analysis.HowSterilized))
                {
-                   state.AddModelError("Analysis.HowSterilized", "Please select how sterilized")
+                   state.AddModelError("Analysis.HowSterilized", "Please select how sterilized");
                }
            }
 

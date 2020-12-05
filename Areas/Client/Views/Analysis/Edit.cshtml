@@ -3,14 +3,13 @@
 @model SIFCore.Models.AnalysisViewModel
 
 @{
-	ViewBag.Title = "Create";
+	ViewBag.Title = "Edit";
 }
 
-<h2>Adding analysis to @Model.Order.ProjectName</h2>
-<form asp-action="Create">
+<h2>Edit analysis for @Model.Order.ProjectName</h2>
+<form asp-action="Edit">
 <div class="container col-lg-5">
-    <input type="hidden" asp-for="Requirement.Id">
-    @{await Html.RenderPartialAsync("_FormPartial", @Model);}    
+    @{await Html.RenderPartialAsync("_FormPartial", @Model);}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Save changes</button>
         @Html.ActionLink("Cancel", "Details", "Order", new {id=Model.Order.Id, Area = "Client"}, new {@class="btn btn-danger"})

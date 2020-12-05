@@ -30,6 +30,47 @@ namespace SIFCore.Controllers
             return PartialView(analysis);
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = await AnalysisViewModel.Edit(_dbContext, id);
+            return View(model);
+        }
+
+         [HttpPost]
+         public async Task<IActionResult> Edit(int id, AnalysisViewModel vm)
+         {
+            var analysisToEdit = await _dbContext.Analysis
+                .Include(a => a.AnalysisRequirement).Where(a => a.Id == id).FirstAsync();
+            Analysis analysis = vm.Analysis;
+            var order = await _dbContext.Orders.Where(o => o.Id == analysisToEdit.OrderId).FirstOrDefaultAsync();
+            if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Client"});
+            if (order.Submitted)
+            {
+                ErrorMessage = "You cannot edit a submitted order.";
+                return RedirectToAction("Index", "Orders", new {Area = "Client"});
+            }
+            // TODO Make sure user has permission!
+
+            TransferValues(analysis, analysisToEdit);
+
+            ModelState.Clear();
+            ValidationHelper.CheckAnalysisErrors(analysisToEdit, ModelState);
+           
+            if (ModelState.IsValid)
+            {                
+                await _dbContext.SaveChangesAsync();
+                Message = "Analysis Created Successfully";
+                return RedirectToAction("Details", "Order", new { id = analysisToEdit.OrderId, Area = "Client" });
+            }
+            else
+            {
+                ErrorMessage = "Please see errors.";
+                vm.Order = order;
+                var requirement = analysisToEdit.AnalysisRequirement;
+                return View(vm);
+            }
+         }
+
         public async Task<IActionResult> Create(int id, int requirementId)
         {            
             var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
@@ -76,53 +117,21 @@ namespace SIFCore.Controllers
             var requirement = await _dbContext.Requirements.Where(r => r.Id == vm.Requirement.Id).FirstOrDefaultAsync();
             if (requirement == null) return RedirectToAction("Index", "Orders", new {Area = "Client"});
             var analysisToCreate = new Analysis();
+
+            TransferValues(analysis, analysisToCreate);
             
-            analysisToCreate.AnalysisRequirement = requirement;
-            analysisToCreate.DateNeeded = analysis.DateNeeded;
-            analysisToCreate.NumberOfSamples = analysis.NumberOfSamples;
-            analysisToCreate.TrayNames = analysis.TrayNames;
-            analysisToCreate.Abundance = analysis.Abundance;            
-            analysisToCreate.EstimatedEnrichment = analysis.EstimatedEnrichment;
-            analysisToCreate.EstimatedEnrichmentN2 = analysis.EstimatedEnrichmentN2;
-            analysisToCreate.EstimatedEnrichmentN2O = analysis.EstimatedEnrichmentN2O;
-            analysisToCreate.Material = analysis.Material;
-            analysisToCreate.RangeOfWeights = analysis.RangeOfWeights;
-            analysisToCreate.TypeOfWater = analysis.TypeOfWater;
-            analysisToCreate.SalinityRange = analysis.SalinityRange;
-            analysisToCreate.AmountOfOxidant = analysis.AmountOfOxidant;
-            analysisToCreate.TypeOfOxidant = analysis.TypeOfOxidant;
-            analysisToCreate.pHRange = analysis.pHRange;
-            analysisToCreate.ContainerDescription = analysis.ContainerDescription;
-            analysisToCreate.VialType = analysis.VialType;
-            analysisToCreate.DICContainer = analysis.DICContainer;
-            analysisToCreate.RangeOfConcentration = analysis.RangeOfConcentration;
-            analysisToCreate.RangeOfConcentrationN2 = analysis.RangeOfConcentrationN2;
-            analysisToCreate.RangeOfConcentrationN2O = analysis.RangeOfConcentrationN2O;
-            analysisToCreate.RangeOfConcentrationNitrate = analysis.RangeOfConcentrationNitrate;
-            analysisToCreate.TransferRequired = analysis.TransferRequired;
-            analysisToCreate.NitrateStatement = analysis.NitrateStatement;
-            analysisToCreate.HowSterilized = analysis.HowSterilized;
-            analysisToCreate.VolumeSent = analysis.VolumeSent;
-            analysisToCreate.Filtered = analysis.Filtered;
-            analysisToCreate.Solvent = analysis.Solvent;
-            analysisToCreate.SolventVolume = analysis.SolventVolume;
-            analysisToCreate.WhatSolvent = analysis.WhatSolvent;
-            analysisToCreate.Irreplaceable = analysis.Irreplaceable;
-            analysisToCreate.Comments = analysis.Comments;
-            analysisToCreate.Preservative = analysis.Preservative;
-            analysisToCreate.Order = order;
-            
+            analysisToCreate.AnalysisRequirement = requirement;            
+            analysisToCreate.Order = order;            
             
             ModelState.Clear();
             ValidationHelper.CheckAnalysisErrors(analysisToCreate, ModelState);
            
-
             if (ModelState.IsValid)
             {
                 _dbContext.Add(analysisToCreate);
                 await _dbContext.SaveChangesAsync();
                 Message = "Analysis Created Successfully";
-                return RedirectToAction("Details", "Orders", new { id = analysisToCreate.Order.Id, Area = "Client" });
+                return RedirectToAction("Details", "Order", new { id = analysisToCreate.OrderId, Area = "Client" });
             }
             else
             {
@@ -131,6 +140,43 @@ namespace SIFCore.Controllers
                 vm.Requirement = requirement;
                 return View(vm);
             }
+        }
+
+        private static void TransferValues(Analysis source, Analysis destination)
+        {
+            destination.DateNeeded = source.DateNeeded;
+            destination.NumberOfSamples = source.NumberOfSamples;
+            destination.TrayNames = source.TrayNames;
+            destination.Abundance = source.Abundance;
+            destination.EstimatedEnrichment = source.EstimatedEnrichment;
+            destination.EstimatedEnrichmentN2 = source.EstimatedEnrichmentN2;
+            destination.EstimatedEnrichmentN2O = source.EstimatedEnrichmentN2O;
+            destination.Material = source.Material;
+            destination.RangeOfWeights = source.RangeOfWeights;
+            destination.TypeOfWater = source.TypeOfWater;
+            destination.SalinityRange = source.SalinityRange;
+            destination.AmountOfOxidant = source.AmountOfOxidant;
+            destination.TypeOfOxidant = source.TypeOfOxidant;
+            destination.pHRange = source.pHRange;
+            destination.ContainerDescription = source.ContainerDescription;
+            destination.VialType = source.VialType;
+            destination.DICContainer = source.DICContainer;
+            destination.RangeOfConcentration = source.RangeOfConcentration;
+            destination.RangeOfConcentrationN2 = source.RangeOfConcentrationN2;
+            destination.RangeOfConcentrationN2O = source.RangeOfConcentrationN2O;
+            destination.RangeOfConcentrationNitrate = source.RangeOfConcentrationNitrate;
+            destination.TransferRequired = source.TransferRequired;
+            destination.NitrateStatement = source.NitrateStatement;
+            destination.HowSterilized = source.HowSterilized;
+            destination.VolumeSent = source.VolumeSent;
+            destination.Filtered = source.Filtered;
+            destination.Solvent = source.Solvent;
+            destination.SolventVolume = source.SolventVolume;
+            destination.WhatSolvent = source.WhatSolvent;
+            destination.Irreplaceable = source.Irreplaceable;
+            destination.Comments = source.Comments;
+            destination.Preservative = source.Preservative;
+
         }
 
     }

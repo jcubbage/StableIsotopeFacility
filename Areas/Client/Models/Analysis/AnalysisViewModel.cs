@@ -25,6 +25,22 @@ namespace SIFCore.Models
 			return viewModel;
 		}
 
+        public static async Task<AnalysisViewModel> Edit(SIFContext _dbcontext, int id)
+		{
+            var analysis =  await _dbcontext.Analysis
+                .Include(a => a.Order)
+                .Include(a => a.AnalysisRequirement)
+                .Where(a => a.Id == id).FirstAsync();			
+            var viewModel = new AnalysisViewModel
+            {
+               Analysis = analysis,
+               Requirement = analysis.AnalysisRequirement,
+               Order = analysis.Order,
+            };
+ 
+			return viewModel;
+		}
+
         
 	}
 }

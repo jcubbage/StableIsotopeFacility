@@ -1,19 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
+using Microsoft.Extensions.Hosting;
 using SIFCore.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace SIFCore
 {
@@ -29,18 +24,19 @@ namespace SIFCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddMvc();
+            services.AddControllersWithViews();
 
-             services.AddDbContext<SIFContext>();
-            
-            services.AddAuthentication( "Cookies") // Sets the default scheme to cookies
-                .AddCookie( "Cookies", options =>
+            services.AddDbContext<SIFContext>();
+      
+            services.AddAuthentication("Cookies") // Sets the default scheme to cookies
+                .AddCookie("Cookies", options =>
                 {
                     options.AccessDeniedPath = "/account/denied";
                     options.LoginPath = "/account/login";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                    options.SlidingExpiration = true;                    
-                });                
+                    options.SlidingExpiration = true;
+
+                });
                 // .AddCAS(o =>
                 // {
                 //     o.CasServerUrlBase = Configuration["CasBaseUrl"];   // Set in `appsettings.json` file.
@@ -86,13 +82,10 @@ namespace SIFCore
                 //         await Task.FromResult(0); 
                 //     };
                 // });
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, Microsoft.Extensions.Hosting.IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -103,30 +96,33 @@ namespace SIFCore
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }        
-
+            }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseAuthentication(); 
+            app.UseAuthentication();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapAreaRoute(
-                   name: "Client_route",
+                endpoints.MapAreaControllerRoute(
+                    name: "Client_route",
                    areaName: "Client",
-                   template:  "client/{controller}/{action=Index}/{id?}"
-               );
+                   pattern:  "client/{controller}/{action=Index}/{id?}"
+                );
 
-               routes.MapAreaRoute(
-                   name: "Admin_route",
+                endpoints.MapAreaControllerRoute(
+                    name: "Admin_route",
                    areaName: "Admin",
-                   template:  "admin/{controller}/{action=Index}/{id?}"
-               );
-               
-                routes.MapRoute(
+                   pattern:  "admin/{controller}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

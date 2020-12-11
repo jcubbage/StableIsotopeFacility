@@ -33,10 +33,10 @@ namespace SIFCore.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=cherry01;Database=StableIsotopeFacility-Dev;Trusted_Connection=True;");
-            }
+            // if (!optionsBuilder.IsConfigured)
+            // {
+            //     optionsBuilder.UseSqlServer(@"Server=cherry01;Database=StableIsotopeFacility-Dev;Trusted_Connection=True;");
+            // }
             //optionsBuilder.UseLoggerFactory(GetLoggerFactory());
 
         }

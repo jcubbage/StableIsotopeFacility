@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SIFCore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SIFCore
 {
@@ -24,9 +25,10 @@ namespace SIFCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews();            
 
-            services.AddDbContext<SIFContext>();
+            services.AddDbContext<SIFContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SIFCoreContext")));
       
             services.AddAuthentication("Cookies") // Sets the default scheme to cookies
                 .AddCookie("Cookies", options =>

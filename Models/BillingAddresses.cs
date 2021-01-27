@@ -74,7 +74,7 @@ namespace SIFCore.Models
             [Required]
             public  string Country { get; set; }
 
-            [Display(Name="Federal ID Number")]
+            [Display(Name="Federal ID # or VAT#")]
             [Required]
             public  string FedIDNum { get; set; }
 

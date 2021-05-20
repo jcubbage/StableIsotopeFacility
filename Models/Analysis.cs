@@ -33,6 +33,7 @@ namespace SIFCore.Models
         public  string TrayNames { get; set; }        
 
         [Required]
+        [Display(Name="Isotopic composition")]
         public string Abundance { get; set; }
 
         [Display(Name="Estimated Enrichment (if enriched)")]
@@ -51,7 +52,7 @@ namespace SIFCore.Models
         [Display(Name="Range of sample weights")]
         public  string RangeOfWeights { get; set; }
 
-        [Display(Name="Type of water (ground, seawater, etc.)")]
+        [Display(Name="Type of water (groundwater, seawater, etc.)")]
         public  string TypeOfWater { get; set; }
 
         [Display(Name="Salinity range")]
@@ -130,7 +131,7 @@ namespace SIFCore.Models
 
     public enum AbundanceTypes
     {
-            [Display(Name="Natural")]
+            [Display(Name="Natural Abundance")]
         Natural,
             [Display(Name="Enriched")]
         Enriched

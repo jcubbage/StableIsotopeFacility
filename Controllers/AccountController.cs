@@ -48,6 +48,13 @@ namespace SIFCore.Controllers
             return View();
         }
 
+               
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }      
+
 
         private static bool ByteArraysEqual(byte[] a, byte[] b)
         {
@@ -185,6 +192,14 @@ namespace SIFCore.Controllers
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8);
             return hashed;          
+        }
+
+         [AllowAnonymous]
+        public async Task CasLogin(string returnUrl)
+        {
+            // TODO: Check returnURL, use if not blank
+            var props = new AuthenticationProperties { RedirectUri = "/Admin/AdminHome/Index" };
+            await HttpContext.ChallengeAsync("CAS", props);
         }     
 
     }

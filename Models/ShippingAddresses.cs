@@ -15,7 +15,7 @@ namespace SIFCore.Models
         public  string FullNameLastFirst { get { return string.Format("{0}, {1} ", PILastName, PIFirstName); } }
 
         [StringLength(50)]
-        [DisplayName("Address Name")]
+        [Display(Name="Address Name")]
         [Required]
         public  string AddressName { get; set; }
 
@@ -25,11 +25,11 @@ namespace SIFCore.Models
 
         [StringLength(50)]
         [Required]
-        [DisplayName("PI First Name")]
+        [Display(Name="PI First Name")]
         public  String PIFirstName { get; set; }
 
         [StringLength(50)]
-        [DisplayName("PI Last Name")]
+        [Display(Name="PI Last Name")]
         [Required]
         public  string PILastName   { get; set; }
 
@@ -37,17 +37,14 @@ namespace SIFCore.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public  string PIEmail { get; set; }
-
-        [DisplayName("PI Additional Email Address")]
-        [DataType(DataType.EmailAddress)]
-        public  string PIEmailAdditional { get; set; }
+        
 
         [DataType(DataType.PhoneNumber)]
-        [DisplayName("PI Fax")]
+        [Display(Name="PI Fax")]
         public  string PIFax { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        [DisplayName("PI Phone")]
+        [Display(Name="PI Phone")]
         [Required]
         public  string PIPhone { get; set; }
 
@@ -67,11 +64,11 @@ namespace SIFCore.Models
         public  string City { get; set; }
 
         [StringLength(50)]
-        [DisplayName("State/Governing District")]
+        [Display(Name="State/Governing District")]
         public  string State { get; set; }
 
         [StringLength(50)]
-        [DisplayName("Zip/Postal Code")]
+        [Display(Name="Zip/Postal Code")]
         public  string ZipCode { get; set; }
 
         [StringLength(50)]
@@ -82,6 +79,28 @@ namespace SIFCore.Models
         public  Contacts Contact { get; set; }
         
         public int ContactId { get; set; }
+
+        [StringLength(50)]        
+        [Display(Name="Researcher First Name")]
+        public string ResearcherFirstName { get; set; }
+
+        [StringLength(50)]        
+        [Display(Name="Researcher Last Name")]
+        public string ResearcherLastName { get; set; }
+
+        [Display(Name= "Researcher Email Address")]        
+        [DataType(DataType.EmailAddress)]
+        public  string ResearcherEmail { get; set; }        
+
+        
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name="Researcher Phone")]
+        public  string ResearcherPhone { get; set; }
+
+        [StringLength(5000)]
+        public string Notes { get; set; }
+
+        
 
     }
 }

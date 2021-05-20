@@ -10,6 +10,10 @@ div.required label.col-form-label:after {
   color: red;
 }
 
+.requiredExample {
+  color: red;
+}
+
 a.bg-sif:hover, a.bg-sif:focus,
 button.bg-sif:hover,
 button.bg-sif:focus {

@@ -20,100 +20,99 @@ namespace SIFCore.Models
         public int RequirementId { get; set; }
 
         [Required]
-        [DisplayName("Date needed")]
+        [Display(Name="Date needed")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public  DateTime DateNeeded { get; set; }
 
         [Required]
-        [DisplayName("Number of Samples")]
+        [Display(Name="Number of Samples")]
         public  int NumberOfSamples { get; set; }
 
-        [DisplayName("Tray Names")]
+        [Display(Name="Tray Names")]
         [DataType(DataType.MultilineText)]
-        public  string TrayNames { get; set; }
+        public  string TrayNames { get; set; }        
 
-        // [Required]
-        // public  AbundanceTypes AnalysisAbundance { get; set; }
+        [Required]
+        [Display(Name="Isotopic composition")]
+        public string Abundance { get; set; }
 
-        // public int Abundance { get; set; }
-
-        [DisplayName("Estimated Enrichment (if enriched)")]
+        [Display(Name="Estimated Enrichment (if enriched)")]
         public  string EstimatedEnrichment { get; set; }
 
-        [DisplayName("Estimated Enrichment N2 (if enriched)")]
+        [Display(Name="Estimated Enrichment N2 (if enriched)")]
         public  string EstimatedEnrichmentN2 { get; set; }
 
-        [DisplayName("Estimated Enrichment N2O (if enriched)")]
+        [Display(Name="Estimated Enrichment N2O (if enriched)")]
         public  string EstimatedEnrichmentN2O { get; set; }
 
-        [DisplayName("Brief description of material")]
+        [Display(Name="Brief description of material")]
         [DataType(DataType.MultilineText)]
         public  string Material { get; set; }
 
-        [DisplayName("Range of sample weights")]
+        [Display(Name="Range of sample weights")]
         public  string RangeOfWeights { get; set; }
 
-        [DisplayName("Type of water (ground, seawater, etc.)")]
+        [Display(Name="Type of water (groundwater, seawater, etc.)")]
         public  string TypeOfWater { get; set; }
 
-        [DisplayName("Salinity range")]
+        [Display(Name="Salinity range")]
         public  string SalinityRange { get; set; }
 
-        [DisplayName("Amount of Oxidant")]
+        [Display(Name="Amount of Oxidant")]
         public  string AmountOfOxidant { get; set; }
 
-        // [DisplayName("Type of Oxidant")]
-        // public  OxidantTypes TypeOfOxidant { get; set; }
+        [Display(Name="Type of Oxidant")]
+        public  string TypeOfOxidant { get; set; }
 
-        [DisplayName("pH Range")]
+        [Display(Name="pH Range")]
         public  string pHRange { get; set; }
 
-        [DisplayName("Container Description (specify volume)")]
+        [Display(Name="Container Description (specify volume)")]
         public  string ContainerDescription { get; set; }
 
-        // [DisplayName("Vial Type")]
-        // public  VialTypes VialType { get; set; }
+        [Display(Name="Vial Type")]
+        public  string VialType { get; set; }
 
-        // [DisplayName("DIC Container")]
-        // public  DicContainerTypes DICContainer { get; set; }
+        [Display(Name="DIC Container")]
+        public  string DICContainer { get; set; }
 
-        [DisplayName("Range of Concentration")]
+        [Display(Name="Range of Concentration")]
         public  string RangeOfConcentration { get; set; }
 
-        [DisplayName("Range of Concentration (minimum 1 micromole")]
+        [Display(Name="Range of Concentration (minimum 1 micromole")]
         public  string RangeOfConcentrationNitrate { get; set; }
 
-        [DisplayName("Range of Concentration (N2)")]
+        [Display(Name="Range of Concentration (N2)")]
         public  string RangeOfConcentrationN2 { get; set; }
 
-        [DisplayName("Range of Concentration (N2O")]
+        [Display(Name="Range of Concentration (N2O")]
         public  string RangeOfConcentrationN2O { get; set; }
 
-        [DisplayName("Water samples: I acknowledge $1/sample fee if transfer to 2ml vials is required")]
+        [Display(Name="Water samples: I acknowledge $1/sample fee if transfer to 2ml vials is required")]
         public  bool TransferRequired { get; set; }
 
-        [DisplayName("Nitrate samples: I acknowledge that if I do not provide accurate nitrate concentrations, I will be charged for any necessary reruns.")]
+        [Display(Name="Nitrate samples: I acknowledge that if I do not provide accurate nitrate concentrations, I will be charged for any necessary reruns.")]
         public  bool NitrateStatement { get; set; }
 
-        // [DisplayName("How Sterilized")]
-        // public  SterilizationTypes HowSterilized { get; set; }
+        [Display(Name="How Sterilized")]
+        public  string HowSterilized { get; set; }
 
-        [DisplayName("Volume Sent (minimum 10 ml/sample")]
+        [Display(Name="Volume Sent (minimum 10 ml/sample")]
         public  string VolumeSent { get; set; }
 
-        [DisplayName("Have samples been filtered?")]
+        [Display(Name="Have samples been filtered?")]
         public  bool Filtered { get; set; }
 
-        [DisplayName("Are samples in solvent?")]
+        [Display(Name="Are samples in solvent?")]
         public  bool Solvent { get; set; }
 
-        [DisplayName("If so, what solvent?")]
+        [Display(Name="If so, what solvent?")]
         public  string WhatSolvent { get; set; }
 
-        [DisplayName("What volume of solvent?")]
+        [Display(Name="What volume of solvent?")]
         public  string SolventVolume { get; set; }
 
-        [DisplayName("Check if irreplacable")]
+        [Display(Name="Check if irreplaceable")]
         public  bool Irreplaceable { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -124,70 +123,73 @@ namespace SIFCore.Models
         [StringLength(200)]
         public  string AttachmentContentType { get; set; }
 
-        [DisplayName("Preservative, if any (e.g. zinc chloride)")]
+        [Display(Name="Preservative, if any (e.g. zinc chloride)")]
         public  string Preservative { get; set; }
-
-
-
-        public enum AbundanceTypes
-        {
-            Natural,
-            Enriched
-        }
-
-        public enum OxidantTypes
-        {
-            [DisplayName("No Oxidant Used")]
-            None,
-
-            [DisplayName("Niobium pentoxide (Nb2O5)")]
-            Nb2O5,
-
-            [DisplayName("Vanadium pentoxide (V2O5)")]
-            V2O5
-        }
-
-        public enum VialTypes
-        {
-            [DisplayName("3.7 mL Exetainers")]
-            Exetainers3p7,
-
-            [DisplayName("4.5 mL Exetainers")]
-            Exetainers4p5,
-
-            [DisplayName("5.9 mL Exetainers")]
-            Exetainers5p9,
-
-            [DisplayName("12 mL Exetainers")]
-            Exetainers12,
-
-            [DisplayName("20 mL Headspace Vial")]
-            HeadspaceVial20
-
-        }
-
-        public enum DicContainerTypes
-        {
-            [DisplayName("DIC in exetainer, prepped with H3PO4")]
-            ExetainerPrepped,
-
-            [DisplayName("DIC in exetainer, unprepared")]
-            ExetainerUnprepped,
-
-            [DisplayName("DIC in 40 ml IChem vial")]
-            IChemVial40ml
-        }
-
-        public enum SterilizationTypes
-        {
-            [DisplayName("Sterile Filtered")]
-            FilteredOnly,
-            
-            
-            [DisplayName("Zinc chloride")]
-            ZincChloride
-        }
     }
+
+
+
+    public enum AbundanceTypes
+    {
+            [Display(Name="Natural Abundance")]
+        Natural,
+            [Display(Name="Enriched")]
+        Enriched
+    }
+
+    public enum OxidantTypes
+    {
+        [Display(Name="No Oxidant Used")]
+        None,
+
+        [Display(Name="Niobium pentoxide (Nb2O5)")]
+        Nb2O5,
+
+        [Display(Name="Vanadium pentoxide (V2O5)")]
+        V2O5
+    }
+
+    public enum VialTypes
+    {
+        [Display(Name="3.7 mL Exetainers")]
+        Exetainers3p7,
+
+        [Display(Name="4.5 mL Exetainers")]
+        Exetainers4p5,
+
+        [Display(Name="5.9 mL Exetainers")]
+        Exetainers5p9,
+
+        [Display(Name="12 mL Exetainers")]
+        Exetainers12,
+
+        [Display(Name="20 mL Headspace Vial")]
+        HeadspaceVial20
+
+    }
+
+    public enum DicContainerTypes
+    {
+        [Display(Name="DIC in exetainer, prepped with H3PO4")]
+        ExetainerPrepped,
+
+        [Display(Name="DIC in exetainer, unprepared")]
+        ExetainerUnprepped,
+
+        [Display(Name="DIC in 40 ml IChem vial")]
+        IChemVial40ml
+    }
+
+    public enum SterilizationTypes
+    {
+        [Display(Name="Sterile Filtered")]
+        FilteredOnly,
+        
+        
+        [Display(Name="Zinc chloride")]
+        ZincChloride
+    }
+
 
     
 }

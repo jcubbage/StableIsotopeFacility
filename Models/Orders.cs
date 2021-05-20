@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SIFCore.Helpers;
 
 namespace SIFCore.Models
 {
@@ -12,8 +13,9 @@ namespace SIFCore.Models
         {
             PO = false;
             Hardcopy = false;
-            //PaymentMethod = PaymentTypes.Check;
+            PaymentMethod = PaymentTypes.Check.GetDisplayName();
             Submitted = false;
+            SubmitDate =  DateTime.Parse("1/1/01");
         }
 
        
@@ -31,44 +33,44 @@ namespace SIFCore.Models
         public  ShippingAddresses OrderShippingAddress { get; set; }
 
         [Required]
-        [DisplayName("Shipping Address")]
+        [Display(Name="Data Report Contact")]
         public int ShippingAddress { get; set; }
 
         [ForeignKey("BillingAddress")]
         public  BillingAddresses OrderBillingAddress { get; set; }
 
         [Required]
-        [DisplayName("Billing Address")]
+        [Display(Name="Billing Address")]
         public  int BillingAddress { get; set; }
 
         
 
         [StringLength(500)]
-        [DisplayName("Project Name")]
+        [Display(Name="Project Name")]
         [Required]
         public  string ProjectName { get; set; }
 
         public  bool PO { get; set; }
 
-        [DisplayName("PO Number")]
+        [Display(Name="PO Number")]
         public  string PONumber { get; set; }
 
         
-        [DisplayName("Payment Method")]
+        [Display(Name="Payment Method")]
         public  string PaymentMethod { get; set; }
 
         public  bool Hardcopy { get; set; }
 
         [StringLength(5000)]
         [DataType(DataType.MultilineText)]
-        [DisplayName("Order Notes")]
+        [Display(Name="Order Notes")]
         public  string OrderComments { get; set; }
 
-        [DisplayName("Electronic forms submitted?")]
+        [Display(Name="Electronic forms submitted?")]
         public  bool Submitted { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayName("Submit Date")]
+        [Display(Name="Submit Date")]
         public  DateTime  SubmitDate { get; set; }
 
         

@@ -1,0 +1,371 @@
+@using System.ComponentModel.DataAnnotations
+@using SIFCore.Helpers;
+@model SIFCore.Models.AnalysisViewModel
+
+<div class="row">        
+    <a asp-action="Details" asp-area="client" asp-controller="Order" asp-route-id="@Model.Order.Id" class="btn btn-info">Back to List</a>
+</div> 
+<div class="row">
+    <div asp-validation-summary="All" class="text-danger"></div>
+</div>
+<div class="row">
+    <legend class="legend-lower-height">@Html.Raw(Model.Requirement.FormattedName)</legend>     
+</div>
+<div class="row">
+    @Model.Requirement.Subtitle 
+</div> 
+<div class="row">US @string.Format("{0:c}", Model.Requirement.Cost)/sample</div>
+    <div class="row">
+        <p>All required fields are in marked with  <span class="requiredExample">*</span> next to the field.</p>
+</div>
+<div class="form-group row">
+    <label asp-for="Analysis.NumberOfSamples" class="col-sm-3 col-form-label"></label>        
+    <input asp-for="Analysis.NumberOfSamples" class="col-sm-9 form-control">
+    <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.NumberOfSamples" data-valmsg-replace="true"></span>        
+</div>
+
+@if (Model.Requirement.TrayNames)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.TrayNames"></label>
+        <textarea asp-for="Analysis.TrayNames" class="col-sm-9 form-control"></textarea>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TrayNames" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.Enriched)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.Abundance"></label>
+        @foreach (var e in System.Enum.GetValues(typeof(AbundanceTypes)))
+        {
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="@e">
+                <label class="form-check-label" asp-for="Analysis.Abundance">@e</label>
+            </div>
+        }
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Abundance" data-valmsg-replace="true"></span>
+    </div>
+}   
+    
+@if (Model.Requirement.EstimatedEnrichment)
+{
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.EstimatedEnrichment"></label>
+        <input asp-for="Analysis.EstimatedEnrichment" class="col-sm-7 form-control"> atom %
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.EstimatedEnrichment" data-valmsg-replace="true"></span>
+    </div>        
+}
+
+@if (Model.Requirement.EstimatedEnrichmentN2N2O)
+{
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.EstimatedEnrichmentN2"></label>
+        <input asp-for="Analysis.EstimatedEnrichmentN2" class="col-sm-7 form-control"> atom %
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.EstimatedEnrichmentN2" data-valmsg-replace="true"></span>
+    </div> 
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.EstimatedEnrichmentN2O"></label>
+        <input asp-for="Analysis.EstimatedEnrichmentN2O" class="col-sm-7 form-control"> atom %
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.EstimatedEnrichmentN2O" data-valmsg-replace="true"></span>
+    </div>        
+}
+
+@if (Model.Requirement.Material)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.Material"></label>
+        <textarea asp-for="Analysis.Material" class="col-sm-9 form-control"></textarea>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Material" data-valmsg-replace="true"></span>
+    </div>        
+}
+
+@if (Model.Requirement.RangeOfWeights)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfWeights"></label>
+        <input asp-for="Analysis.RangeOfWeights" class="col-sm-7 form-control"> mg
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfWeights" data-valmsg-replace="true"></span>
+    </div>        
+}
+
+@if (Model.Requirement.TypeOfOxidant)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.TypeOfOxidant"></label>
+        <select asp-for="Analysis.TypeOfOxidant" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<OxidantTypes>()">
+            <option selected="selected" value="">Please select Oxidant</option>
+        </select>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TypeOfOxidant" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.AmountOfOxidant)
+{
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.AmountOfOxidant"></label>
+        <input asp-for="Analysis.AmountOfOxidant" class="col-sm-7 form-control"> mg
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.AmountOfOxidant" data-valmsg-replace="true"></span>
+    </div>          
+}
+    
+@if (Model.Requirement.VialType)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.VialType"></label>
+        <select asp-for="Analysis.VialType" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<VialTypes>()">
+            <option selected="selected" value="">Please select Vial Type</option>
+        </select>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.VialType" data-valmsg-replace="true"></span>
+    </div>        
+} 
+
+@if (Model.Requirement.ContainerDescription)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.ContainerDescription"></label>
+        <input asp-for="Analysis.ContainerDescription" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.ContainerDescription" data-valmsg-replace="true"></span>
+    </div> 
+}
+
+@if (Model.Requirement.TypeOfWater)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.TypeOfWater"></label>
+        <input asp-for="Analysis.TypeOfWater" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TypeOfWater" data-valmsg-replace="true"></span>
+    </div>         
+}
+
+@if (Model.Requirement.SalinityRange)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.SalinityRange"></label>
+        <input asp-for="Analysis.SalinityRange" class="col-sm-7 form-control"> ppt
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SalinityRange" data-valmsg-replace="true"></span>
+    </div>        
+}
+
+@if (Model.Requirement.SalinityRangeDOC)
+{
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.SalinityRange">Salinity Range DOC</label>
+        <input asp-for="Analysis.SalinityRange" class="col-sm-7 form-control"> ppt (maximum 10 ppt) 
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SalinityRange" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.pHRange)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.pHRange"></label>
+        <input asp-for="Analysis.pHRange" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.pHRange" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.pHRangeDH18O)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.pHRange"></label>
+        <input asp-for="Analysis.pHRange" class="col-sm-4 form-control"> 
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.pHRange" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.TransferRequiredWater)
+{   
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.TransferRequired"></label>
+        <div class="form-check form-check-inline">                
+            <input class="form-check-input" type="checkbox" asp-for="Analysis.TransferRequired">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TransferRequired" data-valmsg-replace="true"></span>
+        </div>            
+    </div>
+}
+
+@if (Model.Requirement.TransferRequiredDOC)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.TransferRequired"></label>
+        <div class="form-check form-check-inline">                
+            <input class="form-check-input" type="checkbox" asp-for="Analysis.TransferRequired">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.TransferRequired" data-valmsg-replace="true"></span>
+        </div>            
+    </div>
+}
+
+@if (Model.Requirement.NitrateStatement)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.NitrateStatement"></label>
+        <div class="form-check form-check-inline">                
+            <input class="form-check-input" type="checkbox" asp-for="Analysis.NitrateStatement">
+            <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.NitrateStatement" data-valmsg-replace="true"></span>
+        </div>            
+    </div>
+}
+
+    
+@if (Model.Requirement.DICContainer)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.DICContainer"></label>
+        <select asp-for="Analysis.DICContainer" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<DicContainerTypes>()">
+            <option selected="selected" value="">Please select DIC Container Type</option>
+        </select>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.DICContainer" data-valmsg-replace="true"></span>
+    </div>        
+}
+
+
+@if (Model.Requirement.RangeOfConcentration)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentration"></label>
+        <input asp-for="Analysis.RangeOfConcentration" class="col-sm-7 form-control"> ppm
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentration" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.RangeOfConcentrationNitrate)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentrationNitrate"></label>
+        <input asp-for="Analysis.RangeOfConcentrationNitrate" class="col-sm-7 form-control"> &micro;M
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentrationNitrate" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.RangeOfConcentrationN2N2O)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentrationN2"></label>
+        <input asp-for="Analysis.RangeOfConcentrationN2" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentrationN2" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.RangeOfConcentrationN2O"></label>
+        <input asp-for="Analysis.RangeOfConcentrationN2O" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.RangeOfConcentrationN2O" data-valmsg-replace="true"></span>
+    </div>       
+}
+
+
+@if (Model.Requirement.HowSterilized)
+{
+        <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.HowSterilized"></label>
+        <select asp-for="Analysis.HowSterilized" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<SterilizationTypes>()">
+            <option selected="selected" value="">Please select how sterilized</option>
+        </select>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.HowSterilized" data-valmsg-replace="true"></span>
+    </div>
+}
+
+    @if (Model.Requirement.Preservative)
+{
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.Preservative"></label>
+        <input asp-for="Analysis.Preservative" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Preservative" data-valmsg-replace="true"></span>
+    </div> 
+}
+
+@if (Model.Requirement.VolumeSent)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.VolumeSent"></label>
+        <input asp-for="Analysis.VolumeSent" class="col-sm-7 form-control"> ml
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.VolumeSent" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.Filtered)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.Filtered"></label>
+        <div class="form-check form-check-inline">                
+            <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="true">
+            <label class="form-check-label" asp-for="Analysis.Filtered">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">                
+            <input class="form-check-input" type="radio" asp-for="Analysis.Filtered" value="false">
+            <label class="form-check-label" asp-for="Analysis.Filtered">No</label>
+        </div>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Filtered" data-valmsg-replace="true"></span>
+    </div>
+}
+
+@if (Model.Requirement.Solvent)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.Solvent"></label>
+        <div class="form-check form-check-inline">                
+            <input class="form-check-input" type="checkbox" asp-for="Analysis.Solvent">
+        </div>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Filtered" data-valmsg-replace="true"></span>
+    </div> 
+}
+
+@if (Model.Requirement.WhatSolvent)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.WhatSolvent"></label>
+        <input asp-for="Analysis.WhatSolvent" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.WhatSolvent" data-valmsg-replace="true"></span>
+    </div>        
+}
+
+@if (Model.Requirement.SolventVolume)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.SolventVolume"></label>
+        <input asp-for="Analysis.SolventVolume" class="col-sm-6 form-control"> &micro;L
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SolventVolume" data-valmsg-replace="true"></span>
+    </div>            
+}
+
+@if (Model.Requirement.Irreplaceable)
+{
+    <div class="form-group row required">
+        <label class="col-sm-3 col-form-label" asp-for="Analysis.Irreplaceable"></label>
+        <div class="form-check form-check-inline">                
+            <input class="form-check-input" type="checkbox" asp-for="Analysis.Irreplaceable">
+            <label class="form-check-label" asp-for="Analysis.Irreplaceable">(will delay analysis)</label>
+        </div>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Filtered" data-valmsg-replace="true"></span>
+    </div>       
+}
+
+<div>
+    Current turn around time for this analysis is @Model.Requirement.DateDelay days.
+</div>    
+
+<div class="form-group row required">
+    <label asp-for="Analysis.DateNeeded" class="col-sm-3 col-form-label"></label>
+    <input type="text" class="col-sm-3 form-control datepicker" asp-for="Analysis.DateNeeded">
+        <div class="input-group-append" onclick="$('.datepicker').focus();">             
+            <i class="fa fa-calendar input-group-text"></i>
+        </div>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.DateNeeded" data-valmsg-replace="true"></span>                   
+</div>
+
+
+
+<div class="form-group row">
+    <label class="col-sm-3 col-form-label" asp-for="Analysis.Comments"></label>
+    <textarea asp-for="Analysis.Comments" class="col-sm-9 form-control"></textarea>
+    <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.Comments" data-valmsg-replace="true"></span>
+</div>    
+@if (!String.IsNullOrWhiteSpace(Model.Requirement.Terms))
+{
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" asp-for="Requirement.Terms"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Model.Requirement.Terms
+        </div>
+    </div>
+}
+

@@ -12,7 +12,7 @@ namespace SIFCore.Models
 
        public  string Name { get; set; }
         public  string ListName { get; set; }
-        [DisplayName("Analysis Name")]
+        [Display(Name="Analysis Name")]
         public  string FormattedName { get; set; }
         public  string FolderName { get; set; }
         public  string Subtitle { get; set; }

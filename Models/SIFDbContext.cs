@@ -1,8 +1,7 @@
 
 using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
@@ -11,11 +10,7 @@ using Microsoft.Extensions.Logging.Console;
 namespace SIFCore.Models
 {
      public class SIFContext : DbContext
-    {
-        public SIFContext (DbContextOptions<SIFContext> options)
-            : base(options)
-        {
-        }
+    {       
 
         public DbSet<Orders> Orders { get; set; }
 
@@ -27,17 +22,37 @@ namespace SIFCore.Models
 
         public DbSet<Contacts> Contacts { get; set; }
 
+        public DbSet<Employees> Employees { get; set; }
+
         public DbSet<Requirements> Requirements { get; set; }
 
         public DbSet<ShippingAddresses> ShippingAddresses { get; set; }
+
+        private ILoggerFactory GetLoggerFactory()
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging(builder =>
+                   builder.AddConsole()
+                          .AddFilter(DbLoggerCategory.Database.Command.Name,
+                                     LogLevel.Information));
+            return serviceCollection.BuildServiceProvider()
+                    .GetService<ILoggerFactory>();
+        }
+
+        public SIFContext(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=cherry01;Database=StableIsotopeFacility-Dev;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("SIFCoreContext"));
             }
-            //optionsBuilder.UseLoggerFactory(GetLoggerFactory());
+            optionsBuilder.UseLoggerFactory(GetLoggerFactory());
 
         }
     }

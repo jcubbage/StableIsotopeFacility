@@ -16,7 +16,7 @@ namespace SIFCore.Models
        public virtual string FullNameLastFirst { get { return string.Format("{0}, {1} ", ContactLastName, ContactFirstName); } }
 
             [StringLength(50)]
-            [DisplayName("Address Name")]
+            [Display(Name="Address Name")]
             [Required]
             public  string AddressName { get; set; }
 
@@ -25,26 +25,26 @@ namespace SIFCore.Models
             public  string Department { get; set; }
 
             [StringLength(50)]
-            [DisplayName("Billing Contact First Name")]
+            [Display(Name="Billing Contact First Name")]
             [Required]
             public  string ContactFirstName { get; set; }
 
             [StringLength(50)]
-            [DisplayName("Billing Contact Last Name")]
+            [Display(Name="Billing Contact Last Name")]
             [Required]
             public  string ContactLastName { get; set; }
 
-            [DisplayName("Billing Email Address")]
+            [Display(Name="Billing Email Address")]
             [DataType(DataType.EmailAddress)]
             [Required]
             public  string BillingEmailAddress { get; set; }
 
             [DataType(DataType.PhoneNumber)]
-            [DisplayName("Billing Fax")]
+            [Display(Name="Billing Fax")]
             public  string BillingFax { get; set; }
 
             [DataType(DataType.PhoneNumber)]
-            [DisplayName("Billing Phone")]
+            [Display(Name="Billing Phone")]
             [Required]
             public  string BillingPhone { get; set; }
 
@@ -63,18 +63,18 @@ namespace SIFCore.Models
             public  string City { get; set; }
 
             [StringLength(50)]
-            [DisplayName("State/Governing District")]
+            [Display(Name="State/Governing District")]
             public  string State { get; set; }
 
             [StringLength(50)]
-            [DisplayName("Zip/Postal Code")]
+            [Display(Name="Zip/Postal Code")]
             public  string ZipCode { get; set; }
 
             [StringLength(50)]
             [Required]
             public  string Country { get; set; }
 
-            [DisplayName("Federal ID Number")]
+            [Display(Name="Federal ID # or VAT#")]
             [Required]
             public  string FedIDNum { get; set; }
 

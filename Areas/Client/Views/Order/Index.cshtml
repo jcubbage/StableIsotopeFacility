@@ -31,7 +31,7 @@ Client - Order - Index
                 <td>@app.OrderBillingAddress.AddressName</td>
                 <td>@app.Analyses.Count</td>
                 <td>@app.Analyses.Sum(i => i.NumberOfSamples)</td> 
-                <td>@app.Submitted</td>
+                <td><input name="Submitted" type="checkbox" asp-for="@app.Submitted" disabled /></td>
             </tr>
             }
         </tbody>
@@ -47,8 +47,7 @@ Client - Order - Index
     <script>
         $(document).ready( function () {
             $('#table').DataTable({
-                dom: 'lBfrtip',
-                buttons: ['copyHtml5', 'csvHtml5']
+                dom: 'lfrtip',
             });
         } );
     </script>

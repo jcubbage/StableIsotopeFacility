@@ -41,10 +41,6 @@
         <span class="field-validation-valid text-danger" data-valmsg-for="PIEmail" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row">
-        <label asp-for="PIEmailAdditional" class="col-sm-3 col-form-label"></label>
-        <input asp-for="PIEmailAdditional" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="PIEmailAdditional" data-valmsg-replace="true"></span>
-    </div><div class="form-group row">
         <label asp-for="PIFax" class="col-sm-3 col-form-label"></label>
         <input asp-for="PIFax" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="PIFax" data-valmsg-replace="true"></span>
@@ -53,6 +49,26 @@
         <label asp-for="PIPhone" class="col-sm-3 col-form-label"></label>
         <input asp-for="PIPhone" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="PIPhone" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group row required">
+        <label asp-for="ResearcherFirstName" class="col-sm-3 col-form-label"></label>
+        <input asp-for="ResearcherFirstName" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherFirstName" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group row required">
+        <label asp-for="ResearcherLastName" class="col-sm-3 col-form-label"></label>
+        <input asp-for="ResearcherLastName" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherLastName" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group row required">
+        <label asp-for="ResearcherEmail" class="col-sm-3 col-form-label"></label>
+        <input asp-for="ResearcherEmail" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherEmail" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group row required">
+        <label asp-for="ResearcherPhone" class="col-sm-3 col-form-label"></label>
+        <input asp-for="ResearcherPhone" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherPhone" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row required">
         <label asp-for="Address1" class="col-sm-3 col-form-label"></label>
@@ -89,6 +105,12 @@
         <input asp-for="Country" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="Country" data-valmsg-replace="true"></span>
     </div>
+    <div class="row">
+        <label asp-for="Notes" class="col-sm-3 col-form-label"></label>
+        <textarea asp-for="Notes" class="col-sm-9 form-control"></textarea>
+        <span class="field-validation-valid text-danger" data-valmsg-for="Notes" data-valmsg-replace="true"></span>
+    </div>
+    <div><hr></div>
     <div class="row">
         <input type="submit" value="Create" class="btn btn-primary"> |  
         <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Cancel</a>

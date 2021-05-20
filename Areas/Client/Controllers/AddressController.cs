@@ -168,7 +168,6 @@ namespace SIFCore.Controllers
             addressToUpdate.PIFirstName = address.PIFirstName;
             addressToUpdate.PILastName = address.PILastName;
             addressToUpdate.PIEmail = address.PIEmail;
-            addressToUpdate.PIEmailAdditional = address.PIEmailAdditional;
             addressToUpdate.PIFax = address.PIFax;
             addressToUpdate.PIPhone = address.PIPhone;
             addressToUpdate.Address1 = address.Address1;
@@ -178,6 +177,11 @@ namespace SIFCore.Controllers
             addressToUpdate.State = address.State;
             addressToUpdate.ZipCode = address.ZipCode;
             addressToUpdate.Country = address.Country;
+            addressToUpdate.ResearcherFirstName = address.ResearcherFirstName;
+            addressToUpdate.ResearcherLastName = address.ResearcherLastName;
+            addressToUpdate.ResearcherEmail = address.ResearcherEmail;
+            addressToUpdate.ResearcherPhone = address.ResearcherPhone;
+            addressToUpdate.Notes = address.Notes;
 
              if(ModelState.IsValid){
                 await _dbContext.SaveChangesAsync();
@@ -208,7 +212,6 @@ namespace SIFCore.Controllers
             addressToAdd.PIFirstName = address.PIFirstName;
             addressToAdd.PILastName = address.PILastName;
             addressToAdd.PIEmail = address.PIEmail;
-            addressToAdd.PIEmailAdditional = address.PIEmailAdditional;
             addressToAdd.PIFax = address.PIFax;
             addressToAdd.PIPhone = address.PIPhone;
             addressToAdd.Address1 = address.Address1;
@@ -219,6 +222,11 @@ namespace SIFCore.Controllers
             addressToAdd.ZipCode = address.ZipCode;
             addressToAdd.Country = address.Country;
             addressToAdd.Contact = contact;
+            addressToAdd.ResearcherFirstName = address.ResearcherFirstName;
+            addressToAdd.ResearcherLastName = address.ResearcherLastName;
+            addressToAdd.ResearcherEmail = address.ResearcherEmail;
+            addressToAdd.ResearcherPhone = address.ResearcherPhone;
+            addressToAdd.Notes = address.Notes;
 
              if(ModelState.IsValid){
                  _dbContext.Add(addressToAdd);

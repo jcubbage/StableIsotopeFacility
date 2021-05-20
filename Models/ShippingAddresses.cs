@@ -37,10 +37,7 @@ namespace SIFCore.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public  string PIEmail { get; set; }
-
-        [Display(Name="PI Additional Email Address")]
-        [DataType(DataType.EmailAddress)]
-        public  string PIEmailAdditional { get; set; }
+        
 
         [DataType(DataType.PhoneNumber)]
         [Display(Name="PI Fax")]
@@ -82,6 +79,28 @@ namespace SIFCore.Models
         public  Contacts Contact { get; set; }
         
         public int ContactId { get; set; }
+
+        [StringLength(50)]        
+        [Display(Name="Researcher First Name")]
+        public string ResearcherFirstName { get; set; }
+
+        [StringLength(50)]        
+        [Display(Name="Researcher Last Name")]
+        public string ResearcherLastName { get; set; }
+
+        [Display(Name= "Researcher Email Address")]        
+        [DataType(DataType.EmailAddress)]
+        public  string ResearcherEmail { get; set; }        
+
+        
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name="Researcher Phone")]
+        public  string ResearcherPhone { get; set; }
+
+        [StringLength(5000)]
+        public string Notes { get; set; }
+
+        
 
     }
 }

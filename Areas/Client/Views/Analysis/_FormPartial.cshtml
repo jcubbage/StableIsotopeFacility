@@ -37,7 +37,7 @@
 {
     <div class="form-group row required">
         <label class="col-sm-3 col-form-label" asp-for="Analysis.Abundance"></label>
-        @foreach (var e in System.Enum.GetValues(typeof(AbundanceTypes)))
+        @foreach (var e in EnumHelper.GetListOfDisplayNames<AbundanceTypes>() )
         {
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" asp-for="Analysis.Abundance" value="@e">
@@ -300,7 +300,7 @@
 
 @if (Model.Requirement.Solvent)
 {
-    <div class="form-group row required">
+    <div class="form-group row">
         <label class="col-sm-3 col-form-label" asp-for="Analysis.Solvent"></label>
         <div class="form-check form-check-inline">                
             <input class="form-check-input" type="checkbox" asp-for="Analysis.Solvent">
@@ -311,7 +311,7 @@
 
 @if (Model.Requirement.WhatSolvent)
 {
-    <div class="form-group row required">
+    <div class="form-group row">
         <label class="col-sm-3 col-form-label" asp-for="Analysis.WhatSolvent"></label>
         <input asp-for="Analysis.WhatSolvent" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.WhatSolvent" data-valmsg-replace="true"></span>
@@ -320,7 +320,7 @@
 
 @if (Model.Requirement.SolventVolume)
 {
-    <div class="form-group row required">
+    <div class="form-group row">
         <label class="col-sm-3 col-form-label" asp-for="Analysis.SolventVolume"></label>
         <input asp-for="Analysis.SolventVolume" class="col-sm-6 form-control"> &micro;L
         <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.SolventVolume" data-valmsg-replace="true"></span>
@@ -329,7 +329,7 @@
 
 @if (Model.Requirement.Irreplaceable)
 {
-    <div class="form-group row required">
+    <div class="form-group row">
         <label class="col-sm-3 col-form-label" asp-for="Analysis.Irreplaceable"></label>
         <div class="form-check form-check-inline">                
             <input class="form-check-input" type="checkbox" asp-for="Analysis.Irreplaceable">

@@ -131,9 +131,9 @@ namespace SIFCore.Models
 
     public enum AbundanceTypes
     {
-            [Display(Name="Natural Abundance")]
+        [Display(Name="Natural Abundance")]
         Natural,
-            [Display(Name="Enriched")]
+        [Display(Name="Enriched")]
         Enriched
     }
 

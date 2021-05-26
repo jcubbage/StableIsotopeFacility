@@ -33,14 +33,14 @@ namespace SIFCore.Models
         public  ShippingAddresses OrderShippingAddress { get; set; }
 
         [Required]
-        [Display(Name="Data Report Contact")]
+        [Display(Name="Scientific Contact")]
         public int ShippingAddress { get; set; }
 
         [ForeignKey("BillingAddress")]
         public  BillingAddresses OrderBillingAddress { get; set; }
 
         [Required]
-        [Display(Name="Billing Address")]
+        [Display(Name="Billing Contact")]
         public  int BillingAddress { get; set; }
 
         

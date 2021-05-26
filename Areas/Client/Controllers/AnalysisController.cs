@@ -67,6 +67,7 @@ namespace SIFCore.Controllers
                 ErrorMessage = "Please see errors.";
                 vm.Order = order;
                 var requirement = analysisToEdit.AnalysisRequirement;
+                vm.Requirement = requirement;
                 return View(vm);
             }
          }

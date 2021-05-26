@@ -244,6 +244,10 @@ namespace SIFCore.Helpers
                {
                    state.AddModelError("Analysis.WhatSolvent", "What solvent field must be provided if samples are in solvent");
                }
+               if (!analysis.Solvent && !string.IsNullOrWhiteSpace(analysis.WhatSolvent))
+               {
+                   state.AddModelError("Analysis.WhatSolvent", "What solvent field must be blank if samples not in solvent");
+               }
            }
 
            if (analysis.AnalysisRequirement.SolventVolume)
@@ -251,6 +255,10 @@ namespace SIFCore.Helpers
                if (analysis.Solvent && string.IsNullOrWhiteSpace(analysis.SolventVolume))
                {
                    state.AddModelError("Analysis.SolventVolume", "Solvent volume field must be provided if samples are in solvent");
+               }
+               if (!analysis.Solvent && !string.IsNullOrWhiteSpace(analysis.SolventVolume))
+               {
+                   state.AddModelError("Analysis.SolventVolume", "Solvent volume field must blank if samples not are in solvent");
                }
            }
 

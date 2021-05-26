@@ -64,8 +64,8 @@ namespace SIFCore
                         var kerb = assertion.PrincipalName;
 
                         if (string.IsNullOrWhiteSpace(kerb)) return;
-
-                        var identityService = services.BuildServiceProvider().GetService<IIdentityService>();
+                       
+                        var identityService = services.BuildServiceProvider().GetRequiredService<IIdentityService>();
                         
 
                         var user = await identityService.GetByKerberos(kerb);
@@ -75,7 +75,7 @@ namespace SIFCore
                             return;
                         }                        
 
-                         var existingClaim = identity.FindFirst(ClaimTypes.Name);
+                        var existingClaim = identity.FindFirst(ClaimTypes.Name);
                         if(existingClaim != null)
                         {
                             identity.RemoveClaim(identity.FindFirst(ClaimTypes.Name));

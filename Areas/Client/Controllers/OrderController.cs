@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SIFCore.Models;
 
-namespace SIFCore.Controllers
+namespace SIFCore.Controllers.Client
 {    
     public class OrderController : ClientController
     {
@@ -21,28 +21,17 @@ namespace SIFCore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var orders = await _dbContext.Orders.Where(o => o.ContactId.ToString() == User.FindFirstValue("contactId"))
+            var orders = await _dbContext.Orders.Where(o => o.ContactId == Int32.Parse(User.FindFirstValue("contactId")))
                 .Include(o => o.OrderShippingAddress)
                 .Include(o => o.OrderBillingAddress)
                 .Include(o => o.Analyses)
-                .ToListAsync();
-            // if (showSubmitted == "No")
-            // {
-            //     orders = orders.Where(a => !a.Submitted);
-            // }
-            // if (showSubmitted == "Yes")
-            // {
-            //     orders = orders.Where(a => a.Submitted);
-            // }
-            // orders = orders.OrderBy(b => b.Id);
-            // ViewBag.Query = showSubmitted;
-            
+                .ToListAsync();            
             return View(orders);
         }
 
         public async Task<IActionResult> New()
         {
-            var model = await CreateOrdersViewModel.Create(_dbContext, 0, User.FindFirstValue("contactId"));
+            var model = await CreateOrdersViewModel.Create(_dbContext, 0, Int32.Parse(User.FindFirstValue("contactId")));
             return View(model);
         }
 
@@ -74,7 +63,7 @@ namespace SIFCore.Controllers
                 Message = "Order Created";
             } else {
                 ErrorMessage = "Something went wrong"; 
-                var model = await CreateOrdersViewModel.Create(_dbContext, 0, User.FindFirstValue("contactId"));                        
+                var model = await CreateOrdersViewModel.Create(_dbContext, 0, Int32.Parse(User.FindFirstValue("contactId")));
                 return View(model);
             }
 
@@ -83,7 +72,7 @@ namespace SIFCore.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id, User.FindFirstValue("contactId"));
+            var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id, Int32.Parse(User.FindFirstValue("contactId")));
             if(model.Order == null)
             {
                 ErrorMessage = "Order not found!";

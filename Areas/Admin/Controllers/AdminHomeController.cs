@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SIFCore.Models;
 
-namespace SIFCore.Controllers
+namespace SIFCore.Controllers.Admin
 {
     public class AdminHomeController : AdminController
     {

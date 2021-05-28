@@ -1,0 +1,136 @@
+@model SIFCore.Models.Contacts
+
+
+<div class="container col-sm-11">
+	<div class="row">
+		<div><h1>Contacts for @Model.FullName</h1></div>
+	</div>
+	<div class="row">
+
+		<h2>Scientific Contacts</h2> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="btn btn-primary" asp-action="ShippingCreate" asp-route-id="@Model.Id">Create New</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>
+						Address Name
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Address Line 1
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Phone
+					</th>
+					<th>
+						Institution
+					</th>
+					<th>
+						Department
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		@foreach (var item in Model.ShippingAddresseses) {
+				<tr>
+					<td>
+						<a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>
+						<a class="btn btn-primary" asp-action="ShippingEdit" asp-controller="Address" asp-route-id="@item.Id">Edit</a>
+					</td>
+					<td>
+						@item.AddressName
+					</td>
+					<td>
+						@item.PIFirstName @item.PILastName  
+					</td>
+					<td>
+						@item.Address1
+					</td>
+					<td>
+						@item.PIEmail
+					<td>
+						@item.PIPhone
+					</td>
+					<td>
+						@item.Institution
+					</td>
+					<td>
+						@item.Department
+					</td>
+				</tr>
+		}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<hr>
+	</div>
+	<div class="row">
+		<h3>Billing Contacts</h3> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a class="btn btn-primary" asp-action="BillingCreate" asp-route-id="@Model.Id">Create New</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>
+						Address Name
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Address Line 1
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Phone
+					</th>
+					<th>
+						Institution
+					</th>
+					<th>
+						Department
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+		@foreach (var item in Model.BillingAddresseses) {
+				<tr>
+					<td>
+						<a asp-action="BillingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>
+						<a class="btn btn-primary" asp-action="BillingEdit" asp-controller="Address" asp-route-id="@item.Id">Edit</a>						
+					</td>
+					<td>
+						@item.AddressName
+					</td>
+					<td>
+						@item.ContactFirstName @item.ContactLastName
+					</td>
+					<td>
+						@item.Address1
+					</td>
+					<td>
+						@item.BillingEmailAddress
+					<td>
+						@item.BillingPhone
+					</td>
+					<td>
+						@item.Institution
+					</td>
+					<td>
+						@item.Department
+					</td>
+				</tr>
+		}
+			</tbody>
+		</table>
+	</div>
+</div>

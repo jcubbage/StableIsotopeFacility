@@ -7,7 +7,7 @@
 <div class="container col-lg-5">     
     <div class="row">        
         <a asp-action="ShippingDetails" class="btn btn-dark" asp-route-id="@Model.Id">Cancel</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
+        <a asp-action="Index" asp-controller="Address" asp-route-id="@Model.ContactId" class="btn btn-info">Back to List</a>
     </div> 
     <div class="row">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -116,7 +116,7 @@
     <div class="row">
         <input type="submit" value="Update" class="btn btn-primary"> | 
         <a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@Model.Id">Cancel</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
+        <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Back to List</a>
     </div>    
 </div>
 </form>

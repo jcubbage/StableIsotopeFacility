@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SIFCore.Helpers;
 using SIFCore.Models;
 
-namespace SIFCore.Controllers
+namespace SIFCore.Controllers.Client
 {    
     public class AnalysisController : ClientController
     {

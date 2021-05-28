@@ -2,8 +2,58 @@
 
 <h2>@Model.Order.ProjectName Details</h2>
 
+<div class="container col-lg-10">
+        <div class="row">             
+            <div asp-validation-summary="All" class="text-danger"></div>            
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.ProjectName" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Order.ProjectName)
+            </div>
+        </div>       
+        <div class="form-group row">
+            <label asp-for="Order.ShippingAddress" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Order.OrderShippingAddress.AddressName)
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.BillingAddress" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Order.OrderBillingAddress.AddressName)
+            </div>                   
+        </div>
+        @if(Model.Order.PO)
+        {
+        <div class="form-group row">
+            <label asp-for="Order.PO" class="col-sm-3 col-form-label"></label>
+            <input type="checkbox" class="col-sm-3 form-control" asp-for="Order.PO" disabled>                                
+        </div>
+        
+        <div class="form-group row">
+            <label asp-for="Order.PONumber" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Order.PONumber)
+            </div>                 
+        </div>  
+        }
+        <div class="form-group row">
+            <label asp-for="Order.PaymentMethod" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Order.PaymentMethod)
+            </div>                             
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.OrderComments" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Order.OrderComments)
+            </div>
+        </div>        
+    </div>
+
 @if(Model.Analyses.Count!=0)
-{
+{<h3>Analyses</h3>
     <table border="0" width="100%">
         <tr>
             <th>View/Edit</th>

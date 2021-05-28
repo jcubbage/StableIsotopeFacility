@@ -34,7 +34,7 @@
 				</tr>
 			</thead>
 			<tbody>
-		@foreach (var item in Model.ShippingAddresseses) {
+		@foreach (var item in Model.ShippingAddresses) {
 				<tr>
 					<td>
 						<a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>
@@ -99,7 +99,7 @@
 				</tr>
 			</thead>
 			<tbody>
-		@foreach (var item in Model.BillingAddresseses) {
+		@foreach (var item in Model.BillingAddresses) {
 				<tr>
 					<td>
 						<a asp-action="BillingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>

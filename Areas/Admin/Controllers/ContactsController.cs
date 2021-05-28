@@ -19,6 +19,15 @@ namespace SIFCore.Controllers.Admin
             _dbContext = dbContext;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var model = await _dbContext.Contacts
+                .Include(c => c.ShippingAddresses)
+                .Include(c => c.BillingAddresses)
+                .ToListAsync();
+            return View(model);
+        }
+
        public IActionResult New()
        {
            var model = new Contacts();

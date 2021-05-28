@@ -22,8 +22,8 @@ namespace SIFCore.Controllers.Admin
         public async Task<IActionResult> Index(int id)
         {
             var contacts = await _dbContext.Contacts.Where(c => c.Id == id)
-                .Include(c => c.BillingAddresseses)
-                .Include(c => c.ShippingAddresseses)
+                .Include(c => c.BillingAddresses)
+                .Include(c => c.ShippingAddresses)
                 .FirstAsync();
             return View(contacts);
         }

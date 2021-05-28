@@ -41,8 +41,8 @@ namespace SIFCore.Models
         [StringLength(50)]
         public  string Fax { get; set; }
 
-        public  IList<ShippingAddresses> ShippingAddresseses { get; set; }
-        public  IList<BillingAddresses> BillingAddresseses { get; set; }
+        public  IList<ShippingAddresses> ShippingAddresses { get; set; }
+        public  IList<BillingAddresses> BillingAddresses { get; set; }
         //public  IList<Role> Roles { get; set; }
     }
 }

@@ -72,7 +72,7 @@ namespace SIFCore.Controllers.Client
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id, Int32.Parse(User.FindFirstValue("contactId")));
+            var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id);
             if(model.Order == null)
             {
                 ErrorMessage = "Order not found!";

@@ -1,0 +1,344 @@
+@using System.ComponentModel.DataAnnotations
+@using SIFCore.Helpers;
+@using SIFCore.Models;
+@model Analysis
+
+<div class="container col-sm-12">
+    <legend class="legend-lower-height">@Html.Raw(Model.AnalysisRequirement.FormattedName)</legend>
+    <div>@Model.AnalysisRequirement.Subtitle</div>
+    <div class="display-label">US @string.Format("{0:c}", Model.AnalysisRequirement.Cost)/sample</div>
+
+        <div class="form-group row">
+            <label asp-for="NumberOfSamples" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.NumberOfSamples)
+            </div>
+        </div>      
+        
+        @if (Model.AnalysisRequirement.TrayNames)
+        {
+            <div class="form-group row">
+                <label asp-for="TrayNames" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.TrayNames)
+                </div>
+            </div>           
+        }
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" asp-for="Abundance"></label>
+            @foreach (var e in System.Enum.GetValues(typeof(AbundanceTypes)))
+            {               
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Abundance" value="@e" disabled="disabled" >
+                    <label class="form-check-label" asp-for="Abundance">@e</label>
+                </div>                
+            }
+        </div>
+        
+        @if (Model.AnalysisRequirement.EstimatedEnrichment && Model.Abundance == AbundanceTypes.Enriched.GetDisplayName())
+        {
+            <div class="form-group row">
+                <label asp-for="EstimatedEnrichment" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.EstimatedEnrichment) atom %
+                </div>
+            </div>
+        }
+      
+        @if (Model.AnalysisRequirement.EstimatedEnrichmentN2N2O && Model.Abundance == AbundanceTypes.Enriched.GetDisplayName())
+        {
+             <div class="form-group row">
+                <label asp-for="EstimatedEnrichmentN2" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.EstimatedEnrichmentN2) atom %
+                </div>
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.EstimatedEnrichmentN2N2O && Model.Abundance == AbundanceTypes.Enriched.GetDisplayName())
+        {
+            <div class="form-group row">
+                <label asp-for="EstimatedEnrichmentN2O" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.EstimatedEnrichmentN2O) atom %
+                </div>
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.Material)
+        {
+            <div class="form-group row">
+                <label asp-for="Material" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Material)
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfWeights)
+        {
+            <div class="form-group row">
+                <label asp-for="RangeOfWeights" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.RangeOfWeights) mg
+                </div>
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.TypeOfOxidant)
+        {
+            <div class="form-group row required">
+                <label class="col-sm-3 col-form-label" asp-for="TypeOfOxidant"></label>
+                <select asp-for="TypeOfOxidant" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<OxidantTypes>()" disabled="disabled"></select>
+            </div>            
+        }
+        
+        @if (Model.AnalysisRequirement.AmountOfOxidant)
+        {
+            <div class="form-group row">
+                <label asp-for="AmountOfOxidant" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.AmountOfOxidant) mg
+                </div>
+            </div>
+        } 
+        
+        @if (Model.AnalysisRequirement.VialType)
+        {
+            <div class="form-group row required">
+                <label class="col-sm-3 col-form-label" asp-for="VialType"></label>
+                <select asp-for="VialType" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<VialTypes>()" disabled="disabled"></select>
+            </div>                
+        }  
+        
+        @if (Model.AnalysisRequirement.ContainerDescription)
+        {
+            <div class="form-group row">
+                <label asp-for="ContainerDescription" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.ContainerDescription)
+                </div>
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.TypeOfWater)
+        {
+            <div class="form-group row">
+                <label asp-for="TypeOfWater" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.TypeOfWater)
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.SalinityRange)
+        {
+            <div class="form-group row">
+                <label asp-for="SalinityRange" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.SalinityRange) ppt
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.SalinityRangeDOC)
+        {
+            <div class="form-group row">
+                <label asp-for="SalinityRange" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.SalinityRange)  ppt (maximum 10 ppt) 
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.pHRange)
+        {
+            <div class="form-group row">
+                <label asp-for="pHRange" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.pHRange)
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.pHRangeDH18O)
+        {
+            <div class="form-group row">
+                <label asp-for="pHRange" class="col-sm-3 col-form-label"></label> DH18O
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.pHRange) Samples outside the pH range of 5-9 will not be analyzed. 
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.TransferRequiredWater)
+        {
+             <div class="form-group row">
+                <label asp-for="TransferRequired" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-1 form-check">
+                   <input class="form-check-input" type="checkbox" asp-for="TransferRequired" disabled="disabled">
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.TransferRequiredDOC)
+        {
+            <div class="form-group row">
+                <label asp-for="TransferRequired" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-1 form-check">
+                   <input class="form-check-input" type="checkbox" asp-for="TransferRequired" disabled="disabled">
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.NitrateStatement)
+        {
+            <div class="form-group row">
+                <label asp-for="NitrateStatement" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-1 form-check">
+                   <input class="form-check-input" type="checkbox" asp-for="NitrateStatement" disabled="disabled">
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.DICContainer)
+        {
+            <div class="form-group row required">
+                <label class="col-sm-3 col-form-label" asp-for="DICContainer"></label>
+                <select asp-for="DICContainer" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<DicContainerTypes>()" disabled="disabled"></select>
+            </div>             
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfConcentration)
+        {
+            <div class="form-group row">
+                <label asp-for="RangeOfConcentration" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.RangeOfConcentration) ppm
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfConcentrationNitrate)
+        {
+            <div class="form-group row">
+                <label asp-for="RangeOfConcentrationNitrate" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.RangeOfConcentrationNitrate) &micro;M
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.RangeOfConcentrationN2N2O)
+        {
+            <div class="form-group row">
+                <label asp-for="RangeOfConcentrationN2" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.RangeOfConcentrationN2)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="RangeOfConcentrationN2O" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.RangeOfConcentrationN2O)
+                </div>
+            </div>
+        }
+
+        @if (Model.AnalysisRequirement.HowSterilized)
+        {
+            <div class="form-group row required">
+                <label class="col-sm-3 col-form-label" asp-for="HowSterilized"></label>
+                <select asp-for="HowSterilized" class="col-sm-3 form-control" asp-items="EnumHelper.GetSelectListItems<SterilizationTypes>()" disabled="disabled"></select>
+            </div>
+        }
+       
+        @if (Model.AnalysisRequirement.VolumeSent)
+        {
+            <div class="form-group row">
+                <label asp-for="VolumeSent" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.VolumeSent) ml
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.Filtered)
+        {
+            <div class="form-group row">
+                <label asp-for="Filtered" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-1 form-check">
+                   <input class="form-check-input" type="checkbox" asp-for="Filtered" disabled="disabled">
+                </div>
+            </div>            
+        }
+        
+        @if (Model.AnalysisRequirement.Solvent)
+        {
+            <div class="form-group row">
+                <label asp-for="Solvent" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-1 form-check">
+                   <input class="form-check-input" type="checkbox" asp-for="Solvent" disabled="disabled">
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.WhatSolvent) 
+        {
+            <div class="form-group row">
+                <label asp-for="WhatSolvent" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.WhatSolvent)
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.SolventVolume)
+        {
+            <div class="form-group row">
+                <label asp-for="SolventVolume" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.SolventVolume)
+                </div>
+            </div>
+        }
+        
+        @if (Model.AnalysisRequirement.Irreplaceable)
+        {
+            <div class="form-group row">
+                <label asp-for="Irreplaceable" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-1 form-check">
+                   <input class="form-check-input" type="checkbox" asp-for="Irreplaceable" disabled="disabled">
+                </div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <label asp-for="DateNeeded" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.DateNeeded)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Comments" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Comments)
+            </div>
+        </div>
+		
+         @if (!String.IsNullOrWhiteSpace(Model.AnalysisRequirement.Terms))
+        {
+            <div class="form-group row">
+                <label asp-for="AnalysisRequirement.Terms" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Model.AnalysisRequirement.Terms
+                </div>
+            </div>
+        }
+
+    
+    <div>@Html.ActionLink("Edit Analysis", "Edit", "Analysis", new { id = Model.Id }, new { @class = "button-link" }) </div>
+</div>
+

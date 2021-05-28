@@ -35,18 +35,19 @@ namespace SIFCore.Models
 			return viewModel;
 		}
 
-        public static async Task<CreateOrdersViewModel> EditViewModel(SIFContext _dbContext, int orderId, int contactId)
+        public static async Task<CreateOrdersViewModel> EditViewModel(SIFContext _dbContext, int orderId)
         {
+            var thisOrder = await _dbContext.Orders.Where(o => o.Id == orderId).FirstOrDefaultAsync();
             var viewModel = new CreateOrdersViewModel
             {
-                Order = await _dbContext.Orders.Where(o => o.Id == orderId).FirstOrDefaultAsync(),
+                Order = thisOrder,
                 Analyses = await _dbContext.Analysis.Where(a => a.OrderId == orderId)
                     .Include(a => a.AnalysisRequirement)
                     .ToListAsync(),
                 AnalysisTypes = await _dbContext.AnalysisTypes.OrderBy(at => at.AnalysisOrder).ToListAsync(),
                 Requirements = await _dbContext.Requirements.Where(r => r.CurrentAnalysis).OrderBy(r => r.AnalysisOrder).ToListAsync(),
-                ShippingAddresses = await _dbContext.ShippingAddresses.Where(s => s.ContactId == contactId).OrderBy(s => s.AddressName).ToListAsync(),
-                BillingAddresses = await _dbContext.BillingAddresses.Where(b => b.ContactId == contactId).OrderBy(b => b.AddressName).ToListAsync(),
+                ShippingAddresses = await _dbContext.ShippingAddresses.Where(s => s.ContactId == thisOrder.ContactId).OrderBy(s => s.AddressName).ToListAsync(),
+                BillingAddresses = await _dbContext.BillingAddresses.Where(b => b.ContactId == thisOrder.ContactId).OrderBy(b => b.AddressName).ToListAsync(),
                 PaymentOptions = EnumHelper.GetListOfDisplayNames<PaymentTypes>(),
             };
  

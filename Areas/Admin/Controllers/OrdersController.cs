@@ -19,9 +19,13 @@ namespace SIFCore.Controllers.Admin
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await _dbContext.Orders
+                .Include(o => o.Contact)
+                .Include(o => o.Analyses)
+                .ToListAsync();
+            return View(model);
         }
 
         public async Task<IActionResult> StartNew()
@@ -33,6 +37,17 @@ namespace SIFCore.Controllers.Admin
         public async Task<IActionResult> Create(int id)
         {
             var model = await CreateOrdersViewModel.Create(_dbContext, 0, id);
+            return View(model);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+             var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id);
+            if(model.Order == null)
+            {
+                ErrorMessage = "Order not found!";
+                return RedirectToAction(nameof(Index));
+            }
             return View(model);
         }
 

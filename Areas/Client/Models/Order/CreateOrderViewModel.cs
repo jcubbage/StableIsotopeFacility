@@ -37,7 +37,10 @@ namespace SIFCore.Models
 
         public static async Task<CreateOrdersViewModel> EditViewModel(SIFContext _dbContext, int orderId)
         {
-            var thisOrder = await _dbContext.Orders.Where(o => o.Id == orderId).FirstOrDefaultAsync();
+            var thisOrder = await _dbContext.Orders
+                .Include(o => o.OrderShippingAddress)
+                .Include(o => o.OrderBillingAddress)
+                .Where(o => o.Id == orderId).FirstOrDefaultAsync();
             var viewModel = new CreateOrdersViewModel
             {
                 Order = thisOrder,

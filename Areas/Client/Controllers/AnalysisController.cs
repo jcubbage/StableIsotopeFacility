@@ -24,6 +24,7 @@ namespace SIFCore.Controllers.Client
         {
             var analysis = await _dbContext.Analysis
                 .Include(a => a.AnalysisRequirement)
+                .Include(a => a.Order)
                 .Where(a => a.Id == id).FirstOrDefaultAsync();
             if (analysis == null) return RedirectToAction("Index", "Order", new {Area = "Client"});
 
@@ -33,6 +34,11 @@ namespace SIFCore.Controllers.Client
         public async Task<IActionResult> Edit(int id)
         {
             var model = await AnalysisViewModel.Edit(_dbContext, id);
+            if(model.Order.Submitted)
+            {
+                ErrorMessage = "Cannot Edit submitted orders";
+                return RedirectToAction("Details", "Order", new { id = model.Order.Id, Area = "Client" });
+            }
             return View(model);
         }
 

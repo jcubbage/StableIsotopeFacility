@@ -37,6 +37,12 @@ namespace SIFCore.Controllers.Admin
        [HttpPost]
        public async Task<IActionResult> New(Contacts newContact)
        {
+           var check = await _dbContext.Contacts.Where(c => c.Email == newContact.Email).AnyAsync();
+           if(check)
+           {
+               ErrorMessage = "Contact with that email already exists!";
+               return View(newContact);
+           }
            var contactToCreate = new Contacts();
            contactToCreate.FirstName = newContact.FirstName;
            contactToCreate.LastName = newContact.LastName;
@@ -53,6 +59,42 @@ namespace SIFCore.Controllers.Admin
             }
 
             return RedirectToAction("Create", nameof(Orders), new { id = contactToCreate.Id });  
+       }
+
+       public async Task<IActionResult> Edit(int id)
+       {
+           var model = await _dbContext.Contacts.Where(c => c.Id == id).FirstOrDefaultAsync();
+           if(model == null)
+           {
+               ErrorMessage = "Contact not found";
+               return RedirectToAction(nameof(Index));
+           }
+           return View(model);
+       }
+
+       [HttpPost]
+       public async Task<IActionResult> Edit(int id, Contacts updatedContact)
+       {           
+           var contactToUpdate = await _dbContext.Contacts.Where(c => c.Id == id).FirstOrDefaultAsync();
+           if(contactToUpdate == null || contactToUpdate.Id != updatedContact.Id)
+           {
+               ErrorMessage = "Contact not found";
+               return RedirectToAction(nameof(Index));
+           }
+           contactToUpdate.FirstName = updatedContact.FirstName;
+           contactToUpdate.LastName = updatedContact.LastName;
+           contactToUpdate.Phone = updatedContact.Phone;
+           contactToUpdate.Email = updatedContact.Email;
+
+           if(ModelState.IsValid){              
+                await _dbContext.SaveChangesAsync();
+                Message = "Contact Updated";
+            } else {
+                ErrorMessage = "Something went wrong.";                
+                return View(updatedContact); 
+            }
+
+            return RedirectToAction(nameof(Index));  
        }
 
     }

@@ -21,7 +21,7 @@
             @foreach (var contact in Model)
             {
             <tr>
-               <td>Edit</td>
+               <td><a asp-action="Edit" asp-route-id="@contact.Id" class="btn btn-primary">Edit</a></td>
                <td>@contact.Id</td>
                <td>@contact.FirstName</td>
                <td>@contact.LastName</td>

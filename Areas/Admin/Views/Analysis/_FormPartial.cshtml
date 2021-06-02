@@ -3,7 +3,7 @@
 @model SIFCore.Models.AnalysisViewModel
 
 <div class="row">        
-    <a asp-action="Details" asp-area="client" asp-controller="Order" asp-route-id="@Model.Order.Id" class="btn btn-info">Back to List</a>
+    <a asp-action="Details" asp-controller="Orders" asp-route-id="@Model.Order.Id" class="btn btn-info">Back to List</a>
 </div> 
 <div class="row">
     <div asp-validation-summary="All" class="text-danger"></div>

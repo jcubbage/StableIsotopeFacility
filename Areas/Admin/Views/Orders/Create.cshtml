@@ -28,7 +28,7 @@
         </div>
         <div class="form-group row">
             <label asp-for="Order.PO" class="col-sm-3 col-form-label"></label>
-            <input type="checkbox" class="col-sm-3 form-control" asp-for="Order.PO">  Is a PO being issued by our institution for this order?                                 
+            <input type="checkbox" class="col-sm-3 form-control" asp-for="Order.PO">                                
         </div>
         <div class="form-group row">
             <label asp-for="Order.PONumber" class="col-sm-3 col-form-label"></label>
@@ -39,18 +39,11 @@
             <label asp-for="Order.PaymentMethod" class="col-sm-3 col-form-label"></label>
             <select asp-for="Order.PaymentMethod" class="col-sm-3 form-control" asp-items="@(new SelectList(Model.PaymentOptions))"></select>                     
             <span class="field-validation-valid text-danger" data-valmsg-for="Order.ShippingAddress" data-valmsg-replace="true"></span>                             
-        </div>
-        <div class="row">
-            Invoices are delivered by e-mail from sifaccounting@ucdavis.edu. 
-        </div>
+        </div>        
         <div class="form-group row">
             <label asp-for="Order.OrderComments" class="col-sm-3 col-form-label"></label>
             <textarea class="form-control" asp-for="Order.OrderComments" rows="3"></textarea>
-        </div> 
-        <div class="row">
-            By submitting this request, you acknowledge the following Terms & Conditions: The university, its officers, employees, and agents shall not be accountable for any loss, expense (including attorneys’ fees), damage, or liability of any kind resulting from or arising out of services provided hereunder unless caused by negligent or willful acts or omissions by the university, its officers, employees, or agents.
-
-        </div>
+        </div>        
         <div class="row">
             <input type="submit" value="Begin Order" class="btn btn-primary"></input> | 
             <a class="btn btn-dark" asp-action="Index" asp-controller="Orders" >Cancel</a>

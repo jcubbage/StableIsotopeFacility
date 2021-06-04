@@ -25,26 +25,24 @@ namespace SIFCore.Models
             public  string Department { get; set; }
 
             [StringLength(50)]
-            [Display(Name="Billing Contact First Name")]
+            [Display(Name="First")]
             [Required]
             public  string ContactFirstName { get; set; }
 
             [StringLength(50)]
-            [Display(Name="Billing Contact Last Name")]
+            [Display(Name="Last")]
             [Required]
             public  string ContactLastName { get; set; }
 
-            [Display(Name="Billing Email Address")]
+            [Display(Name="Email")]
             [DataType(DataType.EmailAddress)]
             [Required]
             public  string BillingEmailAddress { get; set; }
 
-            [DataType(DataType.PhoneNumber)]
-            [Display(Name="Billing Fax")]
-            public  string BillingFax { get; set; }
+          
 
             [DataType(DataType.PhoneNumber)]
-            [Display(Name="Billing Phone")]
+            [Display(Name="Phone")]
             [Required]
             public  string BillingPhone { get; set; }
 
@@ -55,27 +53,24 @@ namespace SIFCore.Models
             [StringLength(50)]
             public  string Address2 { get; set; }
 
-            [StringLength(50)]
-            public  string Address3 { get; set; }
-
+          
             [StringLength(50)]
             [Required]
             public  string City { get; set; }
 
             [StringLength(50)]
-            [Display(Name="State/Governing District")]
+            [Display(Name="State")]
             public  string State { get; set; }
 
             [StringLength(50)]
-            [Display(Name="Zip/Postal Code")]
+            [Display(Name="Zip")]
             public  string ZipCode { get; set; }
 
             [StringLength(50)]
             [Required]
             public  string Country { get; set; }
 
-            [Display(Name="Federal ID # or VAT#")]
-            [Required]
+            [Display(Name="Federal ID/VAT#")]            
             public  string FedIDNum { get; set; }
 
             [ForeignKey("ContactId")]

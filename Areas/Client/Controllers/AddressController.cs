@@ -57,11 +57,9 @@ namespace SIFCore.Controllers.Client
             addressToAdd.ContactFirstName = address.ContactFirstName;
             addressToAdd.ContactLastName = address.ContactLastName;
             addressToAdd.BillingEmailAddress = address.BillingEmailAddress;
-            addressToAdd.BillingFax = address.BillingFax;
             addressToAdd.BillingPhone = address.BillingPhone;
             addressToAdd.Address1 = address.Address1;
             addressToAdd.Address2 = address.Address2;
-            addressToAdd.Address3 = address.Address3;
             addressToAdd.City = address.City;
             addressToAdd.State = address.State;
             addressToAdd.ZipCode = address.ZipCode;
@@ -107,11 +105,9 @@ namespace SIFCore.Controllers.Client
             addressToUpdate.ContactFirstName = address.ContactFirstName;
             addressToUpdate.ContactLastName = address.ContactLastName;
             addressToUpdate.BillingEmailAddress = address.BillingEmailAddress;
-            addressToUpdate.BillingFax = address.BillingFax;
             addressToUpdate.BillingPhone = address.BillingPhone;
             addressToUpdate.Address1 = address.Address1;
             addressToUpdate.Address2 = address.Address2;
-            addressToUpdate.Address3 = address.Address3;
             addressToUpdate.City = address.City;
             addressToUpdate.State = address.State;
             addressToUpdate.ZipCode = address.ZipCode;
@@ -168,11 +164,9 @@ namespace SIFCore.Controllers.Client
             addressToUpdate.PIFirstName = address.PIFirstName;
             addressToUpdate.PILastName = address.PILastName;
             addressToUpdate.PIEmail = address.PIEmail;
-            addressToUpdate.PIFax = address.PIFax;
             addressToUpdate.PIPhone = address.PIPhone;
             addressToUpdate.Address1 = address.Address1;
             addressToUpdate.Address2 = address.Address2;
-            addressToUpdate.Address3 = address.Address3;
             addressToUpdate.City = address.City;
             addressToUpdate.State = address.State;
             addressToUpdate.ZipCode = address.ZipCode;
@@ -212,11 +206,9 @@ namespace SIFCore.Controllers.Client
             addressToAdd.PIFirstName = address.PIFirstName;
             addressToAdd.PILastName = address.PILastName;
             addressToAdd.PIEmail = address.PIEmail;
-            addressToAdd.PIFax = address.PIFax;
             addressToAdd.PIPhone = address.PIPhone;
             addressToAdd.Address1 = address.Address1;
             addressToAdd.Address2 = address.Address2;
-            addressToAdd.Address3 = address.Address3;
             addressToAdd.City = address.City;
             addressToAdd.State = address.State;
             addressToAdd.ZipCode = address.ZipCode;

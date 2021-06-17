@@ -1,0 +1,30 @@
+@model List<SIFCore.Models.Customers>
+
+
+<div>
+    <table  class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>SIFCust#</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Address</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cust in Model)
+            {
+                <tr>
+                    <td><a class="btn btn-primary" href="" onclick="useCustomer(event,@cust.Id,'@cust.Id');">select</a></td>
+                    <td>@cust.SIFCustomerNumberInt</td>
+                    <td>@cust.Name</td>
+                    <td>@cust.Type</td>
+                    <td>@cust.AddressLines</td>
+                    <td>@cust.City</td>
+                </tr>                
+            }
+        </tbody>
+    </table>
+</div>

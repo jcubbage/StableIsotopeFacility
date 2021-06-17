@@ -28,6 +28,8 @@ namespace SIFCore.Models
 
         public DbSet<ShippingAddresses> ShippingAddresses { get; set; }
 
+        public DbSet<Customers> Customers { get; set; }
+
         private ILoggerFactory GetLoggerFactory()
         {
             IServiceCollection serviceCollection = new ServiceCollection();

@@ -3,6 +3,35 @@
 
 <h2>Create New Project</h2> 
 
+
+<!-- Customer Lookup Modal -->
+<div class="modal fade" id="lookupCustomerModal" tabindex="-1" role="dialog" aria-labelby="Lookup Customer" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="max-width: 1200pt;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Look Up Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="fa fa-window-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="account">Name, Address, or SIF Cust#:</label>
+                <div class="input-group col">
+                    <input type="text" class="form-control" id="searchTerm" placeholder="Enter the customer's name, address, or SIF Cust# (fragments accepted)">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" id="customer-lookup-btn"><i id="customer-lookup-btn" class="fas fa-search"></i></button>                    
+                    </span>
+                </div>
+                <div id="customerTable"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <form asp-action="New">   
     <input type="hidden" asp-for="@Model.ContactId" >
     <div class="container col-lg-10">
@@ -25,6 +54,14 @@
             <select asp-for="Order.BillingAddress" class="col-sm-3 form-control" asp-items="@(new SelectList(Model.BillingAddresses, "Id", "AddressName"))"></select>                     
             <span class="field-validation-valid text-danger" data-valmsg-for="Order.BillingAddress" data-valmsg-replace="true"></span>  
             <span class="col-sm-6"><a asp-action="BillingCreate" asp-controller="Address" class="btn btn-info" asp-route-id="@Model.ContactId">New</a></span>                   
+        </div>
+        <div class="form-group row required">
+            <label asp-for="Order.OrderCustomer.Name" class="col-sm-3 col-form-label">SIF Customer</label>                    
+            <input type="text" asp-for="Order.OrderCustomer.Name" class="col-sm-5 form-control" readonly>
+            <div class="input-group-append"> 
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lookupCustomerModal"><i class="fa fa-exchange-alt"></i></button>                            
+            </div>  
+            @Html.HiddenFor(x => x.Order.SIFCustomerID)            
         </div>
         <div class="form-group row">
             <label asp-for="Order.PO" class="col-sm-3 col-form-label"></label>
@@ -57,4 +94,60 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"></script>   
     
     
+
+    
+     <script type="text/javascript">
+       
+
+        $('#lookupCustomerModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal                     
+            var modal = $(this)  
+            modal.find("#searchTerm").val("");
+            modal.find("#customerTable").empty();            
+        })
+       
+
+        $('#customer-lookup-btn').click(function(e){
+            e.preventDefault();
+            var lookup = $("#searchTerm").val();
+            if (lookup === "") {
+                alert("This search term cannot be empty.");
+                return;
+            }
+            $("#customerTable").empty();
+            $("#customerTable").load("/admin/Customers/LookupCustomer?lookup="+lookup, (response, status, xhr) => {
+                if ( status == "error" ) {
+                    var msg = "Sorry, the following error occurred: ";
+                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                }
+            });
+        });
+
+       
+
+
+        $("#customer").keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                e.preventDefault();
+                $(':focus').blur();
+                $("#customer-lookup-btn").click();
+            }
+        });
+
+        function useCustomer(e,orgId, orgNameAndId)
+        {
+            e.preventDefault();                        
+            $("#application_ApplicantId").val(orgId);
+            $("#application_ApplicantOrganization_NameAndId").val(orgNameAndId);
+            
+            
+            $("#customerTable").empty();
+            $("#lookupCustomerModal").modal('hide');                       
+        }
+
+        
+    </script>
 }
+
+

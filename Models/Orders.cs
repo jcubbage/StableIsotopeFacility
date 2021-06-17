@@ -44,7 +44,7 @@ namespace SIFCore.Models
         public  int BillingAddress { get; set; }
 
         [Display(Name ="SIF Cust#")]
-        public int SIFCustomerID { get; set; }
+        public int? SIFCustomerID { get; set; }
 
         [ForeignKey("SIFCustomerID")]
         public Customers OrderCustomer { get; set; }

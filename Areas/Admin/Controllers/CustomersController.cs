@@ -21,19 +21,19 @@ namespace SIFCore.Controllers.Admin
 
         public async Task<IActionResult> LookupCustomer (string lookup)
         {
-            var term = "%" + lookup + "%";
-            var cust = _dbContext.Customers.Where(c => EF.Functions.Like(c.Name, term) || EF.Functions.Like(c.Address1, term)).AsQueryable();           
-            
+            lookup = lookup.Trim();
+            var cust = new List<Customers>();
             int id = 0;
-            // Parsing was successful (we have an ID number instead of a name)
+            var term = "%" + lookup + "%";
             if (Int32.TryParse(lookup, out id))
             {
-                cust = cust.Where(c => c.SIFCustomerNumberInt == id);
+                cust = await _dbContext.Customers.Where(c => c.SIFCustomerNumberInt == id || EF.Functions.Like(c.Name, term) || EF.Functions.Like(c.Address1, term) || EF.Functions.Like(c.City, term)).ToListAsync();
+            } else
+            {                 
+                cust = await _dbContext.Customers.Where(c => EF.Functions.Like(c.Name, term) || EF.Functions.Like(c.Address1, term) || EF.Functions.Like(c.City, term)).ToListAsync(); 
             }
-            var results = await cust.ToListAsync();
-                               
-            return PartialView("_LookupCustomer", results);
 
+            return PartialView("_LookupCustomer", cust);
         }
 
     }

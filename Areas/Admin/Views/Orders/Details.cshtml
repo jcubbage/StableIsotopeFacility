@@ -159,11 +159,17 @@
                 @Html.DisplayFor(x => x.Order.OrderBillingAddress.AddressName) | 
                 <a class="btn btn-primary" data-toggle="collapse" href="#BillingCollapse" role="button" aria-expanded="false" aria-controls="BillingCollapse">Details</a>
                 <br>
-                @Model.Order.OrderBillingAddress.ContactFirstName @Model.Order.OrderBillingAddress.ContactFirstName <a href="mailto:@Model.Order.OrderBillingAddress.BillingEmailAddress">@Model.Order.OrderBillingAddress.BillingEmailAddress</a>
+                @if(Model.Order.OrderBillingAddress != null)
+                {
+                    @Model.Order.OrderBillingAddress.ContactFirstName @Model.Order.OrderBillingAddress.ContactFirstName <a href="mailto:@Model.Order.OrderBillingAddress.BillingEmailAddress">@Model.Order.OrderBillingAddress.BillingEmailAddress</a>
+                }
+                
             </div>
         </div>        
         <div class="form-group row">
             <div class="col-sm-12 collapse border" id="BillingCollapse"> 
+                @if(Model.Order.OrderBillingAddress != null)
+                {
                 <div class="row col-sm-12"> 
                     <div class="col-md-3"> @* First column *@
                         <h2>Billing Contact Details</h2>
@@ -267,9 +273,111 @@
                             </div>
                         </div>                                                 
                     </div>
-                </div>                          
+                </div>
+                } else
+                {
+                    <div>No Billing Address associated with this order.</div>
+                }                          
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Order.OrderCustomer" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-2 form-control-plaintext">
+                @Html.DisplayFor(x => x.Order.OrderCustomer.Name) | 
+                <a class="btn btn-primary" data-toggle="collapse" href="#CustomerCollapse" role="button" aria-expanded="false" aria-controls="CustomerCollapse">Details</a>
+                <br>
+                @if(Model.Order.OrderBillingAddress != null)
+                {
+                    @Model.Order.OrderBillingAddress.ContactFirstName @Model.Order.OrderBillingAddress.ContactFirstName <a href="mailto:@Model.Order.OrderBillingAddress.BillingEmailAddress">@Model.Order.OrderBillingAddress.BillingEmailAddress</a>
+                }
+                
             </div>
         </div>        
+        <div class="form-group row">
+            <div class="col-sm-12 collapse border" id="CustomerCollapse"> 
+                @if(Model.Order.OrderCustomer != null)
+                {
+                <div class="row col-sm-12"> 
+                    <div class="col-md-3"> @* First column *@
+                        <h2>Customer Details</h2>
+                    </div>                     
+                </div>               
+                <div class="row col-sm-12"> 
+                    <div class="col-md-6 col-xl-3"> @* First column *@
+                         <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.Name" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.Name)
+                            </div>
+                        </div>   
+                         <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.Address1" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.Address1)
+                            </div>
+                        </div>                        
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.Zip" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.Zip)
+                            </div>
+                        </div>                                   
+                    </div>
+                    <div class="col-md-6 col-xl-3"> @* Second column *@ 
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.Type" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.Type)
+                            </div>
+                        </div>  
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.Address2" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.Address2)
+                            </div>
+                        </div>                           
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.Country" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.Country)
+                            </div>
+                        </div>                                         
+                    </div>
+                    <div class="col-md-6 col-xl-3"> @* Third Col *@                         
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.SIFCustomerNumberDisplay" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.SIFCustomerNumberDisplay)
+                            </div>
+                        </div>  
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.City" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.City)
+                            </div>
+                        </div>                                       
+                    </div>
+                    <div class="col-md-6 col-xl-3"> @* Fourth Col *@                        
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderCustomer.FedIdNumber" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderCustomer.FedIdNumber)
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label asp-for="Order.OrderBillingAddress.State" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9 form-control-plaintext">
+                                @Html.DisplayFor(x => x.Order.OrderBillingAddress.State)
+                            </div>
+                        </div>                                                 
+                    </div>
+                </div>
+                } else
+                {
+                    <div>No Billing Address associated with this order.</div>
+                }                          
+            </div>
+        </div>         
         @if(Model.Order.PO)
         {
         <div class="form-group row">

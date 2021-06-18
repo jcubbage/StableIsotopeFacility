@@ -64,8 +64,12 @@ namespace SIFCore.Models
 
         [StringLength(50)]
         public string KFSCustomerNumber { get; set; }
+        
+        public int SIFCustomerNumberInt { get; set; }
 
-        public int SIFCustomerNumberInt { get; set; }   
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Display(Name="SIF Cust#")]
+        public string SIFCustomerNumberDisplay { get; set; }   
           
         
 

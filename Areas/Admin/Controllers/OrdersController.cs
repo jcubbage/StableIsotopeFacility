@@ -40,6 +40,38 @@ namespace SIFCore.Controllers.Admin
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> New( CreateOrdersViewModel vm)
+        {           
+            var orderToCreate = new Orders();
+            orderToCreate.ContactId = vm.ContactId;
+            orderToCreate.ShippingAddress = vm.Order.ShippingAddress;
+            orderToCreate.SIFCustomerID = vm.Order.SIFCustomerID;
+            orderToCreate.ProjectName = vm.Order.ProjectName;
+            orderToCreate.PO = vm.Order.PO;
+            orderToCreate.PONumber = vm.Order.PONumber;
+            orderToCreate.PaymentMethod = vm.Order.PaymentMethod;
+            orderToCreate.OrderComments = vm.Order.OrderComments;
+            orderToCreate.Submitted = true;
+
+            if(orderToCreate.PO && string.IsNullOrWhiteSpace(orderToCreate.PONumber))
+            {
+                 ModelState.AddModelError("Order.PONumber", "Must supply PO Number" );
+            }
+
+            if(ModelState.IsValid){
+                 _dbContext.Add(orderToCreate);
+                await _dbContext.SaveChangesAsync();
+                Message = "Order Created";
+            } else {
+                ErrorMessage = "Something went wrong"; 
+                var model = await CreateOrdersViewModel.Create(_dbContext, 0, vm.ContactId);
+                return View("Create", model);
+            }
+
+            return RedirectToAction(nameof(Index)); 
+        }
+
         public async Task<IActionResult> Details(int id)
         {
              var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id);

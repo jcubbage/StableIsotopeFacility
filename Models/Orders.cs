@@ -41,7 +41,7 @@ namespace SIFCore.Models
 
         
         [Display(Name="Billing Contact")]
-        public  int BillingAddress { get; set; }
+        public  int? BillingAddress { get; set; }
 
         [Display(Name ="SIF Cust#")]
         public int? SIFCustomerID { get; set; }

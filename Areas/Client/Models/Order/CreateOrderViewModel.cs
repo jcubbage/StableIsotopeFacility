@@ -40,6 +40,7 @@ namespace SIFCore.Models
             var thisOrder = await _dbContext.Orders
                 .Include(o => o.OrderShippingAddress)
                 .Include(o => o.OrderBillingAddress)
+                .Include(o => o.OrderCustomer)
                 .Where(o => o.Id == orderId).FirstOrDefaultAsync();
             var viewModel = new CreateOrdersViewModel
             {

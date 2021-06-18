@@ -16,7 +16,7 @@
             @foreach (var cust in Model)
             {
                 <tr>
-                    <td><a class="btn btn-primary" href="" onclick="useCustomer(event,@cust.Id,'@cust.Id');">select</a></td>
+                    <td><a class="btn btn-primary" href="" onclick="useCustomer(event,@cust.Id,'@cust.SIFCustomerNumberInt @cust.Name; @cust.Address1');">select</a></td>
                     <td>@cust.SIFCustomerNumberInt</td>
                     <td>@cust.Name</td>
                     <td>@Html.Raw(cust.AddressLines)</td>

@@ -74,7 +74,7 @@ namespace SIFCore.Controllers.Admin
 
         public async Task<IActionResult> Details(int id)
         {
-             var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id);
+            var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id);
             if(model.Order == null)
             {
                 ErrorMessage = "Order not found!";
@@ -82,6 +82,49 @@ namespace SIFCore.Controllers.Admin
             }
             return View(model);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id);
+            if(model.Order == null)
+            {
+                ErrorMessage = "Order not found!";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, CreateOrdersViewModel vm)
+        {
+            var orderToUpdate = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
+            var vmOrder = vm.Order;
+            if(orderToUpdate == null || orderToUpdate.Id != vm.Order.Id)
+            {
+                ErrorMessage = "Order not found or match existing order!";
+                return RedirectToAction(nameof(Details), new {  id = id});
+            }
+            orderToUpdate.ProjectName = vmOrder.ProjectName;
+            orderToUpdate.ShippingAddress = vmOrder.ShippingAddress;
+            orderToUpdate.SIFCustomerID = vmOrder.SIFCustomerID;
+            orderToUpdate.PO = vmOrder.PO;
+            orderToUpdate.PONumber = vmOrder.PONumber;
+            orderToUpdate.PaymentMethod = vmOrder.PaymentMethod;
+            orderToUpdate.OrderComments = vmOrder.OrderComments;
+
+            if(ModelState.IsValid){                 
+                await _dbContext.SaveChangesAsync();
+                Message = "Order Updated";
+            } else {
+                ErrorMessage = "Something went wrong"; 
+                var model = await CreateOrdersViewModel.EditViewModel(_dbContext, id);
+                return View(model);
+            }           
+            
+            return RedirectToAction(nameof(Details), new {  id = id});
+        }
+
 
     }
 }

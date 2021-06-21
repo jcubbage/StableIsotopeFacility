@@ -6,17 +6,21 @@
         <div class="row">             
             <div asp-validation-summary="All" class="text-danger"></div>            
         </div>
+        <div class="row">
+            <a asp-action="Edit" asp-route-id="@Model.Order.Id" class="btn btn-info">Edit</a>
+        </div> 
         <div class="form-group row">
             <label asp-for="Order.ProjectName" class="col-sm-3 col-form-label"></label>
             <div class="col-sm-9 form-control-plaintext">
                 @Html.DisplayFor(x => x.Order.ProjectName)
             </div>
-        </div>       
+        </div>  
+           
         <div class="form-group row">
             <label asp-for="Order.ShippingAddress" class="col-sm-3 col-form-label"></label>
             <div class="col-sm-2 form-control-plaintext">
                 @Html.DisplayFor(x => x.Order.OrderShippingAddress.AddressName) | 
-                <a class="btn btn-primary" data-toggle="collapse" href="#ScientificCollapse" role="button" aria-expanded="false" aria-controls="ScientificCollapse">Details</a>
+                <a class="btn btn-info" data-toggle="collapse" href="#ScientificCollapse" role="button" aria-expanded="false" aria-controls="ScientificCollapse">Details</a>
                 <br>
                 @Model.Order.OrderShippingAddress.PIFirstName @Model.Order.OrderShippingAddress.PILastName <a href="mailto:@Model.Order.OrderShippingAddress.PIEmail">@Model.Order.OrderShippingAddress.PIEmail</a>
             </div>
@@ -157,7 +161,7 @@
             <label asp-for="Order.BillingAddress" class="col-sm-3 col-form-label"></label>
             <div class="col-sm-2 form-control-plaintext">
                 @Html.DisplayFor(x => x.Order.OrderBillingAddress.AddressName) | 
-                <a class="btn btn-primary" data-toggle="collapse" href="#BillingCollapse" role="button" aria-expanded="false" aria-controls="BillingCollapse">Details</a>
+                <a class="btn btn-info" data-toggle="collapse" href="#BillingCollapse" role="button" aria-expanded="false" aria-controls="BillingCollapse">Details</a>
                 <br>
                 @if(Model.Order.OrderBillingAddress != null)
                 {
@@ -284,11 +288,11 @@
             <label asp-for="Order.OrderCustomer" class="col-sm-3 col-form-label"></label>
             <div class="col-sm-2 form-control-plaintext">
                 @Html.DisplayFor(x => x.Order.OrderCustomer.Name) | 
-                <a class="btn btn-primary" data-toggle="collapse" href="#CustomerCollapse" role="button" aria-expanded="false" aria-controls="CustomerCollapse">Details</a>
+                <a class="btn btn-info" data-toggle="collapse" href="#CustomerCollapse" role="button" aria-expanded="false" aria-controls="CustomerCollapse">Details</a>
                 <br>
-                @if(Model.Order.OrderBillingAddress != null)
+                @if(Model.Order.OrderCustomer != null)
                 {
-                    @Model.Order.OrderBillingAddress.ContactFirstName @Model.Order.OrderBillingAddress.ContactFirstName <a href="mailto:@Model.Order.OrderBillingAddress.BillingEmailAddress">@Model.Order.OrderBillingAddress.BillingEmailAddress</a>
+                    @Model.Order.OrderCustomer.DisplayInfo
                 }
                 
             </div>

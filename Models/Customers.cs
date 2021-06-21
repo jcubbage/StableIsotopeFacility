@@ -15,6 +15,15 @@ namespace SIFCore.Models
         [Required]
         public  string Name { get; set; }
 
+        public string DisplayInfo 
+        { 
+            get
+            {
+                return $"{SIFCustomerNumberDisplay} {Name}; {Address1}, {City}";
+
+            }
+        }
+
         [StringLength(50)]
         public string Type { get; set; }
 

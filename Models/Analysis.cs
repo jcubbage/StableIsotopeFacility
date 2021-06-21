@@ -28,6 +28,18 @@ namespace SIFCore.Models
         [Display(Name="Number of Samples")]
         public  int NumberOfSamples { get; set; }
 
+        [Display(Name="Number Received")]
+        public  int? NumberReceived { get; set; }
+
+        [Display(Name="Number Analyzed")]
+        public  int? NumberAnalyzed { get; set; }
+
+        [Display(Name ="Shipping Condition")]
+        public string ShippingCondition { get; set; }
+
+        [Display(Name ="Storage Location")]
+        public string StorageLocation { get; set; }
+
         [Display(Name="Tray Names")]
         [DataType(DataType.MultilineText)]
         public  string TrayNames { get; set; }        

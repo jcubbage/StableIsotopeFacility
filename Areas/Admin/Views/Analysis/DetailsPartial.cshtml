@@ -13,7 +13,35 @@
         <div class="col-sm-9 form-control-plaintext">
             @Html.DisplayFor(x => x.NumberOfSamples)
         </div>
-    </div>      
+    </div>  
+
+    <div class="form-group row">
+        <label asp-for="NumberReceived" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.NumberReceived)
+        </div>
+    </div> 
+
+    <div class="form-group row">
+        <label asp-for="NumberAnalyzed" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.NumberAnalyzed)
+        </div>
+    </div>  
+
+    <div class="form-group row">
+        <label asp-for="ShippingCondition" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.ShippingCondition)
+        </div>
+    </div> 
+
+    <div class="form-group row">
+        <label asp-for="StorageLocation" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.StorageLocation)
+        </div>
+    </div>    
     
     @if (Model.AnalysisRequirement.TrayNames)
     {

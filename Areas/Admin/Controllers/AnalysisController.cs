@@ -76,11 +76,7 @@ namespace SIFCore.Controllers.Admin
         {            
             var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
             if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
-            if (order.Submitted)
-            {
-                ErrorMessage = "You cannot edit a submitted order.";
-                return RedirectToAction("Index", "Orders", new {Area = "Admin"});
-            }
+           
             var requirement = await _dbContext.Requirements.Where(r => r.Id == requirementId).FirstOrDefaultAsync();
             if (requirement == null) return RedirectToAction("Details", "Orders", new { id = id, Area = "Admin" });
 
@@ -147,6 +143,10 @@ namespace SIFCore.Controllers.Admin
         {
             destination.DateNeeded = source.DateNeeded;
             destination.NumberOfSamples = source.NumberOfSamples;
+            destination.NumberReceived = source.NumberReceived;
+            destination.NumberAnalyzed = source.NumberAnalyzed;
+            destination.StorageLocation = source.StorageLocation;
+            destination.ShippingCondition = source.ShippingCondition;
             destination.TrayNames = source.TrayNames;
             destination.Abundance = source.Abundance;
             destination.EstimatedEnrichment = source.EstimatedEnrichment;

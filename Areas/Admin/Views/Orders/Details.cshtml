@@ -7,7 +7,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>            
         </div>
         <div class="row">
-            <a asp-action="Edit" asp-route-id="@Model.Order.Id" class="btn btn-info">Edit</a>
+            <a asp-action="Edit" asp-route-id="@Model.Order.Id" class="btn btn-info">Edit Header</a>
         </div> 
         <div class="form-group row">
             <label asp-for="Order.ProjectName" class="col-sm-3 col-form-label"></label>
@@ -418,7 +418,7 @@
             <th></th>
             <td>&nbsp;</td>
             <th>Analysis</th>
-            <th># samples</th>
+            <th># (ship/recd/analyzed)</th>
             <th>NA/Enriched</th>
             <th>Estimated Price<sup>*</sup></th>
             <th>Sample List<sup>&dagger;</sup></th>
@@ -429,7 +429,7 @@
                 <td><a href="#" onclick="loadForm(@item.Id, 'details')">View/Edit</a></td><td>@Html.ActionLink("Delete", "Delete", "Analysis", new {id = item.Id}, null) </td>
                 <td></td>
                 <td>@Html.Raw(item.AnalysisRequirement.FormattedName)</td>
-                <td>@item.NumberOfSamples</td>
+                <td>@item.NumberOfSamples/@item.NumberReceived/@item.NumberAnalyzed</td>
                 <td>@item.Abundance</td>
                 <td>@String.Format("{0:c}", (item.AnalysisRequirement.Cost*item.NumberOfSamples))</td>
                 <td align="center">
@@ -458,9 +458,7 @@
 <br/>
 
  <div class="container col-sm-12">
-     <div class="row">
-         @if(!@Model.Order.Submitted)
-        {
+     <div class="row">        
          <div class="col-sm-4">
              <h3>Select items in the tree to add a new analysis.</h3>
             <div id="AnalysisTree" class="demo" style="overflow: auto; height: 600px; width: 350px">
@@ -480,8 +478,7 @@
                     }
                 </ul>
             </div>
-         </div>
-        }
+         </div>        
          <div class="col-sm-8">
              <div id="AnalysisPartial"></div>
          </div>

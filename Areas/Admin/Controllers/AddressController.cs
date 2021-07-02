@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using SIFCore.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace SIFCore.Controllers.Client
+namespace SIFCore.Controllers.Admin
 {    
-    public class AddressController : ClientController
+    public class AddressController : AdminController
     {
         private readonly SIFContext _dbContext;
 
@@ -19,9 +19,9 @@ namespace SIFCore.Controllers.Client
             _dbContext = dbContext;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            var contacts = await _dbContext.Contacts.Where(c => c.Id == int.Parse(User.FindFirstValue("contactId")))
+            var contacts = await _dbContext.Contacts.Where(c => c.Id == id)
                 .Include(c => c.BillingAddresses)
                 .Include(c => c.ShippingAddresses)
                 .FirstAsync();
@@ -30,26 +30,26 @@ namespace SIFCore.Controllers.Client
 
         public async Task<IActionResult> BillingDetails(int id)
         {
-            var address = await _dbContext.BillingAddresses.Where(a => a.Id == id && a.Contact.Id == int.Parse(User.FindFirstValue("contactId"))).FirstOrDefaultAsync();
+            var address = await _dbContext.BillingAddresses.Where(a => a.Id == id).FirstOrDefaultAsync();
             if(address == null)
             {
-                ErrorMessage = "Address not found or you do not have access to it";
-                return RedirectToAction(nameof(Index)); 
+                ErrorMessage = "Address not found";
+                return RedirectToAction(nameof(Index), nameof(Orders)); 
             }
             return View(address);
         }
 
-        public IActionResult BillingCreate()
+        public IActionResult BillingCreate(int id)
         {
             var address = new BillingAddresses(); 
+            address.ContactId = id;
             address.Country = "U.S.A.";          
             return View(address);
         }
 
         [HttpPost]
         public async Task<IActionResult> BillingCreate(BillingAddresses address)
-        {
-            var contact = await _dbContext.Contacts.Where(c => c.Id == int.Parse(User.FindFirstValue("contactId"))).FirstAsync();
+        {            
             var addressToAdd = new BillingAddresses();            
             addressToAdd.AddressName = address.AddressName;
             addressToAdd.Institution = address.Institution;
@@ -65,7 +65,7 @@ namespace SIFCore.Controllers.Client
             addressToAdd.ZipCode = address.ZipCode;
             addressToAdd.Country = address.Country;
             addressToAdd.FedIDNum = address.FedIDNum;
-            addressToAdd.Contact = contact;
+            addressToAdd.ContactId = address.ContactId;
 
              if(ModelState.IsValid){
                  _dbContext.Add(addressToAdd);
@@ -81,10 +81,10 @@ namespace SIFCore.Controllers.Client
 
          public async Task<IActionResult> BillingEdit(int id)
         {
-            var address = await _dbContext.BillingAddresses.Where(a => a.Id == id && a.Contact.Id == int.Parse(User.FindFirstValue("contactId"))).FirstOrDefaultAsync();
+            var address = await _dbContext.BillingAddresses.Where(a => a.Id == id).FirstOrDefaultAsync();
             if(address == null)
             {
-                ErrorMessage = "Address not found or you do not have access to it";
+                ErrorMessage = "Address not found";
                 return RedirectToAction(nameof(Index)); 
             }
             return View(address);
@@ -93,10 +93,10 @@ namespace SIFCore.Controllers.Client
         [HttpPost]
         public async Task<IActionResult> BillingEdit(int id, BillingAddresses address)
         {
-            var addressToUpdate = await _dbContext.BillingAddresses.Where(a => a.Id == id && a.Contact.Id == int.Parse(User.FindFirstValue("contactId"))).FirstOrDefaultAsync();
+            var addressToUpdate = await _dbContext.BillingAddresses.Where(a => a.Id == id).FirstOrDefaultAsync();
             if(addressToUpdate == null)
             {
-                ErrorMessage = "Address not found or you do not have access to it";
+                ErrorMessage = "Address not found";
                 return RedirectToAction(nameof(Index)); 
             }
             addressToUpdate.AddressName = address.AddressName;
@@ -128,10 +128,10 @@ namespace SIFCore.Controllers.Client
 
         public async Task<IActionResult> ShippingDetails(int id)
         {
-            var address = await _dbContext.ShippingAddresses.Where(a => a.Id == id && a.Contact.Id == int.Parse(User.FindFirstValue("contactId"))).FirstOrDefaultAsync();
+            var address = await _dbContext.ShippingAddresses.Where(a => a.Id == id).FirstOrDefaultAsync();
             if(address == null)
             {
-                ErrorMessage = "Address not found or you do not have access to it";
+                ErrorMessage = "Address not found";
                 return RedirectToAction(nameof(Index)); 
             }
             return View(address);
@@ -140,10 +140,10 @@ namespace SIFCore.Controllers.Client
 
         public async Task<IActionResult> ShippingEdit(int id)
         {
-            var address = await _dbContext.ShippingAddresses.Where(a => a.Id == id && a.Contact.Id == int.Parse(User.FindFirstValue("contactId"))).FirstOrDefaultAsync();
+            var address = await _dbContext.ShippingAddresses.Where(a => a.Id == id).FirstOrDefaultAsync();
             if(address == null)
             {
-                ErrorMessage = "Address not found or you do not have access to it";
+                ErrorMessage = "Address not found";
                 return RedirectToAction(nameof(Index)); 
             }
             return View(address);
@@ -152,7 +152,7 @@ namespace SIFCore.Controllers.Client
         [HttpPost]
         public async Task<IActionResult> ShippingEdit(int id, ShippingAddresses address)
         {
-            var addressToUpdate = await _dbContext.ShippingAddresses.Where(a => a.Id == id && a.Contact.Id == int.Parse(User.FindFirstValue("contactId"))).FirstOrDefaultAsync();
+            var addressToUpdate = await _dbContext.ShippingAddresses.Where(a => a.Id == id).FirstOrDefaultAsync();
             if(addressToUpdate == null)
             {
                 ErrorMessage = "Address not found or you do not have access to it";
@@ -188,17 +188,22 @@ namespace SIFCore.Controllers.Client
             return RedirectToAction(nameof(ShippingDetails), new { id = id }); 
         }
         
-        public IActionResult ShippingCreate()
+        public async Task<IActionResult> ShippingCreate(int id)
         {
+            var contact = await _dbContext.Contacts.Where(c => c.Id == id).FirstOrDefaultAsync();
             var address = new ShippingAddresses(); 
+            address.PIFirstName = contact.FirstName;
+            address.PILastName = contact.LastName;
+            address.PIPhone = contact.Phone;
+            address.PIEmail = contact.Email;
+            address.ContactId = id;
             address.Country = "U.S.A.";          
             return View(address);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ShippingCreate(ShippingAddresses address)
-        {
-            var contact = await _dbContext.Contacts.Where(c => c.Id == int.Parse(User.FindFirstValue("contactId"))).FirstAsync();
+        public async Task<IActionResult> ShippingCreate(int id, ShippingAddresses address)
+        {            
             var addressToAdd = new ShippingAddresses();            
             addressToAdd.AddressName = address.AddressName;
             addressToAdd.Institution = address.Institution;
@@ -213,7 +218,7 @@ namespace SIFCore.Controllers.Client
             addressToAdd.State = address.State;
             addressToAdd.ZipCode = address.ZipCode;
             addressToAdd.Country = address.Country;
-            addressToAdd.Contact = contact;
+            addressToAdd.ContactId = address.ContactId;
             addressToAdd.ResearcherFirstName = address.ResearcherFirstName;
             addressToAdd.ResearcherLastName = address.ResearcherLastName;
             addressToAdd.ResearcherEmail = address.ResearcherEmail;

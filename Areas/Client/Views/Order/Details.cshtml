@@ -51,6 +51,8 @@
 
  <div class="container col-sm-12">
      <div class="row">
+         @if(!@Model.Order.Submitted)
+        {
          <div class="col-sm-4">
              <h3>Select items in the tree to add a new analysis.</h3>
             <div id="AnalysisTree" class="demo" style="overflow: auto; height: 600px; width: 350px">
@@ -71,23 +73,18 @@
                 </ul>
             </div>
          </div>
+        }
          <div class="col-sm-8">
              <div id="AnalysisPartial"></div>
          </div>
      </div>
  </div>
 
+
 @section Scripts
 {
-  
-    
-    @*JS tree *@
-    @*@Scripts.Render("~/bundles/jstreeview")*@
-    <script src="/Scripts/jquery.cookie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.10/jstree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-    <script src="/Scripts/jquery.hotkeys.js"></script>
-
     <script type="text/javascript">
        
      $(function () {

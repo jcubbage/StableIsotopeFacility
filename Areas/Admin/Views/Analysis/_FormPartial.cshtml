@@ -3,7 +3,7 @@
 @model SIFCore.Models.AnalysisViewModel
 
 <div class="row">        
-    <a asp-action="Details" asp-controller="Order" asp-route-id="@Model.Order.Id" class="btn btn-info">Back to List</a>
+    <a asp-action="Details" asp-controller="Orders" asp-route-id="@Model.Order.Id" class="btn btn-info">Back to List</a>
 </div> 
 <div class="row">
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -20,8 +20,32 @@
 </div>
 <div class="form-group row">
     <label asp-for="Analysis.NumberOfSamples" class="col-sm-3 col-form-label"></label>        
-    <input asp-for="Analysis.NumberOfSamples" class="col-sm-9 form-control">
+    <input asp-for="Analysis.NumberOfSamples" class="col-sm-3 form-control">
     <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.NumberOfSamples" data-valmsg-replace="true"></span>        
+</div>
+
+<div class="form-group row">
+    <label asp-for="Analysis.NumberReceived" class="col-sm-3 col-form-label"></label>        
+    <input asp-for="Analysis.NumberReceived" class="col-sm-3 form-control">
+    <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.NumberReceived" data-valmsg-replace="true"></span>        
+</div>
+
+<div class="form-group row">
+    <label asp-for="Analysis.NumberAnalyzed" class="col-sm-3 col-form-label"></label>        
+    <input asp-for="Analysis.NumberAnalyzed" class="col-sm-3 form-control">
+    <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.NumberAnalyzed" data-valmsg-replace="true"></span>        
+</div>
+
+<div class="form-group row">
+    <label asp-for="Analysis.ShippingCondition" class="col-sm-3 col-form-label"></label>        
+    <input asp-for="Analysis.ShippingCondition" class="col-sm-9 form-control">
+    <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.ShippingCondition" data-valmsg-replace="true"></span>        
+</div>
+
+<div class="form-group row">
+    <label asp-for="Analysis.StorageLocation" class="col-sm-3 col-form-label"></label>        
+    <input asp-for="Analysis.StorageLocation" class="col-sm-9 form-control">
+    <span class="field-validation-valid text-danger" data-valmsg-for="Analysis.StorageLocation" data-valmsg-replace="true"></span>        
 </div>
 
 @if (Model.Requirement.TrayNames)

@@ -3,9 +3,12 @@
 
 <div class="container col-sm-11">
 	<div class="row">
+		<div><h1>Contacts for @Model.FullName</h1></div>
+	</div>
+	<div class="row">
 
 		<h2>Scientific Contacts</h2> &nbsp;&nbsp;&nbsp;&nbsp;
-		<a class="btn btn-primary" asp-action="ShippingCreate">Create New</a>
+		<a class="btn btn-primary" asp-action="ShippingCreate" asp-route-id="@Model.Id">Create New</a>
 		<table class="table">
 			<thead>
 				<tr>
@@ -38,7 +41,7 @@
 				<tr>
 					<td>
 						<a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>
-						<a class="btn btn-primary" asp-action="ShippingEdit" asp-area="client" asp-controller="Address" asp-route-id="@item.Id">Edit</a>
+						<a class="btn btn-primary" asp-action="ShippingEdit" asp-controller="Address" asp-route-id="@item.Id">Edit</a>
 					</td>
 					<td>
 						@item.AddressName
@@ -70,7 +73,7 @@
 	</div>
 	<div class="row">
 		<h3>Billing Contacts</h3> &nbsp;&nbsp;&nbsp;&nbsp;
-		<a class="btn btn-primary" asp-action="BillingCreate">Create New</a>
+		<a class="btn btn-primary" asp-action="BillingCreate" asp-route-id="@Model.Id">Create New</a>
 		<table class="table">
 			<thead>
 				<tr>
@@ -103,7 +106,7 @@
 				<tr>
 					<td>
 						<a asp-action="BillingDetails" class="btn btn-info" asp-route-id="@item.Id">Details</a>
-						<a class="btn btn-primary" asp-action="BillingEdit" asp-area="client" asp-controller="Address" asp-route-id="@item.Id">Edit</a>						
+						<a class="btn btn-primary" asp-action="BillingEdit" asp-controller="Address" asp-route-id="@item.Id">Edit</a>						
 					</td>
 					<td>
 						@item.AddressName

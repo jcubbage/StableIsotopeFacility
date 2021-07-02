@@ -1,13 +1,12 @@
 @model SIFCore.Models.BillingAddresses;
 
 
-<h2>Edit Billing Contact</h2> 
-<form asp-action="BillingEdit">
-    @Html.HiddenFor(x => x.Id)
+<h2>New Billing Contact</h2> 
+<form asp-action="BillingCreate">
+    <input type="hidden" asp-for="ContactId">
 <div class="container col-lg-5">     
     <div class="row">        
-        <a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@Model.Id">Cancel</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
+        <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Cancel</a>
     </div> 
     <div class="row">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -41,7 +40,7 @@
         <label asp-for="BillingEmailAddress" class="col-sm-3 col-form-label"></label>
         <input asp-for="BillingEmailAddress" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="BillingEmailAddress" data-valmsg-replace="true"></span>
-    </div>   
+    </div>
     <div class="form-group row required">
         <label asp-for="BillingPhone" class="col-sm-3 col-form-label"></label>
         <input asp-for="BillingPhone" class="col-sm-9 form-control">
@@ -83,9 +82,8 @@
         <span class="field-validation-valid text-danger" data-valmsg-for="FedIDNum" data-valmsg-replace="true"></span>
     </div>
     <div class="row">
-        <input type="submit" value="Update" class="btn btn-primary"> | 
-        <a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@Model.Id">Cancel</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
+        <input type="submit" value="Create" class="btn btn-primary"> | 
+       <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Cancel</a>
     </div>
 </div>
 </form>

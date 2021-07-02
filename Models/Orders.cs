@@ -39,9 +39,15 @@ namespace SIFCore.Models
         [ForeignKey("BillingAddress")]
         public  BillingAddresses OrderBillingAddress { get; set; }
 
-        [Required]
+        
         [Display(Name="Billing Contact")]
-        public  int BillingAddress { get; set; }
+        public  int? BillingAddress { get; set; }
+
+        [Display(Name ="SIF Cust#")]
+        public int? SIFCustomerID { get; set; }
+
+        [ForeignKey("SIFCustomerID")]
+        public Customers OrderCustomer { get; set; }
 
         
 
@@ -83,6 +89,9 @@ namespace SIFCore.Models
     
     public enum PaymentTypes
     {
+        
+        [Display(Name="Unknown")]
+        Unknown,
         [Display(Name="Check")]
         Check,
 

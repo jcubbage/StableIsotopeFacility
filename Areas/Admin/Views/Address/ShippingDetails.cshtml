@@ -1,11 +1,11 @@
-@model SIFCore.Models.BillingAddresses;
+@model SIFCore.Models.ShippingAddresses;
 
 
-<h2>Billing Contact Details</h2> 
+<h2>Scientific Contact Details</h2> 
 <div class="container col-lg-5"> 
     <div class="row">
-        <a asp-action="BillingEdit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
+        <a asp-action="ShippingEdit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> | 
+        <a asp-action="Index" asp-controller="Address" asp-route-id="@Model.ContactId" class="btn btn-info">Back to List</a>
     </div>       
     <div class="form-group row">
         <label asp-for="AddressName" class="col-sm-3 col-form-label"></label>
@@ -26,27 +26,51 @@
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="ContactFirstName" class="col-sm-3 col-form-label"></label>
+        <label asp-for="PIFirstName" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-9 form-control-plaintext">
-            @Html.DisplayFor(x => x.ContactFirstName)
+            @Html.DisplayFor(x => x.PIFirstName)
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="ContactLastName" class="col-sm-3 col-form-label"></label>
+        <label asp-for="PILastName" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-9 form-control-plaintext">
-            @Html.DisplayFor(x => x.ContactLastName)
+            @Html.DisplayFor(x => x.PILastName)
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="BillingEmailAddress" class="col-sm-3 col-form-label"></label>
+        <label asp-for="PIEmail" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-9 form-control-plaintext">
-            @Html.DisplayFor(x => x.BillingEmailAddress)
+            @Html.DisplayFor(x => x.PIEmail)
         </div>
     </div>  
     <div class="form-group row">
-        <label asp-for="BillingPhone" class="col-sm-3 col-form-label"></label>
+        <label asp-for="PIPhone" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-9 form-control-plaintext">
-            @Html.DisplayFor(x => x.BillingPhone)
+            @Html.DisplayFor(x => x.PIPhone)
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ResearcherFirstName" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.ResearcherFirstName)
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ResearcherLastName" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.ResearcherLastName)
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ResearcherEmail" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.ResearcherEmail)
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ResearcherPhone" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9 form-control-plaintext">
+            @Html.DisplayFor(x => x.ResearcherPhone)
         </div>
     </div>
     <div class="form-group row">
@@ -86,13 +110,13 @@
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="FedIDNum" class="col-sm-3 col-form-label"></label>
+        <label asp-for="Notes" class="col-sm-3 col-form-label"></label>
         <div class="col-sm-9 form-control-plaintext">
-            @Html.DisplayFor(x => x.FedIDNum)
+           @Html.DisplayFor(x => x.Notes)
         </div>
     </div>
     <div class="row">
-       <a asp-action="BillingEdit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
+       <a asp-action="ShippingEdit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> | 
+        <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Back to List</a>
     </div>
 </div>

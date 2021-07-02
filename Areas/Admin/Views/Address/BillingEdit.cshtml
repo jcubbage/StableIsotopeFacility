@@ -1,13 +1,13 @@
-@model SIFCore.Models.ShippingAddresses;
+@model SIFCore.Models.BillingAddresses;
 
 
-<h2>Edit Scientific Contact</h2> 
-<form asp-action="ShippingEdit">
+<h2>Edit Billing Contact</h2> 
+<form asp-action="BillingEdit">
     @Html.HiddenFor(x => x.Id)
 <div class="container col-lg-5">     
     <div class="row">        
-        <a asp-action="ShippingDetails" class="btn btn-dark" asp-route-id="@Model.Id">Cancel</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
+        <a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@Model.Id">Cancel</a> | 
+        <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Back to List</a>
     </div> 
     <div class="row">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -15,7 +15,7 @@
     <div class="form-group row required">
         <label asp-for="AddressName" class="col-sm-3 col-form-label"></label>        
         <input asp-for="AddressName" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="AddressName" data-valmsg-replace="true"></span>     
+        <span class="field-validation-valid text-danger" data-valmsg-for="AddressName" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row">
         <label asp-for="Institution" class="col-sm-3 col-form-label"></label>
@@ -28,44 +28,24 @@
         <span class="field-validation-valid text-danger" data-valmsg-for="Department" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row required">
-        <label asp-for="PIFirstName" class="col-sm-3 col-form-label"></label>
-        <input asp-for="PIFirstName" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="PIFirstName" data-valmsg-replace="true"></span>
+        <label asp-for="ContactFirstName" class="col-sm-3 col-form-label"></label>
+        <input asp-for="ContactFirstName" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="ContactFirstName" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row required">
-        <label asp-for="PILastName" class="col-sm-3 col-form-label"></label>
-       <input asp-for="PILastName" class="col-sm-9 form-control">
-       <span class="field-validation-valid text-danger" data-valmsg-for="PILastName" data-valmsg-replace="true"></span>
+        <label asp-for="ContactLastName" class="col-sm-3 col-form-label"></label>
+       <input asp-for="ContactLastName" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="ContactLastName" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row required">
-        <label asp-for="PIEmail" class="col-sm-3 col-form-label"></label>
-        <input asp-for="PIEmail" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="PIEmail" data-valmsg-replace="true"></span>
-    </div>  
+        <label asp-for="BillingEmailAddress" class="col-sm-3 col-form-label"></label>
+        <input asp-for="BillingEmailAddress" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="BillingEmailAddress" data-valmsg-replace="true"></span>
+    </div>
     <div class="form-group row required">
-        <label asp-for="PIPhone" class="col-sm-3 col-form-label"></label>
-        <input asp-for="PIPhone" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="PIPhone" data-valmsg-replace="true"></span>
-    </div>
-    <div class="form-group row ">
-        <label asp-for="ResearcherFirstName" class="col-sm-3 col-form-label"></label>
-        <input asp-for="ResearcherFirstName" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherFirstName" data-valmsg-replace="true"></span>
-    </div>
-    <div class="form-group row ">
-        <label asp-for="ResearcherLastName" class="col-sm-3 col-form-label"></label>
-        <input asp-for="ResearcherLastName" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherLastName" data-valmsg-replace="true"></span>
-    </div>
-    <div class="form-group row ">
-        <label asp-for="ResearcherEmail" class="col-sm-3 col-form-label"></label>
-        <input asp-for="ResearcherEmail" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherEmail" data-valmsg-replace="true"></span>
-    </div>
-    <div class="form-group row ">
-        <label asp-for="ResearcherPhone" class="col-sm-3 col-form-label"></label>
-        <input asp-for="ResearcherPhone" class="col-sm-9 form-control">
-        <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherPhone" data-valmsg-replace="true"></span>
+        <label asp-for="BillingPhone" class="col-sm-3 col-form-label"></label>
+        <input asp-for="BillingPhone" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="BillingPhone" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row required">
         <label asp-for="Address1" class="col-sm-3 col-form-label"></label>
@@ -97,17 +77,16 @@
         <input asp-for="Country" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="Country" data-valmsg-replace="true"></span>
     </div>
-    <div class="row">
-        <label asp-for="Notes" class="col-sm-3 col-form-label"></label>
-        <textarea asp-for="Notes" class="col-sm-9 form-control"></textarea>
-        <span class="field-validation-valid text-danger" data-valmsg-for="Notes" data-valmsg-replace="true"></span>
+    <div class="form-group row required">
+        <label asp-for="FedIDNum" class="col-sm-3 col-form-label"></label>
+        <input asp-for="FedIDNum" class="col-sm-9 form-control">
+        <span class="field-validation-valid text-danger" data-valmsg-for="FedIDNum" data-valmsg-replace="true"></span>
     </div>
-    <div><hr></div>
     <div class="row">
         <input type="submit" value="Update" class="btn btn-primary"> | 
         <a asp-action="ShippingDetails" class="btn btn-info" asp-route-id="@Model.Id">Cancel</a> | 
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Back to List</a>
-    </div>    
+        <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Back to List</a>
+    </div>
 </div>
 </form>
 

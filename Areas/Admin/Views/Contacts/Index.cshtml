@@ -1,0 +1,50 @@
+@model List<SIFCore.Models.Contacts>
+
+
+<h2>Clients</h2> 
+<a asp-action="New" class="btn btn-primary">Create New</a>
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="//cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet">
+
+<div>
+    <table id="table" class="table datatable">
+        <thead>
+            <th></th>            
+            <th>ContactId</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Scientific Contacts</th>
+            <th>Billing Contacts</th>
+            <th></th>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+            <tr>
+               <td><a asp-action="Edit" asp-route-id="@contact.Id" class="btn btn-primary">Edit</a></td>
+               <td>@contact.Id</td>
+               <td>@contact.FirstName</td>
+               <td>@contact.LastName</td>
+               <td>@contact.ShippingAddresses.Count</td>
+               <td>@contact.BillingAddresses.Count</td>
+               <td><a asp-action="Index" asp-controller="Address" asp-route-id="@contact.Id" class="btn btn-info">Contacts</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@section Scripts {
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    
+
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable({
+                dom: 'lBfrtip'
+            });
+        } );
+    </script>
+}

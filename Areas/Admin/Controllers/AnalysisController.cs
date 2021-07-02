@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using SIFCore.Helpers;
 using SIFCore.Models;
 
-namespace SIFCore.Controllers.Client
+namespace SIFCore.Controllers.Admin
 {    
-    public class AnalysisController : ClientController
+    public class AnalysisController : AdminController
     {
          private readonly SIFContext _dbContext;
 
@@ -24,9 +24,8 @@ namespace SIFCore.Controllers.Client
         {
             var analysis = await _dbContext.Analysis
                 .Include(a => a.AnalysisRequirement)
-                .Include(a => a.Order)
                 .Where(a => a.Id == id).FirstOrDefaultAsync();
-            if (analysis == null) return RedirectToAction("Index", "Order", new {Area = "Client"});
+            if (analysis == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
 
             return PartialView(analysis);
         }
@@ -34,11 +33,6 @@ namespace SIFCore.Controllers.Client
         public async Task<IActionResult> Edit(int id)
         {
             var model = await AnalysisViewModel.Edit(_dbContext, id);
-            if(model.Order.Submitted)
-            {
-                ErrorMessage = "Cannot Edit submitted orders";
-                return RedirectToAction("Details", "Order", new { id = model.Order.Id, Area = "Client" });
-            }
             return View(model);
         }
 
@@ -49,11 +43,11 @@ namespace SIFCore.Controllers.Client
                 .Include(a => a.AnalysisRequirement).Where(a => a.Id == id).FirstAsync();
             Analysis analysis = vm.Analysis;
             var order = await _dbContext.Orders.Where(o => o.Id == analysisToEdit.OrderId).FirstOrDefaultAsync();
-            if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Client"});
+            if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
             if (order.Submitted)
             {
                 ErrorMessage = "You cannot edit a submitted order.";
-                return RedirectToAction("Index", "Orders", new {Area = "Client"});
+                return RedirectToAction("Index", "Orders", new {Area = "Admin"});
             }
             // TODO Make sure user has permission!
 
@@ -66,7 +60,7 @@ namespace SIFCore.Controllers.Client
             {                
                 await _dbContext.SaveChangesAsync();
                 Message = "Analysis Created Successfully";
-                return RedirectToAction("Details", "Order", new { id = analysisToEdit.OrderId, Area = "Client" });
+                return RedirectToAction("Details", "Orders", new { id = analysisToEdit.OrderId, Area = "Admin" });
             }
             else
             {
@@ -81,14 +75,10 @@ namespace SIFCore.Controllers.Client
         public async Task<IActionResult> Create(int id, int requirementId)
         {            
             var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
-            if (order == null) return RedirectToAction("Index", "Order", new {Area = "Client"});
-            if (order.Submitted)
-            {
-                ErrorMessage = "You cannot edit a submitted order.";
-                return RedirectToAction("Index", "Order", new {Area = "Client"});
-            }
+            if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
+           
             var requirement = await _dbContext.Requirements.Where(r => r.Id == requirementId).FirstOrDefaultAsync();
-            if (requirement == null) return RedirectToAction("Details", "Order", new { id = id, Area = "Client" });
+            if (requirement == null) return RedirectToAction("Details", "Orders", new { id = id, Area = "Admin" });
 
             var existingAnalysis = await _dbContext.Analysis
                 .Include(o => o.Order)
@@ -98,7 +88,7 @@ namespace SIFCore.Controllers.Client
             if (existingAnalysis != null)
             {
                 ErrorMessage = "Analysis already exists for this project. Please edit existing one rather than create new analysis.";
-                return RedirectToAction("Details", "Order", new { id = id, Area = "Client" });
+                return RedirectToAction("Details", "Orders", new { id = id, Area = "Admin" });
             }
             
 			var viewModel = AnalysisViewModel.Create();
@@ -115,14 +105,14 @@ namespace SIFCore.Controllers.Client
         {
             Analysis analysis = vm.Analysis;
             var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
-            if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Client"});
+            if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
             if (order.Submitted)
             {
                 ErrorMessage = "You cannot edit a submitted order.";
-                return RedirectToAction("Index", "Orders", new {Area = "Client"});
+                return RedirectToAction("Index", "Orders", new {Area = "Admin"});
             }
             var requirement = await _dbContext.Requirements.Where(r => r.Id == vm.Requirement.Id).FirstOrDefaultAsync();
-            if (requirement == null) return RedirectToAction("Index", "Orders", new {Area = "Client"});
+            if (requirement == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
             var analysisToCreate = new Analysis();
 
             TransferValues(analysis, analysisToCreate);
@@ -138,7 +128,7 @@ namespace SIFCore.Controllers.Client
                 _dbContext.Add(analysisToCreate);
                 await _dbContext.SaveChangesAsync();
                 Message = "Analysis Created Successfully";
-                return RedirectToAction("Details", "Order", new { id = analysisToCreate.OrderId, Area = "Client" });
+                return RedirectToAction("Details", "Orders", new { id = analysisToCreate.OrderId, Area = "Admin" });
             }
             else
             {
@@ -153,6 +143,10 @@ namespace SIFCore.Controllers.Client
         {
             destination.DateNeeded = source.DateNeeded;
             destination.NumberOfSamples = source.NumberOfSamples;
+            destination.NumberReceived = source.NumberReceived;
+            destination.NumberAnalyzed = source.NumberAnalyzed;
+            destination.StorageLocation = source.StorageLocation;
+            destination.ShippingCondition = source.ShippingCondition;
             destination.TrayNames = source.TrayNames;
             destination.Abundance = source.Abundance;
             destination.EstimatedEnrichment = source.EstimatedEnrichment;

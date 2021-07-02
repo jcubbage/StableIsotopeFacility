@@ -2,10 +2,11 @@
 
 
 <h2>New Scientific Contact</h2> 
-<form asp-action="ShippingCreate">    
+<form asp-action="ShippingCreate">
+    <input type="hidden" value="@Model.ContactId" asp-for="ContactId">
 <div class="container col-lg-5">     
     <div class="row">         
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Cancel</a>
+        <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Cancel</a>
     </div> 
     <div class="row">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -25,16 +26,13 @@
         <input asp-for="Department" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="Department" data-valmsg-replace="true"></span>
     </div>
-    <div class="row">
-        <h3>Principal Investigator (PI)</h3>
-    </div>
     <div class="form-group row required">
-        <label asp-for="PIFirstName" class="col-sm-3 col-form-label">PI First Name</label>
+        <label asp-for="PIFirstName" class="col-sm-3 col-form-label"></label>
         <input asp-for="PIFirstName" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="PIFirstName" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row required">
-        <label asp-for="PILastName" class="col-sm-3 col-form-label">PI Last Name</label>
+        <label asp-for="PILastName" class="col-sm-3 col-form-label"></label>
        <input asp-for="PILastName" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="PILastName" data-valmsg-replace="true"></span>
     </div>
@@ -48,16 +46,13 @@
         <input asp-for="PIPhone" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="PIPhone" data-valmsg-replace="true"></span>
     </div>
-    <div class="row">
-        <h3>Researcher/Co-PI (Res.)</h3>
-    </div>
     <div class="form-group row ">
-        <label asp-for="ResearcherFirstName" class="col-sm-3 col-form-label">Res. First Name</label>
+        <label asp-for="ResearcherFirstName" class="col-sm-3 col-form-label"></label>
         <input asp-for="ResearcherFirstName" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherFirstName" data-valmsg-replace="true"></span>
     </div>
     <div class="form-group row ">
-        <label asp-for="ResearcherLastName" class="col-sm-3 col-form-label">Res. Last Name</label>
+        <label asp-for="ResearcherLastName" class="col-sm-3 col-form-label"></label>
         <input asp-for="ResearcherLastName" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherLastName" data-valmsg-replace="true"></span>
     </div>
@@ -70,9 +65,6 @@
         <label asp-for="ResearcherPhone" class="col-sm-3 col-form-label"></label>
         <input asp-for="ResearcherPhone" class="col-sm-9 form-control">
         <span class="field-validation-valid text-danger" data-valmsg-for="ResearcherPhone" data-valmsg-replace="true"></span>
-    </div>
-    <div class="row">
-        <h3>Address</h3>
     </div>
     <div class="form-group row required">
         <label asp-for="Address1" class="col-sm-3 col-form-label"></label>
@@ -112,7 +104,7 @@
     <div><hr></div>
     <div class="row">
         <input type="submit" value="Create" class="btn btn-primary"> |  
-        <a asp-action="Index" asp-area="client" asp-controller="Address" class="btn btn-info">Cancel</a>
+        <a asp-action="Index" asp-route-id="@Model.ContactId" asp-controller="Address" class="btn btn-info">Cancel</a>
     </div>
 </div>
 </form>

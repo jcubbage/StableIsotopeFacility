@@ -23,7 +23,9 @@
             <th></th>            
             <th>Id</th>
             <th>Project Name</th>
-            <th>From</th>            
+            <th>From</th>
+            <th>Payment</th>            
+            <th>SIF Cust?</th>
             <th>#Analyses</th>
             <th>#Samples</th>
             <th>Submitted?</th>
@@ -36,6 +38,8 @@
                 <td>@order.Id</td>
                 <td>@order.ProjectName</td>
                 <td>@order.Contact.FullName</td>
+                <td>@order.PaymentMethod</td>
+                <td><input name="sifCust" type="checkbox" checked=@(order.SIFCustomerID != null) disabled /></td>
                 <td>@order.Analyses.Count</td>
                 <td>@order.Analyses.Sum(i => i.NumberOfSamples)</td> 
                 <td><input name="Submitted" type="checkbox" asp-for="@order.Submitted" disabled /></td>

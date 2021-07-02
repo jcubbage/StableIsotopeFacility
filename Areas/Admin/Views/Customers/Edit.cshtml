@@ -1,0 +1,105 @@
+@model SIFCore.Models.Customers
+
+<h2>Edit Customer Details</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id">
+<div class="container col-lg-12">
+    <div class="row">             
+        <div asp-validation-summary="All" class="text-danger"></div>            
+    </div>
+    <div class="row">         
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-dark">Cancel</a>
+    </div> 
+     <div class="row col-sm-12"> 
+        <div class="col-md-6 col-xl-3"> @* First column *@
+                <div class="form-group row required">
+                <label asp-for="Name" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="Name">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+            </div>   
+                <div class="form-group row required">
+                <label asp-for="Address1" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="Address1">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="Address1" data-valmsg-replace="true"></span>
+            </div>  
+            <div class="form-group row">
+                <label asp-for="State" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-2 form-control" asp-for="State">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="State" data-valmsg-replace="true"></span>
+            </div>                                  
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Second column *@ 
+            <div class="form-group row">
+                <label asp-for="Type" class="col-sm-3 col-form-label"></label>
+                <select asp-for="Type" class="col-sm-3 form-control">
+                    <option></option>
+                    <option>City</option>
+                    <option>County</option>
+                    <option>Educational</option>
+                    <option>Federal</option>
+                    <option>Foreign</option>
+                    <option>Individual</option>
+                    <option>Non-Profit</option>
+                    <option>Private Business</option>
+                    <option>State</option>
+                </select>                
+            </div>  
+            <div class="form-group row">
+                <label asp-for="Address2" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="Address2">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="Address2" data-valmsg-replace="true"></span>
+            </div>                        
+            <div class="form-group row">
+                <label asp-for="Zip" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-3 form-control" asp-for="Zip">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="Zip" data-valmsg-replace="true"></span>
+            </div>                                         
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Third Col *@                         
+            <div class="form-group row">
+                <label asp-for="SIFCustomerNumberDisplay" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.SIFCustomerNumberDisplay)
+                </div>
+            </div>  
+            <div class="form-group row required">
+                <label asp-for="City" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="City">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="City" data-valmsg-replace="true"></span>
+            </div>                             
+            <div class="form-group row required">
+                <label asp-for="Country" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-3 form-control" asp-for="Country">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="Country" data-valmsg-replace="true"></span>
+            </div>                                      
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Fourth Col *@ 
+            <div class="form-group row">
+                <label asp-for="KFSCustomerNumber" class="col-sm-3 col-form-label"></label>
+                 <input type="text" class="col-sm-3 form-control" asp-for="KFSCustomerNumber">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="KFSCustomerNumber" data-valmsg-replace="true"></span>
+            </div>                       
+            <div class="form-group row">
+                <label asp-for="FedIdNumber" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-3 form-control" asp-for="FedIdNumber">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="FedIdNumber" data-valmsg-replace="true"></span>
+            </div>                                                            
+        </div>
+    </div>   
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <label asp-for="Notes" class="col-sm-1 col-form-label"></label>
+            <textarea row="5" asp-for="Notes" class="col-sm-9 form-control"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" class="btn btn-primary" value="Update">
+    </div> 
+</div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

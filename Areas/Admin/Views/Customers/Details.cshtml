@@ -1,0 +1,96 @@
+@model SIFCore.Models.Customers
+
+<h2>Customer Details</h2>
+
+<div class="container col-lg-12">
+    <div class="row">             
+        <div asp-validation-summary="All" class="text-danger"></div>            
+    </div>
+    <div class="row">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Edit</a>
+    </div> 
+     <div class="row col-sm-12"> 
+        <div class="col-md-6 col-xl-3"> @* First column *@
+                <div class="form-group row">
+                <label asp-for="Name" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Name)
+                </div>
+            </div>   
+                <div class="form-group row">
+                <label asp-for="Address1" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Address1)
+                </div>
+            </div>  
+            <div class="form-group row">
+                <label asp-for="State" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.State)
+                </div>
+            </div>                                  
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Second column *@ 
+            <div class="form-group row">
+                <label asp-for="Type" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Type)
+                </div>
+            </div>  
+            <div class="form-group row">
+                <label asp-for="Address2" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Address2)
+                </div>
+            </div>                        
+            <div class="form-group row">
+                <label asp-for="Zip" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Zip)
+                </div>
+            </div>                                         
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Third Col *@                         
+            <div class="form-group row">
+                <label asp-for="SIFCustomerNumberDisplay" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.SIFCustomerNumberDisplay)
+                </div>
+            </div>  
+            <div class="form-group row">
+                <label asp-for="City" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.City)
+                </div>
+            </div>                             
+            <div class="form-group row">
+                <label asp-for="Country" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Country)
+                </div>
+            </div>                                      
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Fourth Col *@ 
+            <div class="form-group row">
+                <label asp-for="KFSCustomerNumber" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.KFSCustomerNumber)
+                </div>
+            </div>                       
+            <div class="form-group row">
+                <label asp-for="FedIdNumber" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.FedIdNumber)
+                </div>
+            </div>                                                            
+        </div>
+    </div>   
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <label asp-for="Notes" class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Notes)
+            </div>
+        </div>
+    </div>
+</div>

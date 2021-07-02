@@ -29,7 +29,7 @@ namespace SIFCore.Models
 
 
         [StringLength(50)]
-        [Display(Name="Federal Id Nubmer")]
+        [Display(Name="Fed Id #")]
         public string FedIdNumber { get; set; }
 
         [StringLength(200)]
@@ -72,6 +72,7 @@ namespace SIFCore.Models
         public string Notes { get; set; }
 
         [StringLength(50)]
+        [Display(Name="KFS Cust#")]
         public string KFSCustomerNumber { get; set; }
         
         public int SIFCustomerNumberInt { get; set; }

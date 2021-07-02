@@ -1,0 +1,76 @@
+
+
+<div id="lookupCustomerModal" >
+    <div class="modal-dialog modal-xl" style="max-width: 2100px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Look Up Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="fa fa-window-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="account">Name, Address, or SIF Cust#:</label>
+                <div class="input-group col">
+                    <input type="text" class="form-control" id="searchTerm" placeholder="Enter the customer's name, address, or SIF Cust# (fragments accepted)">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" id="customer-lookup-btn"><i id="customer-lookup-btn" class="fas fa-search"></i></button>                    
+                    </span>
+                </div>
+                <div id="customerTable"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div><a class="btn btn-primary" asp-action="Create">Create New</a></div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+     <script type="text/javascript">
+       
+
+        $('#lookupCustomerModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal                     
+            var modal = $(this)  
+            modal.find("#searchTerm").val("");
+            modal.find("#customerTable").empty();            
+        })
+       
+
+        $('#customer-lookup-btn').click(function(e){
+            e.preventDefault();
+            var lookup = $("#searchTerm").val();
+            if (lookup === "") {
+                alert("This search term cannot be empty.");
+                return;
+            }
+            $("#customerTable").empty();
+            $("#customerTable").load("/admin/Customers/LookupCustomer?lookup="+lookup, (response, status, xhr) => {
+                if ( status == "error" ) {
+                    var msg = "Sorry, the following error occurred: ";
+                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                }
+            });            
+        });
+
+        $("#searchTerm").keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                e.preventDefault();
+                $(':focus').blur();
+                $("#customer-lookup-btn").click();
+            }
+        });
+
+        function useCustomer(e,custId, custInfo)
+        {
+           e.preventDefault();                        
+           window.location.href = "/admin/Customers/Details/"+custId;
+        }
+        
+    </script>
+}

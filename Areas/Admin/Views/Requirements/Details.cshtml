@@ -1,0 +1,217 @@
+@model SIFCore.Models.Requirements
+
+<h2>Analysis Requirements Details</h2>
+
+<div class="container col-lg-12">    
+    <div class="row">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Edit</a>
+    </div> 
+     <div class="row col-sm-12"> 
+        <div class="col-md-6 col-xl-3"> @* First column *@
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Name)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Subtitle" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.Subtitle)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Enriched" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="Enriched">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="RangeOfWeights" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="RangeOfWeights">
+            </div>  
+            <div class="form-group row">
+                <label asp-for="pHRange" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="pHRange">
+            </div>
+            <div class="form-group row">
+                <label asp-for="NitrateStatement" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="NitrateStatement">
+            </div>
+            <div class="form-group row">
+                <label asp-for="RangeOfConcentrationNitrate" class="col-sm-4 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="RangeOfConcentrationNitrate">
+            </div>
+            <div class="form-group row">
+                <label asp-for="Solvent" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="Solvent">
+            </div>
+            <div class="form-group row">
+                <label asp-for="TypeOfOxidant" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="TypeOfOxidant">
+            </div>
+            <div class="form-group row">
+                <label asp-for="Irreplaceable" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="Irreplaceable">
+            </div>
+            <div class="form-group row">
+                <label asp-for="MinimumSampleCount" class="col-sm-4 col-form-label"></label>
+                <div class="col-sm-8 form-control-plaintext">
+                    @Html.DisplayFor(x => x.MinimumSampleCount)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Second column *@ 
+            <div class="form-group row">
+                <label asp-for="ListName" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.ListName)
+                </div>
+            </div> 
+            <div class="form-group row">
+                <label asp-for="AnalysisTypeName" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.AnalysisTypeName)
+                </div>
+            </div>  
+            <div class="form-group row">
+                <label asp-for="EstimatedEnrichment" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="EstimatedEnrichment">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="TypeOfWater" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="TypeOfWater">
+            </div>      
+            <div class="form-group row">
+                <label asp-for="pHRangeDH18O" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="pHRangeDH18O">
+            </div>
+            <div class="form-group row">
+                <label asp-for="DICContainer" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="DICContainer">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="HowSterilized" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="HowSterilized">
+            </div>   
+            <div class="form-group row">
+                <label asp-for="WhatSolvent" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="WhatSolvent">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="AmountOfOxidant" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="AmountOfOxidant">
+            </div>  
+            <div class="form-group row">
+                <label asp-for="Preservative" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="Preservative">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="AnalysisOrder" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.AnalysisOrder)
+                </div>
+            </div>                                    
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Third Col *@                         
+            <div class="form-group row">
+                <label asp-for="FormattedName" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.FormattedName)
+                </div>
+            </div>  
+            <div class="form-group row">
+                <label asp-for="CurrentAnalysis" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="CurrentAnalysis">
+            </div>
+            <div class="form-group row">
+                <label asp-for="EstimatedEnrichmentN2N2O" class="col-sm-4 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="EstimatedEnrichmentN2N2O">
+            </div>
+            <div class="form-group row">
+                <label asp-for="SalinityRange" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="SalinityRange">
+            </div>
+            <div class="form-group row">
+                <label asp-for="TransferRequiredWater" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="TransferRequiredWater">
+            </div>
+            <div class="form-group row">
+                <label asp-for="RangeOfConcentration" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="RangeOfConcentration">
+            </div>
+            <div class="form-group row">
+                <label asp-for="VolumeSent" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="VolumeSent">
+            </div>
+            <div class="form-group row">
+                <label asp-for="SolventVolume" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="SolventVolume">
+            </div>
+            <div class="form-group row">
+                <label asp-for="ContainerDescription" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="ContainerDescription">
+            </div>
+            <div class="form-group row">
+                <label asp-for="InternalCost" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.InternalCost)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Fourth Col *@ 
+            <div class="form-group row">
+                <label asp-for="FolderName" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.FolderName)
+                </div>
+            </div> 
+            <div class="form-group row">
+                <label asp-for="TrayNames" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="TrayNames">
+            </div>                                                         
+            <div class="form-group row">
+                <label asp-for="Material" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="Material">
+            </div>
+            <div class="form-group row">
+                <label asp-for="SalinityRangeDOC" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="SalinityRangeDOC">
+            </div>
+            <div class="form-group row">
+                <label asp-for="TransferRequiredDOC" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="TransferRequiredDOC">
+            </div>
+            <div class="form-group row">
+                <label asp-for="RangeOfConcentrationN2N2O" class="col-sm-4 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="RangeOfConcentrationN2N2O">
+            </div>
+            <div class="form-group row">
+                <label asp-for="Filtered" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="Filtered">
+            </div>
+            <div class="form-group row">
+                <label asp-for="VialType" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="VialType">
+            </div>
+            <div class="form-group row">
+                <label asp-for="DateDelay" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.DateDelay)
+                </div>
+            </div> 
+            <div class="form-group row">
+                <label asp-for="ExternalCost" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.ExternalCost)
+                </div>
+            </div>           
+        </div>
+    </div>   
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <label asp-for="Terms" class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-9 form-control-plaintext">
+                @Html.DisplayFor(x => x.Terms)
+            </div>
+        </div>
+    </div>
+</div>

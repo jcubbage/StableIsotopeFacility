@@ -49,7 +49,14 @@ namespace SIFCore.Models
         public  bool VialType { get; set; }
         public  bool Irreplaceable { get; set; }
         public  int DateDelay { get; set; }
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public  decimal Cost  { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public  decimal ExternalCost  { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public  decimal InternalCost  { get; set; }
         public  byte AnalysisOrder { get; set; }
         public  int MinimumSampleCount { get; set; }
         public  bool Preservative { get; set; }

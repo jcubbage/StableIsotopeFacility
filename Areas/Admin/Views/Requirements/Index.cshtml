@@ -1,0 +1,59 @@
+@model List<Requirements>
+
+<div class="container col-sm-12">    
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Analysis Requirements</h2> 
+        </div>            
+    </div> 
+</div>
+
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="//cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet">
+<div>
+    <table id="table" class="table datatable">
+        <thead>
+            <th>Details</th>            
+            <th>Name</th>
+            <th>Type</th>
+            <th>Internal Cost</th>
+            <th>External Cost</th> 
+            <th>Date Delay</th>
+            <th>Has Terms</th>
+            <th>Current</th>
+        </thead>
+        <tbody>
+            @foreach (var req in Model)
+            {
+            <tr>                
+                <td><a asp-action="Details" asp-route-id="@req.Id" class="btn btn-primary">View</a></td>
+                <td>@req.Name</td>
+                <td>@req.AnalysisTypeName @req.AnalysisType.CategoryName</td>
+                <td>@string.Format("{0:n2}", req.InternalCost )</td>
+                <td>@string.Format("{0:n2}", req.ExternalCost )</td>
+                <td>@req.DateDelay</td>
+                <td><input name="sifTerms" type="checkbox" checked=@(req.Terms != null) disabled /></td>               
+                <td><input name="Submitted" type="checkbox" asp-for="@req.CurrentAnalysis" disabled /></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@section Scripts {
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    
+
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable({
+                dom: 'lBfrtip',
+                "pageLength" : 50,
+            });
+        } );
+    </script>
+}
+
+

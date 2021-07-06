@@ -10,9 +10,10 @@ namespace SIFCore.Models
 
         public int Id { get; set; }
 
+       [Required]
        public  string Name { get; set; }
         public  string ListName { get; set; }
-        [Display(Name="Analysis Name")]
+        [Display(Name="Formatted Name")]
         public  string FormattedName { get; set; }
         public  string FolderName { get; set; }
         public  string Subtitle { get; set; }

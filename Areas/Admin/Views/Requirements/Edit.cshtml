@@ -1,0 +1,217 @@
+@model SIFCore.Models.AdminRequirementEditViewModel
+
+<h2>Analysis Requirements Details</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="requirement.Id">
+
+<div class="container col-lg-12">    
+    <div class="row">
+         <div asp-validation-summary="All" class="text-danger"></div> <br>
+        <a asp-action="Details" asp-route-id="@Model.requirement.Id" class="btn btn-dark">Cancel</a>
+    </div> 
+     <div class="row col-sm-12"> 
+        <div class="col-md-6 col-xl-3"> @* First column *@
+            <div class="form-group row required">
+                <label asp-for="requirement.Name" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="requirement.Name">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.Name" data-valmsg-replace="true"></span> 
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.Subtitle" class="col-sm-3 col-form-label"></label>
+                 <input type="text" class="col-sm-6 form-control" asp-for="requirement.Subtitle">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.Subtitle" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.Enriched" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.Enriched">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.RangeOfWeights" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.RangeOfWeights">
+            </div>  
+            <div class="form-group row">
+                <label asp-for="requirement.pHRange" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.pHRange">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.NitrateStatement" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.NitrateStatement">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.RangeOfConcentrationNitrate" class="col-sm-4 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.RangeOfConcentrationNitrate">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.Solvent" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.Solvent">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.TypeOfOxidant" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.TypeOfOxidant">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.Irreplaceable" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.Irreplaceable">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.MinimumSampleCount" class="col-sm-4 col-form-label"></label>
+                <input type="text" class="col-sm-1 form-control" asp-for="requirement.MinimumSampleCount">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.MinimumSampleCount" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Second column *@ 
+            <div class="form-group row">
+                <label asp-for="requirement.ListName" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="requirement.ListName">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.ListName" data-valmsg-replace="true"></span> 
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.AnalysisTypeName" class="col-sm-3 col-form-label"></label>
+                 <select asp-for="requirement.AnalysisTypeName" class="col-sm-6 form-control" asp-items="@(new SelectList(Model.analysisTypes, "CategoryName", "CategoryName"))"></select>    
+            </div>  
+            <div class="form-group row">
+                <label asp-for="requirement.EstimatedEnrichment" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.EstimatedEnrichment">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.TypeOfWater" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.TypeOfWater">
+            </div>      
+            <div class="form-group row">
+                <label asp-for="requirement.pHRangeDH18O" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.pHRangeDH18O">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.DICContainer" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.DICContainer">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.HowSterilized" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.HowSterilized">
+            </div>   
+            <div class="form-group row">
+                <label asp-for="requirement.WhatSolvent" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.WhatSolvent">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.AmountOfOxidant" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.AmountOfOxidant">
+            </div>  
+            <div class="form-group row">
+                <label asp-for="requirement.Preservative" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.Preservative">
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.AnalysisOrder" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-1 form-control" asp-for="requirement.AnalysisOrder">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.AnalysisOrder" data-valmsg-replace="true"></span>
+            </div>                                    
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Third Col *@                         
+            <div class="form-group row">
+                <label asp-for="requirement.FormattedName" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="requirement.FormattedName">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.FormattedName" data-valmsg-replace="true"></span> 
+            </div>  
+            <div class="form-group row">
+                <label asp-for="requirement.CurrentAnalysis" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.CurrentAnalysis">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.EstimatedEnrichmentN2N2O" class="col-sm-4 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.EstimatedEnrichmentN2N2O">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.SalinityRange" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.SalinityRange">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.TransferRequiredWater" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.TransferRequiredWater">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.RangeOfConcentration" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.RangeOfConcentration">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.VolumeSent" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.VolumeSent">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.SolventVolume" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.SolventVolume">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.ContainerDescription" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.ContainerDescription">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.InternalCost" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-2 form-control" asp-for="requirement.InternalCost">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.InternalCost" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3"> @* Fourth Col *@ 
+            <div class="form-group row">
+                <label asp-for="requirement.FolderName" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-6 form-control" asp-for="requirement.FolderName">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.FolderName" data-valmsg-replace="true"></span>
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.TrayNames" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.TrayNames">
+            </div>                                                         
+            <div class="form-group row">
+                <label asp-for="requirement.Material" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.Material">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.SalinityRangeDOC" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.SalinityRangeDOC">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.TransferRequiredDOC" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.TransferRequiredDOC">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.RangeOfConcentrationN2N2O" class="col-sm-4 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.RangeOfConcentrationN2N2O">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.Filtered" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.Filtered">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.VialType" class="col-sm-3 col-form-label"></label>
+                <input type="checkbox" class="col-sm-3 form-control" asp-for="requirement.VialType">
+            </div>
+            <div class="form-group row">
+                <label asp-for="requirement.DateDelay" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-2 form-control" asp-for="requirement.DateDelay">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.DateDelay" data-valmsg-replace="true"></span>
+            </div> 
+            <div class="form-group row">
+                <label asp-for="requirement.ExternalCost" class="col-sm-3 col-form-label"></label>
+                <input type="text" class="col-sm-3 form-control" asp-for="requirement.ExternalCost">                       
+                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.ExternalCost" data-valmsg-replace="true"></span>
+            </div>           
+        </div>
+    </div>   
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <label asp-for="requirement.Terms" class="col-sm-1 col-form-label"></label>
+            <textarea row="3" class="col-sm-10 form-control" asp-for="requirement.Terms"></textarea>
+        </div>
+    </div>
+    <div class="row">
+            <input type="submit" value="Update" class="btn btn-primary"></input> | 
+            <a class="btn btn-dark" asp-action="Details" asp-route-id="@Model.requirement.Id">Cancel</a>
+        </div>
+</div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}  
+}

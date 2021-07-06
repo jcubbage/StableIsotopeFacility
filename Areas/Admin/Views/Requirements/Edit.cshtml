@@ -154,9 +154,10 @@
         </div>
         <div class="col-md-6 col-xl-3"> @* Fourth Col *@ 
             <div class="form-group row">
-                <label asp-for="requirement.FolderName" class="col-sm-3 col-form-label"></label>
-                <input type="text" class="col-sm-6 form-control" asp-for="requirement.FolderName">                       
-                <span class="field-validation-valid text-danger" data-valmsg-for="requirement.FolderName" data-valmsg-replace="true"></span>
+                <label asp-for="FolderName" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 form-control-plaintext">
+                    @Html.DisplayFor(x => x.FolderName)
+                </div>
             </div> 
             <div class="form-group row">
                 <label asp-for="requirement.TrayNames" class="col-sm-3 col-form-label"></label>

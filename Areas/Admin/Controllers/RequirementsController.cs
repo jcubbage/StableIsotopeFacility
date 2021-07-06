@@ -61,8 +61,7 @@ namespace SIFCore.Controllers.Admin
             }
             reqToUpdate.Name = editedReq.Name;
             reqToUpdate.ListName  = editedReq.ListName;
-            reqToUpdate.FormattedName = editedReq.FormattedName;
-            reqToUpdate.FolderName = editedReq.FolderName;
+            reqToUpdate.FormattedName = editedReq.FormattedName;           
             reqToUpdate.Subtitle = editedReq.Subtitle;
             reqToUpdate.AnalysisTypeName = editedReq.AnalysisTypeName;
             reqToUpdate.CurrentAnalysis = editedReq.CurrentAnalysis;
@@ -114,23 +113,7 @@ namespace SIFCore.Controllers.Admin
             
             return RedirectToAction(nameof(Details), new {  id = id});
             
-         }
-
-        public async Task<IActionResult> Create()
-        {            
-            var model = new Analysis();
-            
-            return View(model);
-        }
-
-        // POST: /Analysis/Create
-        [HttpPost]
-        public async Task<IActionResult> Create(int id, AnalysisViewModel vm)
-        {
-            return View();
-        }
-
-        
+         }        
 
     }
 }

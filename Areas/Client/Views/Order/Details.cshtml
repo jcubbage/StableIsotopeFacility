@@ -23,7 +23,7 @@
                 <td>@Html.Raw(item.AnalysisRequirement.FormattedName)</td>
                 <td>@item.NumberOfSamples</td>
                 <td>@item.Abundance</td>
-                <td>@String.Format("{0:c}", (item.AnalysisRequirement.Cost*item.NumberOfSamples))</td>
+                <td>@String.Format("{0:c}", (item.AnalysisRequirement.ExternalCost*item.NumberOfSamples))</td>
                 <td align="center">
                     @if (item.AttachmentName != null)
                     {

@@ -9,7 +9,7 @@ namespace SIFCore.Models
 {
     public class Orders
     {
- public Orders()
+        public Orders()
         {
             PO = false;
             Hardcopy = false;
@@ -82,6 +82,8 @@ namespace SIFCore.Models
         
 
         public  IList<Analysis> Analyses { get; set; }
+
+        public IList<Charges> Charges { get; set; } 
 
 
        

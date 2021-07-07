@@ -30,6 +30,8 @@ namespace SIFCore.Models
 
         public DbSet<Customers> Customers { get; set; }
 
+        public DbSet<Charges> Charges { get; set; }
+
         private ILoggerFactory GetLoggerFactory()
         {
             IServiceCollection serviceCollection = new ServiceCollection();

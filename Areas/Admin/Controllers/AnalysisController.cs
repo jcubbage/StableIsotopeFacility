@@ -139,6 +139,46 @@ namespace SIFCore.Controllers.Admin
             }
         }
 
+        public async Task<IActionResult> ReceiveAll(int id)
+        {
+            var analysisToReceive = await _dbContext.Analysis.Where(a => a.Id == id).FirstOrDefaultAsync();
+            if(analysisToReceive == null)
+            {
+                ErrorMessage = "Analysis not found";
+                return RedirectToAction(nameof(OrdersController.Index),"Orders");
+            }
+            analysisToReceive.NumberReceived = analysisToReceive.NumberOfSamples;
+            if(ModelState.IsValid)
+            {
+                await _dbContext.SaveChangesAsync();
+                Message = "Analyssis marked received all";                
+            } else
+            {
+                ErrorMessage = "Something went wrong";                
+            }
+            return RedirectToAction(nameof(OrdersController.Details), "Orders", new { id = analysisToReceive.OrderId});
+        }
+
+        public async Task<IActionResult> AnalyzeAll(int id)
+        {
+            var analysisToAnalyze = await _dbContext.Analysis.Where(a => a.Id == id).FirstOrDefaultAsync();
+            if(analysisToAnalyze == null || analysisToAnalyze.NumberReceived == null)
+            {
+                ErrorMessage = "Analysis not found or not received";
+                return RedirectToAction(nameof(OrdersController.Index),"Orders");
+            }
+            analysisToAnalyze.NumberAnalyzed = analysisToAnalyze.NumberReceived;
+            if(ModelState.IsValid)
+            {
+                await _dbContext.SaveChangesAsync();
+                Message = "Analyssis marked all analyzed";                
+            } else
+            {
+                ErrorMessage = "Something went wrong";                
+            }
+            return RedirectToAction(nameof(OrdersController.Details), "Orders", new { id = analysisToAnalyze.OrderId});
+        }
+
         private static void TransferValues(Analysis source, Analysis destination)
         {
             destination.DateNeeded = source.DateNeeded;

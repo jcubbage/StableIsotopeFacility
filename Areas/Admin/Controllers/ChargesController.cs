@@ -76,7 +76,7 @@ namespace SIFCore.Controllers.Admin
                chargeToAdd.OrderId = order.Id;
                chargeToAdd.ContactId = order.ContactId;
                chargeToAdd.Description = item.AnalysisRequirement.Name;
-               chargeToAdd.ItemCount = item.NumberAnalyzed.Value;
+               chargeToAdd.ItemCount = item.NumberAnalyzed.HasValue ?  item.NumberAnalyzed.Value : 0;
 
                if(order.PaymentMethod == PaymentTypes.IOC.GetDisplayName())
                {

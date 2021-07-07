@@ -95,7 +95,7 @@ namespace SIFCore.Controllers.Admin
                }
             }
             await _dbContext.SaveChangesAsync();
-            Message = "Add charges added";
+            Message = "Charges added";
             return RedirectToAction(nameof(OrdersController.Details),"Orders", new {  id = id});
          }
 

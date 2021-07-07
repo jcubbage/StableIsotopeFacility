@@ -1,0 +1,40 @@
+@model SIFCore.Models.Charges
+
+<h2>Edit Charge</h2>
+
+<form asp-action="Edit">
+    @Html.HiddenFor(x => x.Id)
+<div class="container col-lg-12">
+        <div class="row">             
+            <div asp-validation-summary="All" class="text-danger"></div>            
+        </div>
+        <div class="form-group row">
+            <label asp-for="Description" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-6 form-control" asp-for="Description">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span> 
+        </div>                   
+        <div class="form-group row">
+            <label asp-for="ItemCount" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="ItemCount">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="ItemCount" data-valmsg-replace="true"></span> 
+        </div>
+         <div class="form-group row">
+            <label asp-for="Cost" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="Cost">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="Cost" data-valmsg-replace="true"></span> 
+        </div>
+        <div class="form-group row">
+            <label asp-for="Paid" class="col-sm-3 col-form-label"></label>
+            <input type="checkbox" class="col-sm-3 form-control" asp-for="Paid">                                
+        </div>        
+        <div class="row">
+            <input type="submit" value="Update" class="btn btn-primary"></input> | 
+            <a class="btn btn-dark" asp-action="Details" asp-route-id="@Model.OrderId" asp-controller="Orders" >Cancel</a>
+        </div>           
+    </div>
+</div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

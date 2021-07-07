@@ -1,5 +1,9 @@
 @model SIFCore.Models.CreateOrdersViewModel
 
+@{
+    bool emptyAnalysis = false;
+}
+
 <h2>@Model.Order.ProjectName Details</h2>
 
 <div class="container col-lg-12">
@@ -411,7 +415,8 @@
     </div>
 
 @if(Model.Analyses.Count!=0)
-{<h3>Analyses</h3>
+{
+    <h3>Analyses</h3>
     <table border="0" width="100%">
         <tr>
             <th>View/Edit</th>
@@ -420,18 +425,31 @@
             <th>Analysis</th>
             <th># (ship/recd/analyzed)</th>
             <th>NA/Enriched</th>
-            <th>Estimated Price<sup>*</sup></th>
+            <th>Estimated Price</th>
             <th>Sample List<sup>&dagger;</sup></th>
         </tr>
         @foreach (var item in Model.Analyses)
         {
+            @if(item.NumberAnalyzed == 0 || item.NumberAnalyzed == null)
+            {
+                {emptyAnalysis = true;}
+            }
             <tr>
                 <td><a href="#" onclick="loadForm(@item.Id, 'details')">View/Edit</a></td><td>@Html.ActionLink("Delete", "Delete", "Analysis", new {id = item.Id}, null) </td>
                 <td></td>
                 <td>@Html.Raw(item.AnalysisRequirement.FormattedName)</td>
-                <td>@item.NumberOfSamples/@item.NumberReceived/@item.NumberAnalyzed</td>
+                <td>@item.NumberOfSamples/@item.NumberReceived/@item.NumberAnalyzed 
+                    @if(@item.NumberReceived == null)
+                    {
+                      <a asp-action="ReceiveAll" asp-controller="Analysis" asp-route-id="@item.Id" class="btn btn-info">Rec all</a>  
+                    }
+                    @if(@item.NumberAnalyzed == null && @item.NumberReceived != null)
+                    {
+                        <a asp-action="AnalyzeAll" asp-controller="Analysis" asp-route-id="@item.Id" class="btn btn-info">Analyze all</a>
+                    }
+                </td>
                 <td>@item.Abundance</td>
-                <td>@String.Format("{0:c}", (item.AnalysisRequirement.Cost*item.NumberOfSamples))</td>
+                <td>@String.Format("{0:c}", (item.AnalysisRequirement.ExternalCost*item.NumberOfSamples))</td>
                 <td align="center">
                     @if (item.AttachmentName != null)
                     {
@@ -444,15 +462,54 @@
                     }
                 </td>
             </tr>
+        }       
+    </table>
+}
+
+@if(Model.Charges.Count!=0)
+{
+    <h3>Charges</h3>
+    <table border="0" width="100%">
+        <tr>
+            <th>View/Edit</th>
+            <th>Description</th>
+            <td>Count</td>
+            <th>Cost</th>
+            <th>Line Total</th>
+            <th>Paid</th>
+        </tr>
+        @foreach (var item in Model.Charges)
+        {            
+            <tr>
+                <td><a asp-action="Edit" asp-controller="Charges" asp-route-id="@item.Id">Edit</a></td>
+                <td>@item.Description</td>
+                <td>@item.ItemCount</td>
+                <td>@String.Format("{0:n2}", (item.Cost))</td>
+                <td>@String.Format("{0:c}", (item.LineTotal))</td>
+                <td> <input type="checkbox" class="col-sm-3 form-control" asp-for="@item.Paid"></td>
+            </tr>
         }
         <tr>
-            <td colspan="7"><sup>*</sup>Ancillary charges (such as weighing and transfers) are not included.<br/>
-                <sup>&dagger;</sup>Use the <i class="icon-upload"></i> link to add a new sample list. If you need to replace this file, please delete the existing file using the <i class="icon-trash"></i>, 
-                then upload new file. Please review our <a href="http://stableisotopefacility.ucdavis.edu/analysisorderform.html" target="_blank">Sample List Templates</a>. Only one file per analysis allowed. Please upload file
-                for each analysis, even is list is same for each one.
+            <td colspan="7">
+                @if(emptyAnalysis)
+                {
+                    <a asp-action="Charge" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-danger">Charge Order</a> <span>(some Analysis entries have no "number analyzed and will generate no fee"!)</span>
+                } else 
+                {
+                    <a asp-action="Charge" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-danger">Charge Order</a> <span>This will create duplicates!</span>
+                }
             </td>
         </tr>
     </table>
+} else 
+{
+    @if(emptyAnalysis)
+                {
+                    <a asp-action="Charge" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-danger">Charge Order</a> <span>(some Analysis entries have no "number analyzed" and will generate no fee!)</span>
+                } else 
+                {
+                    <a asp-action="Charge" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-primary">Charge Order</a>
+                }
 }
 
 <br/>

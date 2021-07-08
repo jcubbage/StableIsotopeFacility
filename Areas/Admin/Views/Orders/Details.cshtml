@@ -416,6 +416,7 @@
 
 @if(Model.Analyses.Count!=0)
 {
+    <div class="col-sm-12"><hr></div>
     <h3>Analyses</h3>
     <table border="0" width="100%">
         <tr>
@@ -468,6 +469,7 @@
 
 @if(Model.Charges.Count!=0)
 {
+    <div class="col-sm-12"><hr></div>
     <h3>Charges</h3>
     <table border="0" width="100%">
         <tr>
@@ -513,27 +515,30 @@
 }
 
 <br/>
-
- <div class="container col-sm-12">
+<div class="col-sm-12"><hr></div>
+ <div class="container col-sm-12">     
      <div class="row">        
          <div class="col-sm-4">
-             <h3>Select items in the tree to add a new analysis.</h3>
-            <div id="AnalysisTree" class="demo" style="overflow: auto; height: 600px; width: 350px">
-                <ul>
-                    @foreach (var analysisTypesItem in Model.AnalysisTypes)
-                    {
-                        <li><a href="?@analysisTypesItem.Id">@Html.Raw(analysisTypesItem.CategoryName)</a>
-                            <ul>
-                                @foreach(var requirementItem in Model.Requirements.Where(a=> a.AnalysisType.Id == analysisTypesItem.Id))
-                                {
-                                    <li>
-                                        <a href="#" onclick="loadPage(@Model.Order.Id, @requirementItem.Id);">@Html.Raw(requirementItem.FormattedName)</a>
-                                    </li>   
-                                }
-                            </ul>
-                        </li>
-                    }
-                </ul>
+             <a class="btn btn-info" data-toggle="collapse" href="#NewAnalysisCollapse" role="button" aria-expanded="false" aria-controls="NewAnalysisCollapse">Add analysis</a>
+             <div class="collapse" id="NewAnalysisCollapse">
+                <h3>Select items in the tree to add a new analysis.</h3>
+                <div id="AnalysisTree" class="demo" style="overflow: auto; height: 600px; width: 350px">
+                    <ul>
+                        @foreach (var analysisTypesItem in Model.AnalysisTypes)
+                        {
+                            <li><a href="?@analysisTypesItem.Id">@Html.Raw(analysisTypesItem.CategoryName)</a>
+                                <ul>
+                                    @foreach(var requirementItem in Model.Requirements.Where(a=> a.AnalysisType.Id == analysisTypesItem.Id))
+                                    {
+                                        <li>
+                                            <a href="#" onclick="loadPage(@Model.Order.Id, @requirementItem.Id);">@Html.Raw(requirementItem.FormattedName)</a>
+                                        </li>   
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
          </div>        
          <div class="col-sm-8">

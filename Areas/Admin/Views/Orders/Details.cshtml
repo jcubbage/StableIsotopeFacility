@@ -478,6 +478,7 @@
             <td>Count</td>
             <th>Cost</th>
             <th>Line Total</th>
+            <th>ItemCode</th>
             <th>Paid</th>
         </tr>
         @foreach (var item in Model.Charges)
@@ -488,6 +489,7 @@
                 <td>@item.ItemCount</td>
                 <td>@String.Format("{0:n2}", (item.Cost))</td>
                 <td>@String.Format("{0:c}", (item.LineTotal))</td>
+                <td>@item.ItemCode</td>
                 <td> <input type="checkbox" class="col-sm-3 form-control" asp-for="@item.Paid"></td>
             </tr>
         }
@@ -513,6 +515,7 @@
                     <a asp-action="Charge" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-primary">Charge Order</a>
                 }
 }
+<a asp-action="AddAncillary" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-primary">Add Ancillary Charge</a>
 
 <br/>
 <div class="col-sm-12"><hr></div>

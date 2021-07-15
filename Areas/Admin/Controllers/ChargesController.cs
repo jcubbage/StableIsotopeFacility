@@ -46,7 +46,8 @@ namespace SIFCore.Controllers.Admin
             chargeToUpdate.Description = charge.Description;
             chargeToUpdate.ItemCount = charge.ItemCount;
             chargeToUpdate.Cost = charge.Cost;
-            chargeToUpdate.Paid = charge.Paid;              
+            chargeToUpdate.Paid = charge.Paid; 
+            chargeToUpdate.ItemCode = charge.ItemCode;             
 
             if(ModelState.IsValid){                 
                 await _dbContext.SaveChangesAsync();
@@ -77,6 +78,7 @@ namespace SIFCore.Controllers.Admin
                chargeToAdd.ContactId = order.ContactId;
                chargeToAdd.Description = item.AnalysisRequirement.Name;
                chargeToAdd.ItemCount = item.NumberAnalyzed.HasValue ?  item.NumberAnalyzed.Value : 0;
+               chargeToAdd.ItemCode = item.AnalysisRequirement.ItemCode;
 
                if(order.PaymentMethod == PaymentTypes.IOC.GetDisplayName())
                {

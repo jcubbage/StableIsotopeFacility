@@ -66,5 +66,7 @@ namespace SIFCore.Models
         public  string Terms { get; set; }
 
         public  IList<Analysis> Analyses { get; set; }
+
+        public string ItemCode { get; set; }
     }
 }

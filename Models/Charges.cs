@@ -45,6 +45,8 @@ namespace SIFCore.Models
 
         public bool Paid { get; set; }
 
+        public string ItemCode { get; set; }
+
        
     }     
     

@@ -100,7 +100,8 @@ namespace SIFCore.Controllers.Admin
             reqToUpdate.ExternalCost = editedReq.ExternalCost;
             reqToUpdate.MinimumSampleCount = editedReq.MinimumSampleCount;
             reqToUpdate.AnalysisOrder = editedReq.AnalysisOrder;
-            reqToUpdate.Terms = editedReq.Terms;             
+            reqToUpdate.Terms = editedReq.Terms;      
+            reqToUpdate.ItemCode = editedReq.ItemCode;       
 
             if(ModelState.IsValid){                 
                 await _dbContext.SaveChangesAsync();

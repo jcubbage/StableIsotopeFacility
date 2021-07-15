@@ -99,7 +99,36 @@ namespace SIFCore.Controllers.Admin
             await _dbContext.SaveChangesAsync();
             Message = "Charges added";
             return RedirectToAction(nameof(OrdersController.Details),"Orders", new {  id = id});
-         }
+        }
+
+        public async Task<IActionResult> AddAncillary(int id)
+        {
+            var model = await AdminAddAncillaryViewModel.Create(_dbContext, id);
+            if(model.order == null)
+            {
+                ErrorMessage = "Order not found";
+                return RedirectToAction(nameof(OrdersController.Index),"Orders");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddAncillary(int id, AdminAddAncillaryViewModel vm)
+        {
+            var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();            
+            var newCharge = new Charges();
+            newCharge.OrderId = vm.order.Id;
+            newCharge.ContactId = order.ContactId;
+            newCharge.Description = vm.newCharge.Description;
+            newCharge.ItemCount = vm.newCharge.ItemCount;
+            newCharge.ItemCode = vm.newCharge.ItemCode;
+            newCharge.Cost = vm.newCharge.Cost;
+
+            _dbContext.Add(newCharge);  
+            await _dbContext.SaveChangesAsync();                
+            Message = "Charge added";
+            return RedirectToAction(nameof(OrdersController.Details),"Orders", new {  id = id});
+        }
 
     }
 }

@@ -1,0 +1,70 @@
+@model SIFCore.Models.AdminAddAncillaryViewModel
+
+<h2>Add Ancillary Charge to @Model.order.ProjectName</h2>
+
+<form asp-action="AddAncillary">
+    @Html.HiddenFor(x => x.order.Id)
+    @Html.HiddenFor(x => x.order.PaymentMethod)
+    <div class="container col-sm-12">
+        <div class="row">
+            <label class="col-sm-3 col-form-label">Ancillaries</label>
+            <select id="Ancillary" name="Ancillary" class="col-sm-3 form-control" asp-items="@(new SelectList(Model.ancillaries,"Summary","Description"))"></select>  
+            <input type="button" class="btn btn-primary" value="Use Charge" onclick="addCharge();">
+        </div>
+        <div class="row">             
+            <div asp-validation-summary="All" class="text-danger"></div>            
+        </div>
+        <div class="form-group row">
+            <label asp-for="newCharge.Description" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-6 form-control" asp-for="newCharge.Description">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="newCharge.Description" data-valmsg-replace="true"></span> 
+        </div>                   
+        <div class="form-group row">
+            <label asp-for="newCharge.ItemCount" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="newCharge.ItemCount">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="newCharge.ItemCount" data-valmsg-replace="true"></span> 
+        </div>
+         <div class="form-group row">
+            <label asp-for="newCharge.Cost" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="newCharge.Cost">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="newCharge.Cost" data-valmsg-replace="true"></span> 
+        </div>        
+        <div class="form-group row">
+            <label asp-for="newCharge.ItemCode" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="newCharge.ItemCode">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="newCharge.ItemCode" data-valmsg-replace="true"></span>                                 
+        </div>       
+        <div class="row">
+            <input type="submit" value="Add Charge" class="btn btn-primary"></input> | 
+            <a class="btn btn-dark" asp-action="Details" asp-route-id="@Model.order.Id" asp-controller="Orders" >Cancel</a>
+        </div>           
+    </div>
+</div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function addCharge()
+        {
+            var ancillary = $("#Ancillary").val();
+            const ancillaryArray = ancillary.split("//");
+
+            // 0: Description 1: InternalCost 2: ExternalCost 3: ItemCode
+            @* alert(ancillaryArray[0]);
+            alert(ancillaryArray[1]);
+            alert(ancillaryArray[2]);
+            alert(ancillaryArray[3]); *@
+            $("#newCharge_Description").val(ancillaryArray[0]);
+            if($("#order_PaymentMethod").val() == "Recharge/IOC - UC System Only")
+            {
+                $("#newCharge_Cost").val(ancillaryArray[1]);
+            } else
+            {
+                $("#newCharge_Cost").val(ancillaryArray[2]);
+            }
+             $("#newCharge_ItemCode").val(ancillaryArray[3]);
+        }
+    </script>
+}

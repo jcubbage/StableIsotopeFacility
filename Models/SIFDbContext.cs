@@ -32,6 +32,8 @@ namespace SIFCore.Models
 
         public DbSet<Charges> Charges { get; set; }
 
+        public DbSet<Ancillary> Ancillary { get; set; }
+
         private ILoggerFactory GetLoggerFactory()
         {
             IServiceCollection serviceCollection = new ServiceCollection();

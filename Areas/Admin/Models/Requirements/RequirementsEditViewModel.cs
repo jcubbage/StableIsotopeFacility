@@ -15,9 +15,7 @@ namespace SIFCore.Models
 
 
         public static async Task<AdminRequirementEditViewModel> Create(SIFContext _dbContext, int id)
-        {
-            var model = await _dbContext.Requirements.Where(r => r.Id == id).FirstOrDefaultAsync();
-           
+        {  
 
             var viewModel = new AdminRequirementEditViewModel
             {

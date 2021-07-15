@@ -13,6 +13,7 @@ namespace SIFCore.Models
         {   
             Paid = false;
             DateCharged =  DateTime.Now.Date;
+            ItemCount = 1;
         }       
 
         public int Id { get; set; }

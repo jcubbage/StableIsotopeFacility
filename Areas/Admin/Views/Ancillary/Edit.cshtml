@@ -1,0 +1,41 @@
+@model SIFCore.Models.Ancillary
+
+<h2>Edit Ancillary</h2>
+
+<form asp-action="Edit">
+    @Html.HiddenFor(x => x.Id)
+<div class="container col-lg-12">
+        <div class="row">             
+            <div asp-validation-summary="All" class="text-danger"></div>            
+        </div>
+        <div class="form-group row">
+            <label asp-for="Description" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-6 form-control" asp-for="Description">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span> 
+        </div>                          
+        <div class="form-group row">
+            <label asp-for="InternalCost" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="InternalCost">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="InternalCost" data-valmsg-replace="true"></span> 
+        </div>
+        <div class="form-group row">
+            <label asp-for="ExternalCost" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="ExternalCost">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="ExternalCost" data-valmsg-replace="true"></span> 
+        </div>       
+        <div class="form-group row">
+            <label asp-for="ItemCode" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-1 form-control" asp-for="ItemCode">                       
+            <span class="field-validation-valid text-danger" data-valmsg-for="ItemCode" data-valmsg-replace="true"></span>                                 
+        </div>       
+        <div class="row">
+            <input type="submit" value="Update" class="btn btn-primary"></input> | 
+            <a class="btn btn-dark" asp-action="Index">Cancel</a>
+        </div>           
+    </div>
+</div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

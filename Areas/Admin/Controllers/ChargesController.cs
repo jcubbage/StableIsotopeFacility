@@ -130,5 +130,11 @@ namespace SIFCore.Controllers.Admin
             return RedirectToAction(nameof(OrdersController.Details),"Orders", new {  id = id});
         }
 
+        public async Task<IActionResult> Ancillaries()
+        {
+            var model = await _dbContext.Ancillary.OrderBy(a => a.Description).ToListAsync();
+            return View(model);
+        }
+
     }
 }

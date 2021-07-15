@@ -40,6 +40,7 @@ namespace SIFCore.Models
         public static async Task<CreateOrdersViewModel> EditViewModel(SIFContext _dbContext, int orderId)
         {
             var thisOrder = await _dbContext.Orders
+                .Include(o => o.Contact)
                 .Include(o => o.OrderShippingAddress)
                 .Include(o => o.OrderBillingAddress)
                 .Include(o => o.OrderCustomer)

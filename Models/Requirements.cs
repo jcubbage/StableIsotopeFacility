@@ -68,5 +68,9 @@ namespace SIFCore.Models
         public  IList<Analysis> Analyses { get; set; }
 
         public string ItemCode { get; set; }
+
+        public bool HasDifficult { get; set; }
+
+        public int? DifficultID { get; set; }
     }
 }

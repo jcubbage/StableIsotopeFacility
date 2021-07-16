@@ -72,6 +72,43 @@ namespace SIFCore.Controllers.Admin
             }
          }
 
+         public async Task<IActionResult> SplitToDifficult(int numberDifficult, int analysisId)
+         {
+             var analysisToSplit = await _dbContext.Analysis.Include(a => a.AnalysisRequirement).Where(a => a.Id == analysisId).FirstOrDefaultAsync();
+             if(analysisToSplit == null)
+             {
+                 ErrorMessage = "Analysis to split not found";
+                 return RedirectToAction(nameof(OrdersController.Index),"Orders");
+             }
+             if(!analysisToSplit.AnalysisRequirement.HasDifficult || !analysisToSplit.AnalysisRequirement.DifficultID.HasValue)
+             {
+                 ErrorMessage = "Analysis does not have a configured difficult equivalent.";
+                 return RedirectToAction(nameof(OrdersController.Details),"Orders", new {id = analysisToSplit.OrderId});
+             }
+             var difficultAnalysis = new Analysis();
+              TransferValues(analysisToSplit, difficultAnalysis);
+              analysisToSplit.NumberOfSamples = analysisToSplit.NumberOfSamples - numberDifficult;
+              difficultAnalysis.NumberOfSamples = numberDifficult;
+              analysisToSplit.NumberReceived = analysisToSplit.NumberReceived - numberDifficult;
+              difficultAnalysis.NumberReceived = numberDifficult;
+              analysisToSplit.NumberAnalyzed = analysisToSplit.NumberAnalyzed - numberDifficult;
+              difficultAnalysis.NumberAnalyzed = numberDifficult;
+              difficultAnalysis.OrderId = analysisToSplit.OrderId;
+              difficultAnalysis.RequirementId = analysisToSplit.AnalysisRequirement.DifficultID.Value;
+
+              if(ModelState.IsValid)
+              {
+                  _dbContext.Add(difficultAnalysis);
+                  await _dbContext.SaveChangesAsync();
+                  Message = "Analysis split to difficult";                  
+              } else
+              {
+                  ErrorMessage = "Somthing went wrong";
+              }
+              return RedirectToAction(nameof(OrdersController.Details),"Orders", new {id = analysisToSplit.OrderId});
+
+         }
+
         public async Task<IActionResult> Create(int id, int requirementId)
         {            
             var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();

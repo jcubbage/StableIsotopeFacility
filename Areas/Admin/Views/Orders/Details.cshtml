@@ -17,8 +17,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="SplitToDifficult">
-                    <input type="hidden" name="AnalysisId" id="AnalysisId" value="0">
+                <form asp-action="SplitToDifficult" asp-controller="Analysis">
+                    <input type="hidden" name="analysisId" id="analysisId" value="0">
                 <label for="account">Number to be marked as Difficult:</label>
                 <div class="input-group col">
                     <input type="text" class="form-control" id="numberDifficult" name="numberDifficult" placeholder="Enter number of samples to be move to difficult">                    
@@ -599,11 +599,11 @@
 
      $('#SplitDifficultModel').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal  
-            alert(button.data('target'));
+            //alert(button.data('target'));
             var analysisId = button.data('analysis'); // Extract info from data-* attributes                   
-            alert(analysisId);
+            //alert(analysisId);
             var modal = $(this)  
-            modal.find("#AnalysisId").val(analysisId);       
+            modal.find("#analysisId").val(analysisId);       
         })
        
 

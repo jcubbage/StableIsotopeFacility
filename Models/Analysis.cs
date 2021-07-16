@@ -137,6 +137,17 @@ namespace SIFCore.Models
 
         [Display(Name="Preservative, if any (e.g. zinc chloride)")]
         public  string Preservative { get; set; }
+
+        public string LeadNotes { get; set; }
+
+        public bool LeadApproved { get; set; }
+
+        public DateTime? LeadApprovedDate { get; set; }
+
+        public int? LeadApprovedBy { get; set; }
+
+        [ForeignKey("LeadApprovedBy")]
+        public Employees LeadApprovedEmployee { get; set; }
     }
 
 

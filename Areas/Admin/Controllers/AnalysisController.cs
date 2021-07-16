@@ -24,6 +24,7 @@ namespace SIFCore.Controllers.Admin
         {
             var analysis = await _dbContext.Analysis
                 .Include(a => a.AnalysisRequirement)
+                .Include(a => a.LeadApprovedEmployee)
                 .Where(a => a.Id == id).FirstOrDefaultAsync();
             if (analysis == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
 

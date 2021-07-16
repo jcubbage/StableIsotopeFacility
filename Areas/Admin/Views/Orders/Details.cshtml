@@ -462,6 +462,7 @@
             <th>NA/Enriched</th>
             <th>Estimated Price</th>
             <th>Sample List<sup>&dagger;</sup></th>
+            <th>Lead Approved?</th>
         </tr>
         @foreach (var item in Model.Analyses)
         {
@@ -500,6 +501,7 @@
                         <a href="@Url.Action("AddFile", "Analysis", new {id = item.Id})" title="Upload Attachment" class="btn"><i class="icon-upload"></i></a>
                     }
                 </td>
+                <td> <input type="checkbox" class="col-sm-3 form-control" asp-for="@item.LeadApproved"></td>
             </tr>
         }       
     </table>
@@ -606,42 +608,6 @@
             modal.find("#analysisId").val(analysisId);       
         })
        
-
-        $('#customer-lookup-btn').click(function(e){
-            e.preventDefault();
-            var lookup = $("#searchTerm").val();
-            if (lookup === "") {
-                alert("This search term cannot be empty.");
-                return;
-            }
-            $("#customerTable").empty();
-            $("#customerTable").load("/admin/Customers/LookupCustomer?lookup="+lookup, (response, status, xhr) => {
-                if ( status == "error" ) {
-                    var msg = "Sorry, the following error occurred: ";
-                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
-                }
-            });            
-        });
-
-        $("#searchTerm").keyup(function(e){
-            if(e.keyCode == 13)
-            {
-                e.preventDefault();
-                $(':focus').blur();
-                $("#customer-lookup-btn").click();
-            }
-        });
-
-        function useCustomer(e,custId, custInfo)
-        {
-            e.preventDefault();                        
-            $("#Order_OrderCustomer_Name").val(custInfo);
-            $("#Order_SIFCustomerID").val(custId);
-            
-            
-            $("#customerTable").empty();
-            $("#lookupCustomerModal").modal('hide');                       
-        }
        
      $(function () {
             $("#AnalysisTree")

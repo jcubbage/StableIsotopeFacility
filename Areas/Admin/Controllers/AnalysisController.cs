@@ -45,14 +45,17 @@ namespace SIFCore.Controllers.Admin
             Analysis analysis = vm.Analysis;
             var order = await _dbContext.Orders.Where(o => o.Id == analysisToEdit.OrderId).FirstOrDefaultAsync();
             if (order == null) return RedirectToAction("Index", "Orders", new {Area = "Admin"});
-            if (order.Submitted)
-            {
-                ErrorMessage = "You cannot edit a submitted order.";
-                return RedirectToAction("Index", "Orders", new {Area = "Admin"});
-            }
-            // TODO Make sure user has permission!
-
+           
             TransferValues(analysis, analysisToEdit);
+            // TODO Make sure user has permission!
+            if(analysis.LeadApproved && !analysisToEdit.LeadApproved)
+            {
+                analysisToEdit.LeadApproved = true;
+                analysisToEdit.LeadApprovedDate = DateTime.Now;
+                analysisToEdit.LeadApprovedBy = int.Parse(User.Identity.Name);
+                // identity.FindFirst(ClaimTypes.Name)
+            }
+            analysisToEdit.LeadNotes = analysis.LeadNotes;            
 
             ModelState.Clear();
             ValidationHelper.CheckAnalysisErrors(analysisToEdit, ModelState);
@@ -219,6 +222,7 @@ namespace SIFCore.Controllers.Admin
 
         private static void TransferValues(Analysis source, Analysis destination)
         {
+            // NOTE: Lead approved values not transferred!
             destination.DateNeeded = source.DateNeeded;
             destination.NumberOfSamples = source.NumberOfSamples;
             destination.NumberReceived = source.NumberReceived;

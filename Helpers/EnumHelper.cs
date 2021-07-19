@@ -18,6 +18,7 @@ namespace SIFCore.Helpers
                             .GetName();
         }
 
+        
         public static List<string> GetListOfDisplayNames<T>() where T : struct
         {
             Type t = typeof(T);
@@ -30,5 +31,14 @@ namespace SIFCore.Helpers
              return !t.IsEnum ? null : Enum.GetValues(t).Cast<Enum>().Select(x => new SelectListItem(x.GetDisplayName(), x.GetDisplayName())).ToList();
 
         }
+
+        public static List<SelectListItem> GetSelectListItemsWithDisplay<T>() where T : struct
+        {
+             Type t = typeof(T);
+             return !t.IsEnum ? null : Enum.GetValues(t).Cast<Enum>().Select(x => new SelectListItem(x.GetDisplayName(), x.ToString())).ToList();
+
+        }
+
+       
     }
 }

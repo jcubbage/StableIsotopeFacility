@@ -28,7 +28,8 @@
             <th>SIF Cust?</th>
             <th>#Analyses</th>
             <th>#Samples</th>
-            <th>Submitted?</th>
+            <th>All Lead Approved</th>
+            <th>All Paid</th>
         </thead>
         <tbody>
             @foreach (var order in Model)
@@ -42,7 +43,21 @@
                 <td><input name="sifCust" type="checkbox" checked=@(order.SIFCustomerID != null) disabled /></td>
                 <td>@order.Analyses.Count</td>
                 <td>@order.Analyses.Sum(i => i.NumberOfSamples)</td> 
-                <td><input name="Submitted" type="checkbox" asp-for="@order.Submitted" disabled /></td>
+
+                @if(order.Analyses.Count != 0 && !order.Analyses.Any(a => !a.LeadApproved))                
+                {
+                    <td><input name="approved" class="col-sm-3 form-control" type="checkbox" checked="checked"/></td>                       
+                } else
+                {
+                    <td></td>
+                }
+                @if(order.Charges.Count > 0 && !order.Charges.Any(c => !c.Paid))                
+                {
+                    <td><input name="paid" type="checkbox" class="col-sm-3 form-control" checked="checked"/></td>                       
+                } else
+                {
+                    <td></td>
+                }                                
             </tr>
             }
         </tbody>

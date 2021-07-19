@@ -24,6 +24,7 @@ namespace SIFCore.Controllers.Admin
             var model = await _dbContext.Orders
                 .Include(o => o.Contact)
                 .Include(o => o.Analyses)
+                .Include(o => o.Charges)
                 .ToListAsync();
             return View(model);
         }

@@ -19,8 +19,7 @@ namespace SIFCore.Models
         public  string FormattedName { get; set; }
         public  string FolderName { get; set; }
         public  string Subtitle { get; set; }        
-        [Required]
-        public  string AnalysisTypeName { get; set; }
+        public int AnalysisTypeId { get; set; }
         public   AnalysisTypes AnalysisType { get; set; }
         public  bool CurrentAnalysis { get; set; }
         public  bool TrayNames { get; set; }

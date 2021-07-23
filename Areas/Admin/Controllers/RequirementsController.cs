@@ -27,7 +27,7 @@ namespace SIFCore.Controllers.Admin
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _dbContext.Requirements.Where(r => r.Id == id).FirstOrDefaultAsync();
+            var model = await _dbContext.Requirements.Include(r => r.AnalysisType).Where(r => r.Id == id).FirstOrDefaultAsync();
             if(model == null)
             {
                 ErrorMessage = "Analysis Requirement not found";
@@ -52,7 +52,7 @@ namespace SIFCore.Controllers.Admin
             reqToCreate.ListName  = editedReq.ListName;
             reqToCreate.FormattedName = editedReq.FormattedName;           
             reqToCreate.Subtitle = editedReq.Subtitle;
-            reqToCreate.AnalysisTypeName = editedReq.AnalysisTypeName;
+            reqToCreate.AnalysisTypeId = editedReq.AnalysisTypeId;
             reqToCreate.CurrentAnalysis = editedReq.CurrentAnalysis;
             reqToCreate.TrayNames = editedReq.TrayNames;
             reqToCreate.Enriched = editedReq.Enriched;
@@ -133,7 +133,7 @@ namespace SIFCore.Controllers.Admin
             reqToUpdate.ListName  = editedReq.ListName;
             reqToUpdate.FormattedName = editedReq.FormattedName;           
             reqToUpdate.Subtitle = editedReq.Subtitle;
-            reqToUpdate.AnalysisTypeName = editedReq.AnalysisTypeName;
+            reqToUpdate.AnalysisTypeId = editedReq.AnalysisTypeId;
             reqToUpdate.CurrentAnalysis = editedReq.CurrentAnalysis;
             reqToUpdate.TrayNames = editedReq.TrayNames;
             reqToUpdate.Enriched = editedReq.Enriched;

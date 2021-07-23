@@ -31,7 +31,7 @@
             <tr>                
                 <td><a asp-action="Details" asp-route-id="@req.Id" class="btn btn-primary">View</a></td>
                 <td>@req.Name</td>
-                <td>@req.AnalysisTypeName @req.AnalysisType.CategoryName</td>
+                <td>@req.AnalysisType.CategoryName</td>
                 <td>@string.Format("{0:n2}", req.InternalCost )</td>
                 <td>@string.Format("{0:n2}", req.ExternalCost )</td>
                 <td>@req.DateDelay</td>

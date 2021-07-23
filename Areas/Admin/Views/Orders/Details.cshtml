@@ -542,7 +542,7 @@
                         {
                             <li><a href="?@analysisTypesItem.Id">@Html.Raw(analysisTypesItem.CategoryName)</a>
                                 <ul>
-                                    @foreach(var requirementItem in Model.Requirements.Where(a=> a.AnalysisType.Id == analysisTypesItem.Id))
+                                    @foreach(var requirementItem in Model.Requirements.Where(a=> a.AnalysisTypeId == analysisTypesItem.Id))
                                     {
                                         <li>
                                             <a href="#" onclick="loadPage(@Model.Order.Id, @requirementItem.Id);">@Html.Raw(requirementItem.FormattedName)</a>

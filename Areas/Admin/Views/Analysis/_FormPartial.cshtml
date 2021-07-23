@@ -1,4 +1,3 @@
-@using System.ComponentModel.DataAnnotations
 @using SIFCore.Helpers;
 @model SIFCore.Models.AnalysisViewModel
 
@@ -14,9 +13,19 @@
 <div class="row">
     @Model.Requirement.Subtitle 
 </div> 
-<div class="row">US @string.Format("{0:c}", Model.Requirement.Cost)/sample</div>
-    <div class="row">
-        <p>All required fields are in marked with  <span class="requiredExample">*</span> next to the field.</p>
+<div class="row">US 
+    @if(Model.Order.PaymentMethod == PaymentTypes.IOC.GetDisplayName())
+    {
+        @string.Format("{0:c}", Model.Requirement.InternalCost)
+
+    } else
+    {
+        @string.Format("{0:c}", Model.Requirement.ExternalCost)
+    }
+    /sample
+</div>    
+<div class="row">
+    <p>All required fields are in marked with  <span class="requiredExample">*</span> next to the field.</p>
 </div>
 <div class="form-group row">
     <label asp-for="Analysis.NumberOfSamples" class="col-sm-3 col-form-label"></label>        

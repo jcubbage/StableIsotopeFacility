@@ -50,6 +50,7 @@ namespace SIFCore.Models
                 Order = thisOrder,
                 Analyses = await _dbContext.Analysis.Where(a => a.OrderId == orderId)
                     .Include(a => a.AnalysisRequirement)
+                    .ThenInclude(r => r.AnalysisType)
                     .ToListAsync(),
                 Charges = await _dbContext.Charges.Where(c => c.OrderId == orderId).ToListAsync(),
                 AnalysisTypes = await _dbContext.AnalysisTypes.OrderBy(at => at.AnalysisOrder).ToListAsync(),

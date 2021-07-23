@@ -47,7 +47,8 @@ namespace SIFCore.Controllers.Admin
          {
             var reqToCreate = new Requirements();
              
-            var editedReq = vm.requirement;            
+            var editedReq = vm.requirement;  
+            reqToCreate.CurrentAnalysis = true;          
             reqToCreate.Name = editedReq.Name;
             reqToCreate.ListName  = editedReq.ListName;
             reqToCreate.FormattedName = editedReq.FormattedName;           

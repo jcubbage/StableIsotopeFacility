@@ -12,11 +12,14 @@ namespace SIFCore.Models
 
        [Required]
        public  string Name { get; set; }
+        [Required]
         public  string ListName { get; set; }
         [Display(Name="Formatted Name")]
+        [Required]
         public  string FormattedName { get; set; }
         public  string FolderName { get; set; }
-        public  string Subtitle { get; set; }
+        public  string Subtitle { get; set; }        
+        [Required]
         public  string AnalysisTypeName { get; set; }
         public   AnalysisTypes AnalysisType { get; set; }
         public  bool CurrentAnalysis { get; set; }

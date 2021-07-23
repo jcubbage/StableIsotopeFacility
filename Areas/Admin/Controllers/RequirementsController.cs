@@ -36,6 +36,76 @@ namespace SIFCore.Controllers.Admin
             return View(model);
         }
 
+        public async Task<IActionResult> Create()
+        {
+            var model = await AdminRequirementEditViewModel.Create(_dbContext, 0);
+            return View(model);
+        }
+
+        [HttpPost]
+         public async Task<IActionResult> Create(AdminRequirementEditViewModel vm)
+         {
+            var reqToCreate = new Requirements();
+             
+            var editedReq = vm.requirement;            
+            reqToCreate.Name = editedReq.Name;
+            reqToCreate.ListName  = editedReq.ListName;
+            reqToCreate.FormattedName = editedReq.FormattedName;           
+            reqToCreate.Subtitle = editedReq.Subtitle;
+            reqToCreate.AnalysisTypeName = editedReq.AnalysisTypeName;
+            reqToCreate.CurrentAnalysis = editedReq.CurrentAnalysis;
+            reqToCreate.TrayNames = editedReq.TrayNames;
+            reqToCreate.Enriched = editedReq.Enriched;
+            reqToCreate.EstimatedEnrichment = editedReq.EstimatedEnrichment;
+            reqToCreate.EstimatedEnrichmentN2N2O = editedReq.EstimatedEnrichmentN2N2O;
+            reqToCreate.Material = editedReq.Material;
+            reqToCreate.RangeOfWeights = editedReq.RangeOfWeights;
+            reqToCreate.TypeOfWater = editedReq.TypeOfWater;
+            reqToCreate.SalinityRange = editedReq.SalinityRange;
+            reqToCreate.SalinityRangeDOC = editedReq.SalinityRangeDOC;
+            reqToCreate.pHRange = editedReq.pHRange;
+            reqToCreate.pHRangeDH18O = editedReq.pHRangeDH18O;
+            reqToCreate.TransferRequiredWater = editedReq.TransferRequiredWater;
+            reqToCreate.TransferRequiredDOC = editedReq.TransferRequiredDOC;
+            reqToCreate.NitrateStatement = editedReq.NitrateStatement;
+            reqToCreate.DICContainer = editedReq.DICContainer;
+            reqToCreate.RangeOfConcentration = editedReq.RangeOfConcentration;
+            reqToCreate.RangeOfConcentrationN2N2O = editedReq.RangeOfConcentrationN2N2O;
+            reqToCreate.RangeOfConcentrationNitrate = editedReq.RangeOfConcentrationNitrate;
+            reqToCreate.HowSterilized = editedReq.HowSterilized;
+            reqToCreate.VolumeSent = editedReq.VolumeSent;
+            reqToCreate.Filtered = editedReq.Filtered;
+            reqToCreate.Solvent = editedReq.Solvent;
+            reqToCreate.WhatSolvent = editedReq.WhatSolvent;
+            reqToCreate.SolventVolume = editedReq.SolventVolume;
+            reqToCreate.VialType = editedReq.VialType;
+            reqToCreate.TypeOfOxidant = editedReq.TypeOfOxidant;
+            reqToCreate.AmountOfOxidant = editedReq.AmountOfOxidant;
+            reqToCreate.ContainerDescription = editedReq.ContainerDescription;
+            reqToCreate.DateDelay = editedReq.DateDelay;
+            reqToCreate.Irreplaceable = editedReq.Irreplaceable;
+            reqToCreate.Preservative = editedReq.Preservative;
+            reqToCreate.InternalCost = editedReq.InternalCost;
+            reqToCreate.ExternalCost = editedReq.ExternalCost;
+            reqToCreate.MinimumSampleCount = editedReq.MinimumSampleCount;
+            reqToCreate.AnalysisOrder = editedReq.AnalysisOrder;
+            reqToCreate.Terms = editedReq.Terms;      
+            reqToCreate.ItemCode = editedReq.ItemCode;       
+
+            if(ModelState.IsValid){    
+                _dbContext.Add(reqToCreate);             
+                await _dbContext.SaveChangesAsync();
+                Message = "Created new Analysis Requirement";
+            } else {
+                ErrorMessage = "Something went wrong"; 
+                var model = await AdminRequirementEditViewModel.Create(_dbContext, 0);
+                return View(model);
+            }           
+            
+            return RedirectToAction(nameof(Details), new {  id = reqToCreate.Id});
+            
+         }  
+
 
         public async Task<IActionResult> Edit(int id)
         {

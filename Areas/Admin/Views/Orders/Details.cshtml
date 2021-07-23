@@ -50,17 +50,20 @@
         <div class="form-group row">
             <label asp-for="Order.Contact.FullName" class="col-sm-3 col-form-label">Contact</label>
             <div class="col-sm-9 form-control-plaintext">
-                @Html.DisplayFor(x => x.Order.Contact.FullName)
+                @Html.DisplayFor(x => x.Order.Contact.FullName) 
+                <br>
+                <a href="mailto:@Model.Order.Contact.Email">@Model.Order.Contact.Email</a>
             </div>
         </div>
            
         <div class="form-group row">
             <label asp-for="Order.ShippingAddress" class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-2 form-control-plaintext">
+            <div class="col-sm-9 form-control-plaintext">
                 @Html.DisplayFor(x => x.Order.OrderShippingAddress.AddressName) | 
                 <a class="btn btn-info" data-toggle="collapse" href="#ScientificCollapse" role="button" aria-expanded="false" aria-controls="ScientificCollapse">Details</a>
                 <br>
-                @Model.Order.OrderShippingAddress.PIFirstName @Model.Order.OrderShippingAddress.PILastName <a href="mailto:@Model.Order.OrderShippingAddress.PIEmail">@Model.Order.OrderShippingAddress.PIEmail</a>
+                @Model.Order.OrderShippingAddress.PIFirstName @Model.Order.OrderShippingAddress.PILastName<br> 
+                <a href="mailto:@Model.Order.OrderShippingAddress.PIEmail">@Model.Order.OrderShippingAddress.PIEmail</a>
             </div>
         </div>        
         <div class="form-group row">
@@ -197,13 +200,14 @@
         </div>
         <div class="form-group row">
             <label asp-for="Order.BillingAddress" class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-2 form-control-plaintext">
+            <div class="col-sm-9 form-control-plaintext">
                 @Html.DisplayFor(x => x.Order.OrderBillingAddress.AddressName) | 
                 <a class="btn btn-info" data-toggle="collapse" href="#BillingCollapse" role="button" aria-expanded="false" aria-controls="BillingCollapse">Details</a>
                 <br>
                 @if(Model.Order.OrderBillingAddress != null)
                 {
-                    @Model.Order.OrderBillingAddress.ContactFirstName @Model.Order.OrderBillingAddress.ContactFirstName <a href="mailto:@Model.Order.OrderBillingAddress.BillingEmailAddress">@Model.Order.OrderBillingAddress.BillingEmailAddress</a>
+                    @Model.Order.OrderBillingAddress.ContactFirstName @Model.Order.OrderBillingAddress.ContactFirstName <br>
+                    <a href="mailto:@Model.Order.OrderBillingAddress.BillingEmailAddress">@Model.Order.OrderBillingAddress.BillingEmailAddress</a>
                 }
                 
             </div>
@@ -324,13 +328,13 @@
         </div>
         <div class="form-group row">
             <label asp-for="Order.OrderCustomer" class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-2 form-control-plaintext">
+            <div class="col-sm-9 form-control-plaintext">
                 @Html.DisplayFor(x => x.Order.OrderCustomer.Name) | 
                 <a class="btn btn-info" data-toggle="collapse" href="#CustomerCollapse" role="button" aria-expanded="false" aria-controls="CustomerCollapse">Details</a>
                 <br>
                 @if(Model.Order.OrderCustomer != null)
                 {
-                    @Model.Order.OrderCustomer.DisplayInfo
+                    @Html.Raw(Model.Order.OrderCustomer.DisplayInfo)
                 }
                 
             </div>
@@ -340,7 +344,7 @@
                 @if(Model.Order.OrderCustomer != null)
                 {
                 <div class="row col-sm-12"> 
-                    <div class="col-md-3"> @* First column *@
+                    <div class="col-md-3"> @* Stand alone *@
                         <h2>Customer Details</h2>
                     </div>                     
                 </div>               
@@ -414,6 +418,14 @@
                         </div>                                                 
                     </div>
                 </div>
+                <div class="row col-sm-12">   @* Stand alone *@                 
+                    <div class="form-group row">
+                        <label asp-for="Order.OrderCustomer.Notes" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 form-control-plaintext">
+                            @Html.DisplayFor(x => x.Order.OrderCustomer.Notes)
+                        </div>
+                    </div>                    
+                </div>
                 } else
                 {
                     <div>No SIF Customer associated with this order.</div>
@@ -454,7 +466,8 @@
     <h3>Analyses</h3>
     <table border="0" width="100%">
         <tr>
-            <th>View/Edit</th>
+            <th>View</th>
+            <th>Edit</th>
             <th></th>
             <td>&nbsp;</td>
             <th>Analysis</th>
@@ -471,7 +484,9 @@
                 {emptyAnalysis = true;}
             }
             <tr>
-                <td><a href="#" onclick="loadForm(@item.Id, 'details')">View/Edit</a></td><td>@Html.ActionLink("Delete", "Delete", "Analysis", new {id = item.Id}, null) </td>
+                <td><a href="#" class="btn btn-info" onclick="loadForm(@item.Id, 'details')">View</a></td>
+                <td><a asp-action="Edit" asp-controller="Analysis" asp-route-id="@item.Id" class="btn btn-primary">Edit</a></td>                
+                <td><a asp-action="Delete" asp-controller="Analysis" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>                
                 <td></td>
                 <td>@Html.Raw(item.AnalysisRequirement.FormattedName)</td>
                 <td>@item.NumberOfSamples/@item.NumberReceived/@item.NumberAnalyzed 
@@ -483,9 +498,13 @@
                     {
                         <a asp-action="AnalyzeAll" asp-controller="Analysis" asp-route-id="@item.Id" class="btn btn-info">Analyze all</a>
                     }
-                    @if(@item.AnalysisRequirement.HasDifficult)
+                    @if(@item.AnalysisRequirement.HasDifficult && !Model.Order.Analyses.Any(a => a.RequirementId == item.AnalysisRequirement.DifficultID))
                     {
                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#SplitDifficultModel" data-analysis="@item.Id">Split to Difficult</button>
+                    }
+                    @if(@item.AnalysisRequirement.HasDifficult && Model.Order.Analyses.Any(a => a.RequirementId == item.AnalysisRequirement.DifficultID))
+                    {
+                        <span><small>(existing difficult)</small></span>                         
                     }
                 </td>
                 <td>@item.Abundance</td>
@@ -554,7 +573,15 @@
             <th>Cost</th>
             <th>Line Total</th>
             <th>ItemCode</th>
-            <th>Paid</th>
+            <th>Paid
+                @if(Model.Charges.Any(c => !c.Paid))
+                {
+                    <form asp-action="PayAll" asp-controller="Charges">
+                        <input type="hidden" id="orderId" name="orderId" value="@Model.Order.Id">
+                        <input type="submit" class="btn btn-primary" value="Pay All">
+                    </form>
+                }
+            </th>
         </tr>
         @foreach (var item in Model.Charges)
         {            
@@ -565,7 +592,16 @@
                 <td>@String.Format("{0:n2}", (item.Cost))</td>
                 <td>@String.Format("{0:c}", (item.LineTotal))</td>
                 <td>@item.ItemCode</td>
-                <td> <input type="checkbox" class="col-sm-3 form-control" asp-for="@item.Paid"></td>
+                <td> 
+                    <input type="checkbox" class="col-sm-3 form-control" asp-for="@item.Paid">
+                    @if(!item.Paid)
+                    {
+                        <form asp-action="PayLineItem" asp-controller="Charges">
+                            <input type="hidden" id="chargeId" name="chargeId" value="@item.Id">
+                            <input type="submit" class="btn btn-primary" value="Paid">
+                        </form>
+                    }
+                </td>
             </tr>
         }
         <tr>

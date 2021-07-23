@@ -19,7 +19,7 @@ namespace SIFCore.Models
         { 
             get
             {
-                return $"{SIFCustomerNumberDisplay} {Name}; {Address1}, {City}";
+                return $"{SIFCustomerNumberDisplay} {Name}<br> {Address1}, {City} <br>{Notes.Substring(0, Math.Min(Notes.Length, 30))}";
 
             }
         }

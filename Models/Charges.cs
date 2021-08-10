@@ -10,8 +10,7 @@ namespace SIFCore.Models
     public class Charges
     {
         public Charges()
-        {   
-            Paid = false;
+        {                
             DateCharged =  DateTime.Now.Date;
             ItemCount = 1;
         }       
@@ -44,8 +43,7 @@ namespace SIFCore.Models
         [Display(Name="Date Charged")]
         public  DateTime  DateCharged { get; set; }
 
-        public bool Paid { get; set; }
-
+        
         public string ItemCode { get; set; }
 
        

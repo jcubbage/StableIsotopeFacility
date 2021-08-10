@@ -45,8 +45,7 @@ namespace SIFCore.Controllers.Admin
             }
             chargeToUpdate.Description = charge.Description;
             chargeToUpdate.ItemCount = charge.ItemCount;
-            chargeToUpdate.Cost = charge.Cost;
-            chargeToUpdate.Paid = charge.Paid; 
+            chargeToUpdate.Cost = charge.Cost; 
             chargeToUpdate.ItemCode = charge.ItemCode;             
 
             if(ModelState.IsValid){                 
@@ -136,25 +135,7 @@ namespace SIFCore.Controllers.Admin
             return View(model);
         }
 
-        public async Task<IActionResult> PayAll(int orderId)
-        {
-            var charges = await _dbContext.Charges.Where(c => c.OrderId == orderId).ToListAsync();
-            foreach(Charges charge in charges)
-            {
-                charge.Paid = true;
-            }
-            await _dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(OrdersController.Details),"Orders", new {id = orderId});
-        }
-
-        public async Task<IActionResult> PayLineItem(int chargeId)
-        {
-             var charge = await _dbContext.Charges.Where(c => c.Id == chargeId).FirstOrDefaultAsync();            
-            charge.Paid = true;
-            
-            await _dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(OrdersController.Details),"Orders", new {id = charge.OrderId});
-        }
+        
 
     }
 }

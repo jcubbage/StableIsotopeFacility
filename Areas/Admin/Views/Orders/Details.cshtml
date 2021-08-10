@@ -572,16 +572,7 @@
             <td>Count</td>
             <th>Cost</th>
             <th>Line Total</th>
-            <th>ItemCode</th>
-            <th>Paid
-                @if(Model.Charges.Any(c => !c.Paid))
-                {
-                    <form asp-action="PayAll" asp-controller="Charges">
-                        <input type="hidden" id="orderId" name="orderId" value="@Model.Order.Id">
-                        <input type="submit" class="btn btn-primary" value="Pay All">
-                    </form>
-                }
-            </th>
+            <th>ItemCode</th>            
         </tr>
         @foreach (var item in Model.Charges)
         {            
@@ -591,17 +582,7 @@
                 <td>@item.ItemCount</td>
                 <td>@String.Format("{0:n2}", (item.Cost))</td>
                 <td>@String.Format("{0:c}", (item.LineTotal))</td>
-                <td>@item.ItemCode</td>
-                <td> 
-                    <input type="checkbox" class="col-sm-3 form-control" asp-for="@item.Paid">
-                    @if(!item.Paid)
-                    {
-                        <form asp-action="PayLineItem" asp-controller="Charges">
-                            <input type="hidden" id="chargeId" name="chargeId" value="@item.Id">
-                            <input type="submit" class="btn btn-primary" value="Paid">
-                        </form>
-                    }
-                </td>
+                <td>@item.ItemCode</td>                
             </tr>
         }
         <tr>

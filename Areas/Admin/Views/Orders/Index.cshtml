@@ -29,7 +29,6 @@
             <th>#Analyses</th>
             <th>#Samples</th>
             <th>All Lead Approved</th>
-            <th>All Paid</th>
         </thead>
         <tbody>
             @foreach (var order in Model)
@@ -50,14 +49,7 @@
                 } else
                 {
                     <td></td>
-                }
-                @if(order.Charges.Count > 0 && !order.Charges.Any(c => !c.Paid))                
-                {
-                    <td><input name="paid" type="checkbox" class="col-sm-3 form-control" checked="checked"/></td>                       
-                } else
-                {
-                    <td></td>
-                }                                
+                }                                        
             </tr>
             }
         </tbody>
@@ -73,7 +65,7 @@
     <script>
         $(document).ready( function () {
             $('#table').DataTable({
-                dom: 'lBfrtip'
+                dom: 'lBfrtip'                
             });
         } );
     </script>

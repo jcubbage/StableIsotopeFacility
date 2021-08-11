@@ -2,6 +2,8 @@
 
 @{
     bool emptyAnalysis = false;
+    decimal invoiceTotal = 0;
+    decimal paymentTotal = 0;
 }
 
 <h2>@Model.Order.ProjectName Details</h2>
@@ -508,7 +510,7 @@
                     }
                 </td>
                 <td>@item.Abundance</td>
-                <td>@String.Format("{0:c}", (item.AnalysisRequirement.ExternalCost*item.NumberOfSamples))</td>
+                <td>@String.Format("{0:c}", item.AnalysisRequirement.ExternalCost*item.NumberOfSamples)</td>
                 <td align="center">
                     @if (item.AttachmentName != null)
                     {
@@ -564,8 +566,11 @@
  @if(Model.Charges.Count!=0)
 {
     <div class="col-sm-12"><hr></div>
-    <h3>Charges</h3>
+    
     <table border="0" width="100%">
+        <tr>
+            <td colspan="6"><h3>Charges</h3></td>
+        </tr>
         <tr>
             <th>View/Edit</th>
             <th>Description</th>
@@ -574,26 +579,63 @@
             <th>Line Total</th>
             <th>ItemCode</th>            
         </tr>
-        @foreach (var item in Model.Charges)
+        @foreach (var item in Model.Charges.Where(c => c.ItemCode != "Payment"))
         {            
             <tr>
                 <td><a asp-action="Edit" asp-controller="Charges" asp-route-id="@item.Id">Edit</a></td>
                 <td>@item.Description</td>
                 <td>@item.ItemCount</td>
-                <td>@String.Format("{0:n2}", (item.Cost))</td>
-                <td>@String.Format("{0:c}", (item.LineTotal))</td>
+                <td>@String.Format("{0:n2}", item.Cost)</td>
+                <td>@String.Format("{0:c}", item.LineTotal)</td>
                 <td>@item.ItemCode</td>                
             </tr>
+            {invoiceTotal += item.LineTotal;}
         }
+        <tr>
+            <td></td>
+            <td></td>
+            <th colspan="2">Invoice Total</tH>
+            <th>@String.Format("{0:c}", invoiceTotal)</th>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="6"><h3>Payments</h3></td>
+        </tr>
+        @foreach (var item in Model.Charges.Where(c => c.ItemCode == "Payment"))
+        {            
+            <tr>
+                <td><a asp-action="EditPayment" asp-controller="Charges" asp-route-id="@item.Id">Edit</a></td>
+                <td>@item.Description</td>
+                <td colspan="2">@string.Format("{0:d}", item.DateCharged)</td>
+                <td>@String.Format("{0:c}", item.LineTotal)</td>
+                <td></td>                
+            </tr>
+            {paymentTotal += item.LineTotal;}
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <th colspan="2">Total Payments</tH>
+            <th>@String.Format("{0:c}", paymentTotal)</th>
+            <td></td>
+        </tr>
+         <tr>
+            <td></td>
+            <td></td>
+            <th colspan="2">Balance</tH>
+            <th>@String.Format("{0:c}", (invoiceTotal + paymentTotal))</th>
+            <td></td>
+        </tr>
         <tr>
             <td colspan="7">
                 @if(emptyAnalysis)
                 {
                     <a asp-action="Charge" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-danger">Charge Order</a> <span>(some Analysis entries have no "number analyzed and will generate no fee"!)</span>
-                } else 
+                }
+                @* } else 
                 {
                     <a asp-action="Charge" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-danger">Charge Order</a> <span>This will create duplicates!</span>
-                }
+                } *@
             </td>
         </tr>
     </table>
@@ -608,6 +650,7 @@
                 }
 }
 <a asp-action="AddAncillary" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-primary">Add Ancillary Charge</a>
+<a asp-action="AddPayment" asp-controller="Charges" asp-route-id="@Model.Order.Id" class="btn btn-warning">Add Payment</a>
 
 
 @section Scripts

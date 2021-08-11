@@ -1,0 +1,77 @@
+@model SIFCore.Models.AdminAddAncillaryViewModel
+
+<h2>Add Payment to @Model.order.ProjectName</h2>
+
+<form asp-action="AddPayment">
+    @Html.HiddenFor(x => x.order.Id)
+    <div class="container col-sm-12">
+        @* <div class="row">
+            <label class="col-sm-3 col-form-label">Ancillaries</label>
+            <select class="col-sm-3 form-control">
+                <option>Credit Card</option>
+                <option>Check</option>
+                <option>Bank/Wire Transfer (EFT)</option>
+                <option>Recharge</option>
+            </select>  
+            <input type="button" class="btn btn-primary" value="Use Payment" onclick="addCharge();">
+        </div> *@
+        <div class="row">             
+            <div asp-validation-summary="All" class="text-danger"></div>            
+        </div>
+        <div class="form-group row">
+            <label asp-for="newCharge.Description" class="col-sm-3 col-form-label">Notes</label>
+            <input type="text" class="col-sm-6 form-control" asp-for="newCharge.Description">      (Type, transaction #)                   
+            <span class="field-validation-valid text-danger" data-valmsg-for="newCharge.Description" data-valmsg-replace="true"></span> 
+        </div>                           
+         <div class="form-group row">
+            <label asp-for="newCharge.Cost" class="col-sm-3 col-form-label">Amount</label>
+            <input type="text" class="col-sm-1 form-control" asp-for="newCharge.Cost">                     
+            <span class="field-validation-valid text-danger" data-valmsg-for="newCharge.Cost" data-valmsg-replace="true"></span> 
+        </div>  
+        <div class="form-group row">
+            <label asp-for="newCharge.DateCharged" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="col-sm-3 form-control datepicker" asp-for="newCharge.DateCharged">            
+            <div class="input-group-append" onclick="$('.datepicker').focus();">             
+                <i class="fa fa-calendar input-group-text"></i>
+            </div>
+            <span class="field-validation-valid text-danger" data-valmsg-for="newCharge.DateCharged" data-valmsg-replace="true"></span>
+        </div>                   
+        <div class="row">
+            <input type="submit" value="Add Payment" class="btn btn-primary"></input> | 
+            <a class="btn btn-dark" asp-action="Details" asp-route-id="@Model.order.Id" asp-controller="Orders" >Cancel</a>
+        </div>           
+    </div>
+</div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.js"></script>  
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                dateFormat: "m/d/yy",
+            });
+        });
+    </script>
+
+    @* <script>
+        function addCharge()
+        {
+            var ancillary = $("#Ancillary").val();
+            const ancillaryArray = ancillary.split("//");
+
+         
+            $("#newCharge_Description").val(ancillaryArray[0]);
+            if($("#order_PaymentMethod").val() == "Recharge/IOC - UC System Only")
+            {
+                $("#newCharge_Cost").val(ancillaryArray[1]);
+            } else
+            {
+                $("#newCharge_Cost").val(ancillaryArray[2]);
+            }
+             $("#newCharge_ItemCode").val(ancillaryArray[3]);
+        }
+    </script> *@
+}

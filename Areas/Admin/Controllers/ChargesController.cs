@@ -135,6 +135,77 @@ namespace SIFCore.Controllers.Admin
             return View(model);
         }
 
+        public async Task<IActionResult> AddPayment(int id)
+        {
+            var model = await AdminAddAncillaryViewModel.CreatePayment(_dbContext, id);
+            if(model.order == null)
+            {
+                ErrorMessage = "Order not found";
+                return RedirectToAction(nameof(OrdersController.Index),"Orders");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPayment(int id, AdminAddAncillaryViewModel vm)
+        {
+            var order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();            
+            var newCharge = new Charges();
+            newCharge.OrderId = vm.order.Id;
+            newCharge.ContactId = order.ContactId;
+            newCharge.Description = vm.newCharge.Description;
+            newCharge.ItemCount = 1;
+            newCharge.ItemCode = "Payment";
+            newCharge.Cost = vm.newCharge.Cost * -1;
+
+            _dbContext.Add(newCharge);  
+            await _dbContext.SaveChangesAsync();                
+            Message = "Payment Recorded";
+            return RedirectToAction(nameof(OrdersController.Details),"Orders", new {  id = id});
+        }
+
+        public async Task<IActionResult> EditPayment(int id)
+        {
+           var model = await _dbContext.Charges.Where(c => c.Id == id && c.ItemCode == "Payment").FirstOrDefaultAsync();
+
+            if(model == null)
+            {
+                ErrorMessage = "Payment not found";
+                return RedirectToAction(nameof(Index));
+            }
+            model.Cost = model.Cost * -1;
+            return View(model);
+        }
+
+         [HttpPost]
+         public async Task<IActionResult> EditPayment(int id, Charges charge)
+         {
+            var chargeToUpdate = await _dbContext.Charges.Where(c => c.Id == id && c.ItemCode == "Payment").FirstOrDefaultAsync();
+            
+            
+            if(chargeToUpdate == null || chargeToUpdate.Id != charge.Id)
+            {
+                ErrorMessage = "Payment not found or doesn't match call";
+                return RedirectToAction(nameof(OrdersController.Index),"Orders");
+            }
+            chargeToUpdate.Description = charge.Description;            
+            chargeToUpdate.Cost = charge.Cost * -1; 
+            chargeToUpdate.DateCharged = charge.DateCharged;       
+
+            if(ModelState.IsValid){                 
+                await _dbContext.SaveChangesAsync();
+                Message = "Payment Updated";
+            } else {
+                ErrorMessage = "Something went wrong"; 
+                var model = await _dbContext.Charges.Where(c => c.Id == id).FirstOrDefaultAsync();
+                return View(model);
+            }           
+            
+            return RedirectToAction(nameof(OrdersController.Details),"Orders", new {  id = chargeToUpdate.OrderId});
+            
+         }    
+
+
         
 
     }

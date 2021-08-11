@@ -17,13 +17,21 @@ namespace SIFCore.Models
 
         public static async Task<AdminAddAncillaryViewModel> Create(SIFContext _dbContext, int id)
         {
-            
-           
-
             var viewModel = new AdminAddAncillaryViewModel
             {
                 order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync(),
                 ancillaries = await _dbContext.Ancillary.OrderBy(a => a.Description).ToListAsync(),
+                newCharge = new Charges(),
+            };
+
+            return viewModel;
+        }
+
+        public static async Task<AdminAddAncillaryViewModel> CreatePayment(SIFContext _dbContext, int id)
+        {
+            var viewModel = new AdminAddAncillaryViewModel
+            {
+                order = await _dbContext.Orders.Where(o => o.Id == id).FirstOrDefaultAsync(),
                 newCharge = new Charges(),
             };
 
